@@ -5,7 +5,6 @@ namespace App\Enums;
 enum ReturnBookCondition: string
 {
     case GOOD = 'Baik';
-    case DAMAGED = 'Rusak';
     case LOST = 'Hilang';
 
     public static function options(): array
