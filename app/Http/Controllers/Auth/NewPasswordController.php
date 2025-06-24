@@ -13,6 +13,7 @@ use Illuminate\Validation\Rules;
 use Illuminate\Validation\ValidationException;
 use Inertia\Inertia;
 use Inertia\Response;
+use Illuminate\Support\Facades\Log;
 
 class NewPasswordController extends Controller
 {
@@ -21,11 +22,20 @@ class NewPasswordController extends Controller
      */
     public function create(Request $request): Response
     {
+        Log::info('Token dari route: ' . $request->route('token'));
+        Log::info('Email dari query: ' . $request->query('email'));
+        
+        Log::info('Inertia render dipanggil', [
+                'email' => $request->email,
+                'token' => $request->route('token'),
+            ]);
+        Log::info('Mengirim ke Inertia ResetPassword');
         return Inertia::render('Auth/ResetPassword', [
-            'email' => $request->email,
+            'email' => $request->query('email'),
             'token' => $request->route('token'),
         ]);
     }
+
 
     /**
      * Handle an incoming new password request.

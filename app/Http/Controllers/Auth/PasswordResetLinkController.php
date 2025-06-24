@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\Password;
 use Illuminate\Validation\ValidationException;
 use Inertia\Inertia;
 use Inertia\Response;
+use Illuminate\Support\Facades\Log;
 
 class PasswordResetLinkController extends Controller
 {
@@ -17,9 +18,12 @@ class PasswordResetLinkController extends Controller
      */
     public function create(): Response
     {
+        
         return Inertia::render('Auth/ForgotPassword', [
             'status' => session('status'),
         ]);
+
+        
     }
 
     /**
@@ -29,9 +33,12 @@ class PasswordResetLinkController extends Controller
      */
     public function store(Request $request): RedirectResponse
     {
+        Log::info('Masuk ke PasswordResetLinkController@store', ['email' => $request->email]);
+
         $request->validate([
             'email' => 'required|email',
         ]);
+        Log::info('Mulai kirim reset link');
 
         // We will send the password reset link to this user. Once we have attempted
         // to send the link, we will examine the response then see the message we
@@ -39,6 +46,7 @@ class PasswordResetLinkController extends Controller
         $status = Password::sendResetLink(
             $request->only('email')
         );
+        Log::info('Hasil Password::sendResetLink', ['status' => $status]);
 
         if ($status == Password::RESET_LINK_SENT) {
             return back()->with('status', __($status));
