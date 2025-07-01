@@ -23,7 +23,12 @@ export default function Sidebar({ url, auth }) {
             <div className="px-3 py-2 text-sm font-semibold text-foreground">Master</div>
             <NavLink url="#" title="Buku" icon={IconChartDots2} />
             <NavLink url="#" title="Penerbit" icon={IconChartDots2} />
-            <NavLink url="#" title="Kategori" icon={IconChartDots2} />
+            <NavLink
+                url={route('admin.categories.index')}
+                active={url.startsWith('/admin/categories')}
+                title="Kategori"
+                icon={IconChartDots2}
+            />
             <NavLink url="#" title="Stok Buku" icon={IconChartDots2} />
             <NavLink url="#" title="E-book" icon={IconChartDots2} />
             <NavLink url="#" title="Anggota" icon={IconChartDots2} />

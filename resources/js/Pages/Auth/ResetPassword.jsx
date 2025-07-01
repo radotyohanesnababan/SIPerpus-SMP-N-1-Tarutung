@@ -1,20 +1,18 @@
-
+import ApplicationLogo from '@/Components/ApplicationLogo';
 import InputError from '@/Components/InputError';
 import { Button } from '@/Components/ui/button';
 import { Input } from '@/Components/ui/input';
 import { Label } from '@/Components/ui/label';
 import GuestLayout from '@/Layouts/GuestLayout';
 import { Head, useForm } from '@inertiajs/react';
-import ApplicationLogo from '@/Components/ApplicationLogo';
 import { useEffect } from 'react';
-console.log("ResetPassword component loaded");
-
+console.log('ResetPassword component loaded');
 
 export default function ResetPassword({ token, email }) {
     console.log('ABCDEFGHIJKLMNOPQRSTUVWXYZ');
     useEffect(() => {
-        console.log("Token dari React:", token);
-        console.log("Email dari React:", email);
+        console.log('Token dari React:', token);
+        console.log('Email dari React:', email);
     }, [token, email]);
     const { data, setData, post, processing, errors, reset } = useForm({
         token: token,
@@ -22,8 +20,6 @@ export default function ResetPassword({ token, email }) {
         password: '',
         password_confirmation: '',
     });
-
-    
 
     const onHandleSubmit = (e) => {
         e.preventDefault();
@@ -50,9 +46,7 @@ export default function ResetPassword({ token, email }) {
                             <form onSubmit={onHandleSubmit}>
                                 <div className="grid gap-4">
                                     <div className="grid gap-2">
-                                        <Label htmlFor="email" >
-                                            Email
-                                        </Label>
+                                        <Label htmlFor="email">Email</Label>
 
                                         <Input
                                             id="email"
@@ -112,8 +106,8 @@ export default function ResetPassword({ token, email }) {
     );
 }
 
-ResetPassword.layout = (page) => 
+ResetPassword.layout = (page) => (
     <GuestLayout title="Reset Password" children={page}>
         <Head title="Reset Password" />
     </GuestLayout>
-;
+);
