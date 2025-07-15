@@ -6,12 +6,11 @@ import { Label } from '@/Components/ui/label';
 import { Textarea } from '@/Components/ui/textarea';
 import AppLayout from '@/Layouts/AppLayout';
 import { Link, useForm } from '@inertiajs/react';
-import { IconArrowLeft, IconCategory } from '@tabler/icons-react';
+import { IconArrowLeft, IconBuildingCommunity, IconCategory } from '@tabler/icons-react';
 
 export default function Create(props) {
     const { data, setData, reset, post, processing, errors } = useForm({
         name: '',
-        description: '',
         _method: props.page_settings.method,
     });
     const onHandleChange = (e) => {
@@ -28,10 +27,10 @@ export default function Create(props) {
                 <HeaderTitle
                     title={props.page_settings.title}
                     subtitle={props.page_settings.subtitle}
-                    icon={IconCategory}
+                    icon={IconBuildingCommunity}
                 />
                 <Button variant="orange" size="lg" asChild>
-                    <Link href={route('admin.categories.index')}>
+                    <Link href={route('admin.publishers.index')}>
                         <IconArrowLeft className="size-4"></IconArrowLeft>Kembali
                     </Link>
                 </Button>
@@ -44,22 +43,11 @@ export default function Create(props) {
                             <Input
                                 id="name"
                                 name="name"
-                                placeholder="Masukkan nama kategori"
+                                placeholder="Masukkan nama penerbit"
                                 value={data.name}
                                 onChange={onHandleChange}
                             />
                             {errors.name && <InputError message={errors.name} />}
-                        </div>
-                        <div className="grid w-full items-center gap-1.5">
-                            <Label htmlFor="description">Deskripsi</Label>
-                            <Textarea
-                                id="description"
-                                name="description"
-                                placeholder="Masukkan deskripsi kategori"
-                                value={data.description}
-                                onChange={onHandleChange}
-                            />
-                            {errors.description && <InputError message={errors.description} />}
                         </div>
                         <div className="flex justify-end gap-x-2">
                             <Button type="button" variant="ghost" onClick={() => reset()} size="lg">

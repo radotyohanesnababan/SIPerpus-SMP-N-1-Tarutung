@@ -20,13 +20,35 @@ class CategoryController extends Controller
     {
         $categories = Category::query()
         ->select(['id', 'name', 'slug', 'created_at'])
-        ->get();
-         return inertia('Admin/Categories/Index', [
-            'categories' => CategoryResource::collection($categories),
+        ->filter(request()->only(['search']))
+        ->sorting(request()->only(['field', 'direction']))
+        ->when(request()->search, function ($query, $value){
+            $query->whereAny([
+                'name',
+                'slug',
+            ], 'REGEXP', $value);
+        })
+        ->when(request()->field && request()->direction, function ($query) {
+            $query->orderBy(request()->field, request()->direction);
+        })
+        ->paginate(request()->load ?? 10)
+        ->withQueryString();
+        return inertia('Admin/Categories/Index', [
+            'categories' => CategoryResource::collection($categories)->additional([
+                'meta' => [
+                   'has_pages' => $categories->hasPages(),
+                ],
+            ]),
             'page_settings'=>[
                 'title' => 'Kategori',
                 'description' => 'Kelola kategori Anda di sini.',
-            ]
+            ],
+            'state' =>
+            [
+                'page'=> request()->page ?? 1,
+                'search' =>request()->search ?? '',
+                'load'=> 10,
+            ],
         ]);
 
         

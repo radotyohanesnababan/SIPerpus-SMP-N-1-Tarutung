@@ -28,6 +28,11 @@ class PublisherFactory extends Factory
                 'Penerbit Haru',
                 'Penerbit Buku Kompas',
                 'Penerbit Bentang Pustaka',
+                'Penerbit Republika',
+                'Penerbit Hikmah',
+                'Penerbit Diva Press',
+                'Penerbit Grasindo',
+
             ]),
             'slug'=> str()->lower(str()->slug($name)) . str()->random(4),
         ];

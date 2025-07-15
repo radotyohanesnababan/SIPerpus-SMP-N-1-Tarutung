@@ -20,9 +20,10 @@ import { useFilter } from '@/hooks/useFilter';
 import AppLayout from '@/Layouts/AppLayout';
 import { Link, router } from '@inertiajs/react';
 import { AlertDialogDescription } from '@radix-ui/react-alert-dialog';
-import { IconArrowsDownUp, IconCategory, IconPencil, IconPlus, IconRefresh, IconTrash } from '@tabler/icons-react';
+import { IconArrowsDownUp, IconBuildingCommunity, IconCategory, IconPencil, IconPlus, IconRefresh, IconTrash } from '@tabler/icons-react';
 import { useEffect, useState } from 'react';
 import { toast } from 'sonner';
+
 
 export default function Index(props) {
     useEffect(() => {
@@ -31,7 +32,7 @@ export default function Index(props) {
         }
     }, [props.flash_message]);
 
-    const { data: categories, meta } = props.categories;
+    const { data: publishers, meta } = props.publishers;
     const [params, setParams] = useState(() => ({
         search: props.state?.search || '',
         load: props.state?.load || 10,
@@ -45,9 +46,9 @@ export default function Index(props) {
         });
     };
     useFilter({
-        route: route('admin.categories.index'),
+        route: route('admin.publishers.index'),
         values: params,
-        only: ['categories'],
+        only: ['publishers'],
     });
 
     return (
@@ -56,11 +57,11 @@ export default function Index(props) {
                 <HeaderTitle
                     title={props.page_settings.title}
                     subtitle={props.page_settings.subtitle}
-                    icon={IconCategory}
+                    icon={IconBuildingCommunity}
                 />
 
                 <Button variant="orange" size="lg" asChild>
-                    <Link href={route('admin.categories.create')}>
+                    <Link href={route('admin.publishers.create')}>
                         <IconPlus className="size-4" />
                         Tambah
                     </Link>
@@ -73,7 +74,7 @@ export default function Index(props) {
                             className="w-full sm:w-1/4"
                             placeholder="Cari Kategori"
                             value={params?.search}
-                            onChange={(e) => setParams((prev) => ({ ...prev, search: e.target.value }))}
+                            onChange={(e) => setParams((prev) => ({ ...prev, search: e.target.value, page: 1 }))}
                         />
                         <Select value={params?.load} onValueChange={(e) => setParams({ ...params, load: e })}>
                             <SelectTrigger className="w-full sm:w-24">
@@ -128,12 +129,9 @@ export default function Index(props) {
                                         onClick={() => onSortable('slug')}
                                     >
                                         Slug{' '}
-                                        <span className="ml-2 flex-none rounded text-muted-foreground">
-                                            <IconArrowsDownUp className="size-4 text-muted-foreground" />
-                                        </span>
+                                        
                                     </Button>
                                 </TableHead>
-                                <TableHead>Avatar</TableHead>
                                 <TableHead>
                                     <Button
                                         variant="ghost"
@@ -153,32 +151,22 @@ export default function Index(props) {
                                         onClick={() => onSortable('actions')}
                                     >
                                         Aksi{' '}
-                                        <span className="ml-2 flex-none rounded text-muted-foreground">
-                                            <IconArrowsDownUp className="size-4 text-muted-foreground" />
-                                        </span>
+                                        
                                     </Button>
                                 </TableHead>
                             </TableRow>
                         </TableHeader>
                         <TableBody>
-                            {categories.map((category, index) => (
-                                <TableRow key={category.id}>
+                            {publishers.map((publisher, index) => (
+                                <TableRow key={publisher.id}>
                                     <TableCell>{index + 1 + (meta.current_page - 1) * meta.per_page}</TableCell>
-                                    <TableCell>{category.name}</TableCell>
-                                    <TableCell>{category.slug}</TableCell>
-                                    <TableCell>
-                                        <Avatar>
-                                            <AvatarImage src={category.avatar} />
-                                            <AvatarFallback>
-                                                {category.name.substring(0, 1).toUpperCase()}
-                                            </AvatarFallback>
-                                        </Avatar>
-                                    </TableCell>
-                                    <TableCell>{category.created_at}</TableCell>
+                                    <TableCell>{publisher.name}</TableCell>
+                                    <TableCell>{publisher.slug}</TableCell>
+                                    <TableCell>{publisher.created_at}</TableCell>
                                     <TableCell>
                                         <div className="flex items-center gap-x-1">
                                             <Button variant="blue" size="sm" asChild>
-                                                <Link href={route('admin.categories.edit', [category])}>
+                                                <Link href={route('admin.publishers.edit', [publisher])}>
                                                     <IconPencil className="size-4" />
                                                 </Link>
                                             </Button>
@@ -191,11 +179,11 @@ export default function Index(props) {
                                                 <AlertDialogContent>
                                                     <AlertDialogHeader>
                                                         <AlertDialogTitle>
-                                                            Apakah anda yakin ingin menghapus kategori ini?
+                                                            Apakah anda yakin ingin menghapus penerbit ini?
                                                         </AlertDialogTitle>
                                                         <AlertDialogDescription>
                                                             Tindakan ini tidak dapat dibatalkan. Semua data yang terkait
-                                                            dengan kategori ini akan dihapus secara permanen.
+                                                            dengan penerbit ini akan dihapus secara permanen.
                                                         </AlertDialogDescription>
                                                     </AlertDialogHeader>
                                                     <AlertDialogFooter>
@@ -203,7 +191,7 @@ export default function Index(props) {
                                                         <AlertDialogAction
                                                             onClick={() =>
                                                                 router.delete(
-                                                                    route('admin.categories.destroy', [category]),
+                                                                    route('admin.publishers.destroy', [publisher]),
                                                                 )
                                                             }
                                                         >
@@ -222,7 +210,7 @@ export default function Index(props) {
                 <CardFooter className="flex flex-col items-center justify-between w-full py-2 border-t lg:flex-row">
                     <p className="mb-2 text-sm text-muted-foreground">
                         Menampilkan <span className="font-medium text-orange-500">{meta.from ?? 0}</span> dari{' '}
-                        {meta.total} kategori
+                        {meta.total} penerbit
                     </p>
                     <div className="overflow-x-auto">
                         {meta.has_pages && (

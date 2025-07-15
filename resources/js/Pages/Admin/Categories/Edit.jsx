@@ -7,8 +7,6 @@ import { Textarea } from '@/Components/ui/textarea';
 import AppLayout from '@/Layouts/AppLayout';
 import { Link, useForm } from '@inertiajs/react';
 import { IconArrowLeft, IconCategory } from '@tabler/icons-react';
-import { toast } from 'sonner';
-
 
 export default function Edit(props) {
     const { data, setData, reset, post, processing, errors } = useForm({
@@ -22,7 +20,7 @@ export default function Edit(props) {
     const onHandleSubmit = (e) => {
         e.preventDefault();
 
-        post(props.page_settings.action)
+        post(props.page_settings.action);
     };
     return (
         <div className="flex w-full flex-col pb-32">
@@ -50,9 +48,7 @@ export default function Edit(props) {
                                 value={data.name}
                                 onChange={onHandleChange}
                             />
-                            {errors.name &&(
-                                <InputError message={errors.name} />
-                            )}
+                            {errors.name && <InputError message={errors.name} />}
                         </div>
                         <div className="grid w-full items-center gap-1.5">
                             <Label htmlFor="description">Deskripsi</Label>
@@ -63,9 +59,7 @@ export default function Edit(props) {
                                 value={data.description}
                                 onChange={onHandleChange}
                             />
-                            {errors.description &&(
-                                <InputError message={errors.description} />
-                            )}
+                            {errors.description && <InputError message={errors.description} />}
                         </div>
                         <div className="flex justify-end gap-x-2">
                             <Button type="button" variant="ghost" onClick={() => reset()} size="lg">
