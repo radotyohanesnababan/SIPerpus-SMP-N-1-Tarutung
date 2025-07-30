@@ -37,11 +37,6 @@ class Category extends Model
         });
     }
 
-    public function scopeSorting(Builder $query, array $sorts): void
-    {
-        $query->when($sort['field'] ?? null && $sorts['direction'] ?? null, function ($query) use ($sorts) {
-            $query->orderBy($sorts['field'], $sort['direction'] ?? 'asc');
-        });
-    }
+    
 
 }

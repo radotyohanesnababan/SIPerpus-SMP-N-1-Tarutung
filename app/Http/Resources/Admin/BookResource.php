@@ -21,8 +21,9 @@ class BookResource extends JsonResource
             'judul' => $this->judul,
             'slug' => $this->slug,
             'deskripsi' => $this->deskripsi,
-            'cover' => $this->cover ? Storage::url($this->cover) : null,
-            'kategori' => [
+            'cover' => $this->cover ? url(Storage::url($this->cover)) : null,
+
+            'category' => [
                 'id' => $this->category?->id,
                 'name' => $this->category?->name,
             ],
@@ -32,8 +33,8 @@ class BookResource extends JsonResource
             ],
             'isbn' => $this->isbn,
             'tahun_terbit' => $this->tahun_terbit,
-            'created_at' => $this->created_at->format('d M Y '),
-            'updated_at' => $this->updated_at->format('d M Y '),
+            'created_at' => $this->created_at?->format('d M Y'),
+            'updated_at' => $this->updated_at?->format('d M Y'),
             'kondisi' => $this->kondisi,
             'stok' =>[
                 'total'=> $this->stock?->total ?? 0,

@@ -21,6 +21,7 @@ class Resource extends JsonResource
             'avatar' => $this->avatar,
             'description' => $this->description,
             'created_at' => $this->created_at->format('d M Y'),
+            
         ];
     }
 }

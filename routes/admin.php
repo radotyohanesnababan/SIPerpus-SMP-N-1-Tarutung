@@ -3,6 +3,8 @@
 use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\PublisherController;
 use App\Http\Controllers\Admin\BookController;
+use App\Http\Controllers\UserController;
+use App\Http\Controllers\Admin\BorrowedController;
 use Illuminate\Support\Facades\Route;
 
 Route::middleware([ 'auth'])->prefix('admin')->group(function (){
@@ -16,6 +18,7 @@ Route::middleware([ 'auth'])->prefix('admin')->group(function (){
         Route::delete('categories/destroy/{category}','destroy')->name('admin.categories.destroy');
 
 
+        });
     });
     Route::controller(PublisherController::class)->group(function (){
         Route::get('publishers', 'index')->name('admin.publishers.index');
@@ -38,6 +41,24 @@ Route::middleware([ 'auth'])->prefix('admin')->group(function (){
 
 
     });
-    
+
+    Route::controller(UserController::class)->group(function (){
+        Route::get('users', 'index')->name('admin.users.index');
+        Route::get('users/create', 'create')->name('admin.users.create');
+        Route::post('users/create', 'store')->name('admin.users.store');
+        Route::get('users/edit/{user}', 'edit')->name('admin.users.edit');
+        Route::put('users/edit/{user}', 'update')->name('admin.users.update');
+        Route::delete('users/destroy/{user}','destroy')->name('admin.users.destroy');
+
+
+    });
+
+    Route::controller(BorrowedController::class)->group(function (){
+        Route::get('borroweds', 'index')->name('admin.borrowed.index');
+        Route::get('borroweds/create', 'create')->name('admin.borrowed.create');
+        Route::post('borroweds/create', 'store')->name('admin.borrowed.store');
+        Route::get('borroweds/edit/{borrowed}', 'edit')->name('admin.borrowed.edit');
+        Route::put('borroweds/edit/{borrowed}', 'update')->name('admin.borrowed.update');
+        Route::delete('borroweds/destroy/{borrowed}','destroy')->name('admin.borrowed.destroy');
 
 });

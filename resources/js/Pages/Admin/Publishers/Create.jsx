@@ -3,10 +3,9 @@ import { Button } from '@/Components/ui/button';
 import { Card, CardContent } from '@/Components/ui/card';
 import { Input } from '@/Components/ui/input';
 import { Label } from '@/Components/ui/label';
-import { Textarea } from '@/Components/ui/textarea';
 import AppLayout from '@/Layouts/AppLayout';
 import { Link, useForm } from '@inertiajs/react';
-import { IconArrowLeft, IconBuildingCommunity, IconCategory } from '@tabler/icons-react';
+import { IconArrowLeft, IconBuildingCommunity } from '@tabler/icons-react';
 
 export default function Create(props) {
     const { data, setData, reset, post, processing, errors } = useForm({

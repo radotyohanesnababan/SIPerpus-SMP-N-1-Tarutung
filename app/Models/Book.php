@@ -5,8 +5,14 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use App\Enums\BookStatus;
-use Illuminate\Contracts\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Attributes\ObservedBy;
+//use Illuminate\Contracts\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Builder;
+use App\Models\Stock;
+use App\Observers\BookObserver;
 
+#[ObservedBy(BookObserver::class)]
 class Book extends Model
 {
     protected $fillable = [
@@ -18,7 +24,8 @@ class Book extends Model
         'publisher_id',
         'kondisi',
         'category_id',
-        'stok'
+        'stok',
+        'cover'
     ];
     
     protected $casts = [
@@ -59,10 +66,10 @@ class Book extends Model
         });
     }
 
-    public function scopeSorting(Builder $query, array $sorts) : void
+    public function scopeSorting(Builder $query, array $sorts): void
     {
-        $query->when($sorts['field']?? null, $sorts['direction'] ?? null, function($query) use($sorts) {
-            $query->orderBy($sorts['field'], $sorts['direction']);
+        $query->when($sort['field'] ?? null && $sorts['direction'] ?? null, function ($query) use ($sorts) {
+            $query->orderBy($sorts['field'], $sort['direction'] ?? 'asc');
         });
     }
 
