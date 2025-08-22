@@ -14,6 +14,7 @@ use Throwable;
 use App\Enums\MessageType;
 use GuzzleHttp\Psr7\Message;
 
+
 class CategoryController extends Controller
 {
     public function index(): Response

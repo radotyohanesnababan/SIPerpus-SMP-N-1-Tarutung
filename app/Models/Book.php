@@ -73,4 +73,31 @@ class Book extends Model
         });
     }
 
+    public function updateStock($columnToDecrement, $columnToIncrement)
+    {
+
+        $stock = $this->stock;
+        if(!$stock) {
+            throw new \Exception('Stok buku tidak ditemukan.');
+        }
+        if($stock->$columnToDecrement > 0) {
+            return $stock->update([
+                $columnToDecrement => $stock->$columnToDecrement - 1,
+                $columnToIncrement => $stock->$columnToIncrement + 1,
+            ]);
+            
+        } else {
+            throw new \Exception('Stok tidak mencukupi untuk melakukan peminjaman.');
+        }
+    }
+
+    public function stock_borrowed(){
+        return $this->updateStock('available', 'borrowed');
+    }
+    public function stock_lost(){
+        return $this->updateStock('borrowed', 'lost');
+    }
+    public function stock_returned(){
+        return $this->updateStock('borrowed', 'available');
+    }
 }

@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class Borrowed extends Model
 {
     protected $fillable = [
-        'user_id',
+        'user_nisn',
         'book_id',
         'borrowed_at',
         'returned_at',
@@ -49,5 +49,14 @@ class Borrowed extends Model
         $query->when($sorts['field'] ?? null && $sorts['direction'] ?? null, function ($query) use ($sorts) {
             $query->orderBy($sorts['field'], $sorts['direction']);
         });
+    }
+
+    public static function checkBorrowedBook(int $user_nisn, int $book_id): bool
+    {
+        return self::query()
+            ->where('user_nisn', $user_nisn)
+            ->where('book_id', $book_id)
+            ->whereDoesntHave('returnBook', fn($query)=> $query->where('book_id', $book_id)->where('user_nisn', $user_nisn))
+            ->exists();
     }
 }

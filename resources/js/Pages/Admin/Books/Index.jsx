@@ -282,10 +282,7 @@ export default function Index(props) {
                                                         <AlertDialogCancel>Batal</AlertDialogCancel>
                                                         <AlertDialogAction
                                                             onClick={() =>
-                                                                router.delete(
-                                                                    route('admin.books.destroy', [book]),
-                                                                    
-                                                                )
+                                                                router.delete(route('admin.books.destroy', [book]))
                                                             }
                                                         >
                                                             Lanjutkan

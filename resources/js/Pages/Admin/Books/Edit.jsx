@@ -153,7 +153,7 @@ export default function Edit(props) {
                             </Select>
                             {errors.publisher_id && <InputError message={errors.publisher_id} />}
                         </div>
-                        
+
                         <div className="grid w-full items-center gap-1.5">
                             <Label htmlFor="cover">Cover</Label>
                             <Input

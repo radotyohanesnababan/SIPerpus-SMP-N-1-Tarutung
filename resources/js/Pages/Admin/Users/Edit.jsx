@@ -4,14 +4,13 @@ import { Button } from '@/Components/ui/button';
 import { Card, CardContent } from '@/Components/ui/card';
 import { Input } from '@/Components/ui/input';
 import { Label } from '@/Components/ui/label';
-import { Textarea } from '@/Components/ui/textarea';
 import AppLayout from '@/Layouts/AppLayout';
 import { Link, useForm } from '@inertiajs/react';
-import { IconArrowLeft, IconCategory, IconUsersGroup } from '@tabler/icons-react';
+import { IconArrowLeft, IconUsersGroup } from '@tabler/icons-react';
 
 export default function Edit(props) {
     const { data, setData, reset, post, processing, errors } = useForm({
-        nisn : props.user.nisn,
+        nisn: props.user.nisn,
         nama: props.user.nama || '',
         email: props.user.email || '',
         password: '',
@@ -100,7 +99,6 @@ export default function Edit(props) {
                                 onChange={onHandleChange}
                             />
                             {errors.password_confirmation && <InputError message={errors.password_confirmation} />}
-
                         </div>
                         <div className="flex justify-end gap-x-2">
                             <Button type="button" variant="ghost" onClick={() => reset()} size="lg">

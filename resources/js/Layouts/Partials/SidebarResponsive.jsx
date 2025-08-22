@@ -1,6 +1,12 @@
 import ApplicationLogo from '@/Components/ApplicationLogo';
 import NavLinkResponsive from '@/Components/NavLinkResponsive';
-import { IconChartDots2, IconDashboard, IconUsersGroup } from '@tabler/icons-react';
+import {
+    IconChartDots2,
+    IconCreditCardPay,
+    IconCreditCardRefund,
+    IconDashboard,
+    IconUsersGroup,
+} from '@tabler/icons-react';
 
 export default function SidebarResponsive({ url, auth }) {
     return (
@@ -16,14 +22,21 @@ export default function SidebarResponsive({ url, auth }) {
                 />
 
                 <div className="px-3 py-2 text-sm font-semibold text-foreground">Peminjaman</div>
-                <NavLinkResponsive url={route('admin.borrowed.index')}
+                <NavLinkResponsive
+                    url={route('admin.borroweds.index')}
                     active={url.startsWith('/admin/borrowed')}
                     title="Riwayat Peminjaman"
-                    icon={IconChartDots2} />
+                    icon={IconCreditCardPay}
+                />
                 <NavLinkResponsive url="#" title="Validasi Peminjaman" icon={IconChartDots2} />
 
                 <div className="px-3 py-2 text-sm font-semibold text-foreground">Pengembalian</div>
-                <NavLinkResponsive url="#" title="Riwayat Pengembalian" icon={IconChartDots2} />
+                <NavLinkResponsive
+                    url={route('admin.return-books.index')}
+                    active={url.startsWith('/admin/return-books')}
+                    title="Riwayat Pengembalian"
+                    icon={IconCreditCardRefund}
+                />
                 <NavLinkResponsive url="#" title="Validasi Pengembalian" icon={IconChartDots2} />
 
                 <div className="px-3 py-2 text-sm font-semibold text-foreground">Master</div>
@@ -47,7 +60,12 @@ export default function SidebarResponsive({ url, auth }) {
                 />
                 <NavLinkResponsive url="#" title="Stok Buku" icon={IconChartDots2} />
                 <NavLinkResponsive url="#" title="E-book" icon={IconChartDots2} />
-                <NavLinkResponsive url={route('admin.users.index')} title="Anggota" icon={IconUsersGroup} active={url.startsWith('/admin/users')} />
+                <NavLinkResponsive
+                    url={route('admin.users.index')}
+                    title="Anggota"
+                    icon={IconUsersGroup}
+                    active={url.startsWith('/admin/users')}
+                />
 
                 <div className="px-3 py-2 text-sm font-semibold text-foreground">Lainnya</div>
                 <NavLinkResponsive url="#" title="Pengumuman" icon={IconChartDots2} />

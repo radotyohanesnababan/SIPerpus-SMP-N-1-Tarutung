@@ -5,6 +5,7 @@ use App\Http\Controllers\Admin\PublisherController;
 use App\Http\Controllers\Admin\BookController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\Admin\BorrowedController;
+use App\Http\Controllers\Admin\ReturnBookController;
 use Illuminate\Support\Facades\Route;
 
 Route::middleware([ 'auth'])->prefix('admin')->group(function (){
@@ -54,11 +55,20 @@ Route::middleware([ 'auth'])->prefix('admin')->group(function (){
     });
 
     Route::controller(BorrowedController::class)->group(function (){
-        Route::get('borroweds', 'index')->name('admin.borrowed.index');
-        Route::get('borroweds/create', 'create')->name('admin.borrowed.create');
-        Route::post('borroweds/create', 'store')->name('admin.borrowed.store');
-        Route::get('borroweds/edit/{borrowed}', 'edit')->name('admin.borrowed.edit');
-        Route::put('borroweds/edit/{borrowed}', 'update')->name('admin.borrowed.update');
-        Route::delete('borroweds/destroy/{borrowed}','destroy')->name('admin.borrowed.destroy');
+        Route::get('borroweds', 'index')->name('admin.borroweds.index');
+        Route::get('borroweds/create', 'create')->name('admin.borroweds.create');
+        Route::post('borroweds/create', 'store')->name('admin.borroweds.store');
+        Route::get('borroweds/edit/{borrowed}', 'edit')->name('admin.borroweds.edit');
+        Route::put('borroweds/edit/{borrowed}', 'update')->name('admin.borroweds.update');
+        Route::delete('borroweds/destroy/{borrowed}','destroy')->name('admin.borroweds.destroy');
+
+});
+
+    Route::controller(ReturnBookController::class)->group(function (){
+        Route::get('return-books', 'index')->name('admin.return-books.index');
+        Route::get('return-books/{borrowed}/create', 'create')->name('admin.return-books.create');
+        Route::put('return-books/{borrowed}/store', 'store')->name('admin.return-books.store');
+        Route::delete('return-books/{returnBook}', 'destroy')->name('admin.return-books.destroy');
+        Route::get('return-books/{returnBook}/approve', 'approve')->name('admin.return-books.approve');
 
 });

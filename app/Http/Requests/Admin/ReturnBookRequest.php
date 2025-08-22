@@ -3,8 +3,10 @@
 namespace App\Http\Requests\Admin;
 
 use Illuminate\Foundation\Http\FormRequest;
+use App\Enums\ReturnBookCondition;
+use Illuminate\Validation\Rules\Enum;
 
-class BorrowedRequest extends FormRequest
+class ReturnBookRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -22,14 +24,10 @@ class BorrowedRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'user_nisn' => [
-                'required', 'integer',
-                'exists:users,nisn',
+            'condition' => [
+                'required',
+                new Enum(ReturnBookCondition::class),
 
-            ],
-            'book_id' => [
-                'required','integer',
-                'exists:books,id',
             ]
         ];
     }
@@ -37,8 +35,7 @@ class BorrowedRequest extends FormRequest
     public function attributes()
     {
         return [
-            'user' => 'Pengguna',
-            'book' => 'Buku',
+            'condition' => 'Kondisi Buku',
         ];
     }
 }
