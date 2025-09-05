@@ -1,14 +1,25 @@
 <?php
 
+use App\Http\Controllers\Admin\AnnouncementController;
+use App\Http\Controllers\Admin\AssignPermissionController;
+use App\Http\Controllers\Admin\AssignUserController;
 use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\PublisherController;
 use App\Http\Controllers\Admin\BookController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\Admin\BorrowedController;
+use App\Http\Controllers\Admin\LoanStatisticController;
 use App\Http\Controllers\Admin\ReturnBookController;
+use App\Http\Controllers\Admin\RoleController;
+use App\Http\Controllers\Admin\PermissionController;
 use Illuminate\Support\Facades\Route;
 
-Route::middleware([ 'auth'])->prefix('admin')->group(function (){
+Route::middleware('auth')->prefix('admin')->group(function (){
+    
+
+    Route::controller(LoanStatisticController::class)->group(function (){
+        Route::get('loan-statistics', 'index')->name('admin.loan-statistics.index');
+    });
 
     Route::controller(CategoryController::class)->group(function (){
         Route::get('categories', 'index')->name('admin.categories.index');
@@ -70,5 +81,47 @@ Route::middleware([ 'auth'])->prefix('admin')->group(function (){
         Route::put('return-books/{borrowed}/store', 'store')->name('admin.return-books.store');
         Route::delete('return-books/{returnBook}', 'destroy')->name('admin.return-books.destroy');
         Route::get('return-books/{returnBook}/approve', 'approve')->name('admin.return-books.approve');
+
+});
+Route::controller(AnnouncementController::class)->group(function (){
+        Route::get('announcements', 'index')->name('admin.announcements.index');
+        Route::get('announcements/create', 'create')->name('admin.announcements.create');
+        Route::post('announcements/create', 'store')->name('admin.announcements.store');
+        Route::get('announcements/edit/{announcement}', 'edit')->name('admin.announcements.edit');
+        Route::put('announcements/edit/{announcement}', 'update')->name('admin.announcements.update');
+        Route::delete('announcements/destroy/{announcement}','destroy')->name('admin.announcements.destroy');
+
+});
+
+Route::controller(RoleController::class)->group(function (){
+        Route::get('roles', 'index')->name('admin.roles.index');
+        Route::get('roles/create', 'create')->name('admin.roles.create');
+        Route::post('roles/create', 'store')->name('admin.roles.store');
+        Route::get('roles/edit/{role}', 'edit')->name('admin.roles.edit');
+        Route::put('roles/edit/{role}', 'update')->name('admin.roles.update');
+        Route::delete('roles/destroy/{role}','destroy')->name('admin.roles.destroy');
+
+});
+Route::controller(PermissionController::class)->group(function (){
+        Route::get('permissions', 'index')->name('admin.permissions.index');
+        Route::get('permissions/create', 'create')->name('admin.permissions.create');
+        Route::post('permissions/create', 'store')->name('admin.permissions.store');
+        Route::get('permissions/edit/{permission}', 'edit')->name('admin.permissions.edit');
+        Route::put('permissions/edit/{permission}', 'update')->name('admin.permissions.update');
+        Route::delete('permissions/destroy/{permission}','destroy')->name('admin.permissions.destroy');
+
+});
+Route::controller(AssignPermissionController::class)->group(function (){
+        Route::get('assign-permissions', 'index')->name('admin.assign-permissions.index');
+        Route::get('assign-permissions/edit/{role}', 'edit')->name('admin.assign-permissions.edit');
+        Route::put('assign-permissions/edit/{role}', 'update')->name('admin.assign-permissions.update');
+
+
+});
+Route::controller(AssignUserController::class)->group(function (){
+        Route::get('assign-users', 'index')->name('admin.assign-users.index');
+        Route::get('assign-users/edit/{user}', 'edit')->name('admin.assign-users.edit');
+        Route::put('assign-users/edit/{user}', 'update')->name('admin.assign-users.update');
+
 
 });

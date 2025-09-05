@@ -1,6 +1,7 @@
 import ApplicationLogo from '@/Components/ApplicationLogo';
 import NavLinkResponsive from '@/Components/NavLinkResponsive';
 import {
+    IconAlertCircle,
     IconChartDots2,
     IconCreditCardPay,
     IconCreditCardRefund,
@@ -66,10 +67,39 @@ export default function SidebarResponsive({ url, auth }) {
                     icon={IconUsersGroup}
                     active={url.startsWith('/admin/users')}
                 />
+                <div className="px-3 py-2 text-sm font-semibold text-foreground">Peran dan  Izin</div>
+            <NavLinkResponsive
+                url={route('admin.roles.index')}
+                title="Peran"
+                icon={IconAlertCircle}
+                active={url.startsWith('/admin/roles')}
+            />
+            <NavLinkResponsive
+                url={route('admin.permissions.index')}
+                title="Izin"
+                icon={IconUser}
+                active={url.startsWith('/admin/permissions')}
+            />
+            <NavLinkResponsive
+                url={route('admin.assign-permissions.index')}
+                title="Izin"
+                icon={IconUser}
+                active={url.startsWith('/admin/assign-permissions')}
+            />
 
                 <div className="px-3 py-2 text-sm font-semibold text-foreground">Lainnya</div>
-                <NavLinkResponsive url="#" title="Pengumuman" icon={IconChartDots2} />
-                <NavLinkResponsive url={route('profile.edit')} title="Profil" icon={IconChartDots2} />
+                <NavLinkResponsive
+                    url={route('admin.announcements.index')}
+                    title="Pengumuman"
+                    icon={IconAlertCircle}
+                    active={url.startsWith('/admin/announcements')}
+                />
+                <NavLinkResponsive
+                    url={route('profile.edit')}
+                    title="Edit Profil"
+                    icon={IconUser}
+                    active={url.startsWith('/admin/profile')}
+                />
             </nav>
         </nav>
     );

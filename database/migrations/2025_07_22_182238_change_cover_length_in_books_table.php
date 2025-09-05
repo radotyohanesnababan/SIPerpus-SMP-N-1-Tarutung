@@ -12,15 +12,10 @@ return new class extends Migration
     public function up()
 {
     Schema::table('books', function (Blueprint $table) {
-        $table->string('cover', 255)->nullable()->change(); // atau $table->text('cover')->nullable()->change();
+        $table->string('cover', 255)->nullable()->change(); 
     });
 }
 
-public function down()
-{
-    Schema::table('books', function (Blueprint $table) {
-        $table->string('cover', 24)->nullable()->change(); // sesuaikan dengan panjang sebelumnya
-    });
-}
+
 
 };

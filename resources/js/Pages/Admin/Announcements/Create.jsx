@@ -1,17 +1,21 @@
 import HeaderTitle from '@/Components/HeaderTitle';
+import InputError from '@/Components/InputError';
 import { Button } from '@/Components/ui/button';
 import { Card, CardContent } from '@/Components/ui/card';
+import { Checkbox } from '@/Components/ui/checkbox';
 import { Input } from '@/Components/ui/input';
 import { Label } from '@/Components/ui/label';
-import { Textaerea } from '@/Components/ui/textarea';
+import { Textarea } from '@/Components/ui/textarea';
 import AppLayout from '@/Layouts/AppLayout';
 import { Link, useForm } from '@inertiajs/react';
-import { IconArrowLeft, IconCategory } from '@tabler/icons-react';
 
-export default function Edit(props) {
+import { IconAlertCircle, IconArrowLeft } from '@tabler/icons-react';
+
+export default function Create(props) {
     const { data, setData, reset, post, processing, errors } = useForm({
-        name: props.category.name ?? '',
-        description: props.category.description ?? '',
+        title: '',
+        content: '',
+        is_active: false,
         _method: props.page_settings.method,
     });
     const onHandleChange = (e) => {
@@ -28,10 +32,10 @@ export default function Edit(props) {
                 <HeaderTitle
                     title={props.page_settings.title}
                     subtitle={props.page_settings.subtitle}
-                    icon={IconCategory}
+                    icon={IconAlertCircle}
                 />
                 <Button variant="orange" size="lg" asChild>
-                    <Link href={route('admin.categories.index')}>
+                    <Link href={route('admin.announcements.index')}>
                         <IconArrowLeft className="size-4"></IconArrowLeft>Kembali
                     </Link>
                 </Button>
@@ -40,26 +44,40 @@ export default function Edit(props) {
                 <CardContent className="p-6">
                     <form className="space-y-4" onSubmit={onHandleSubmit}>
                         <div className="grid w-full items-center gap-1.5">
-                            <Label htmlFor="name">Nama</Label>
+                            <Label htmlFor="title">Judul</Label>
                             <Input
-                                id="name"
-                                name="name"
-                                placeholder="Masukkan nama kategori"
-                                value={data.name}
+                                id="title"
+                                name="title"
+                                placeholder="Masukkan Judul"
+                                value={data.title}
                                 onChange={onHandleChange}
                             />
-                            {errors.name && <InputError message={errors.name} />}
+                            {errors.title && <InputError message={errors.title} />}
                         </div>
                         <div className="grid w-full items-center gap-1.5">
-                            <Label htmlFor="description">Deskripsi</Label>
+                            <Label htmlFor="content">Isi Pengumuman</Label>
                             <Textarea
-                                id="description"
-                                name="description"
-                                placeholder="Masukkan deskripsi kategori"
-                                value={data.description}
+                                id="content"
+                                name="content"
+                                placeholder="Masukkan isi pengumuman"
+                                value={data.content}
                                 onChange={onHandleChange}
                             />
-                            {errors.description && <InputError message={errors.description} />}
+                            {errors.content && <InputError message={errors.content} />}
+                        </div>
+                        <div className="grid w-full items-center gap-1.5">
+                            <div className="flex items-top space-x-2">
+                                <Checkbox
+                                    id="is_active"
+                                    name="is_active"
+                                    checked={data.is_active}
+                                    onCheckedChange={(checked) => setData('is_active', checked)}
+                                />
+                                <div className="grid gap-1/5 leading-none">
+                                    <Label htmlFor="is_active">Apakah Aktif?</Label>
+                                </div>
+                            </div>
+                            {errors.is_active && <InputError message={errors.is_active} />}
                         </div>
                         <div className="flex justify-end gap-x-2">
                             <Button type="button" variant="ghost" onClick={() => reset()} size="lg">
@@ -76,6 +94,6 @@ export default function Edit(props) {
     );
 }
 
-Edit.layout = (page) => (
+Create.layout = (page) => (
     <AppLayout children={page} title={page.props.page_settings.title} subtitle={page.props.page_settings.subtitle} />
 );

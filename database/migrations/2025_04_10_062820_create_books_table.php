@@ -20,6 +20,7 @@ return new class extends Migration
             $table->string('isbn')->unique();
             $table->string('deskripsi');
             $table->string('penerbit');
+            $table->string('cover')->nullable();
             $table->string('kondisi')->default(BookStatus::AVAILABLE->value);
             $table->foreignId('category_id')->constrained('categories')->cascadeOnDelete();
             $table->timestamps();

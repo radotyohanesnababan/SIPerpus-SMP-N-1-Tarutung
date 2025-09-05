@@ -14,7 +14,7 @@ return new class extends Migration
         
         Schema::create('borroweds', function (Blueprint $table) {
             $table->id();
-            $table->integer('user_nisn');
+            $table->bigInteger('user_nisn');
             $table->foreign('user_nisn')->references('nisn')->on('users')->cascadeOnDelete();
             $table->foreignId('book_id')->constrained('books')->cascadeOnDelete();
             $table->date('borrowed_at');

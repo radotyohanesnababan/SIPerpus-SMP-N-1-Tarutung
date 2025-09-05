@@ -3,15 +3,16 @@ import { Button } from '@/Components/ui/button';
 import { Card, CardContent } from '@/Components/ui/card';
 import { Input } from '@/Components/ui/input';
 import { Label } from '@/Components/ui/label';
-import { Textaerea } from '@/Components/ui/textarea';
+import { Textarea } from '@/Components/ui/textarea';
 import AppLayout from '@/Layouts/AppLayout';
 import { Link, useForm } from '@inertiajs/react';
-import { IconArrowLeft, IconCategory } from '@tabler/icons-react';
+import { IconArrowLeft, IconCategory, IconCircleKey } from '@tabler/icons-react';
+import {Select, SelectContent, SelectTrigger, SelectValue,SelectItem } from '@/Components/ui/select';
 
 export default function Edit(props) {
     const { data, setData, reset, post, processing, errors } = useForm({
-        name: props.category.name ?? '',
-        description: props.category.description ?? '',
+        name: props.role.name ?? '',
+        guard_name: props.role.guard_name ?? '',
         _method: props.page_settings.method,
     });
     const onHandleChange = (e) => {
@@ -28,10 +29,10 @@ export default function Edit(props) {
                 <HeaderTitle
                     title={props.page_settings.title}
                     subtitle={props.page_settings.subtitle}
-                    icon={IconCategory}
+                    icon={IconCircleKey}
                 />
                 <Button variant="orange" size="lg" asChild>
-                    <Link href={route('admin.categories.index')}>
+                    <Link href={route('admin.roles.index')}>
                         <IconArrowLeft className="size-4"></IconArrowLeft>Kembali
                     </Link>
                 </Button>
@@ -44,22 +45,31 @@ export default function Edit(props) {
                             <Input
                                 id="name"
                                 name="name"
-                                placeholder="Masukkan nama kategori"
+                                
                                 value={data.name}
                                 onChange={onHandleChange}
                             />
                             {errors.name && <InputError message={errors.name} />}
                         </div>
                         <div className="grid w-full items-center gap-1.5">
-                            <Label htmlFor="description">Deskripsi</Label>
-                            <Textarea
-                                id="description"
-                                name="description"
-                                placeholder="Masukkan deskripsi kategori"
-                                value={data.description}
-                                onChange={onHandleChange}
-                            />
-                            {errors.description && <InputError message={errors.description} />}
+                            <Label htmlFor="guard_name">Guard Name</Label>
+                            <Select
+                                defaultValue={data.guard_name}
+                                onValueChange={(value) => setData('guard_name', value)}
+                            >
+                                <SelectTrigger>
+                                    <SelectValue>
+                                        {['web','api'].find(guard => guard === data.guard_name) ?? 'Pilih Guard'}
+                                    </SelectValue>
+                                </SelectTrigger>
+                                <SelectContent>
+                                   {['web','api'].map(guard => (
+                                       <SelectItem key={guard} value={guard}>
+                                           {guard.charAt(0).toUpperCase() + guard.slice(1)}
+                                       </SelectItem>
+                                   ))}
+                                </SelectContent>
+                            </Select>
                         </div>
                         <div className="flex justify-end gap-x-2">
                             <Button type="button" variant="ghost" onClick={() => reset()} size="lg">

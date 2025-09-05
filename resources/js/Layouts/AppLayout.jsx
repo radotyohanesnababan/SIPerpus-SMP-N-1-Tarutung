@@ -1,4 +1,5 @@
 import ApplicationLogo from '@/Components/ApplicationLogo';
+import Banner from '@/Components/Banner';
 import { Button } from '@/Components/ui/button';
 import {
     DropdownMenuItem,
@@ -18,7 +19,7 @@ import SidebarResponsive from './Partials/SidebarResponsive';
 
 export default function AppLayout({ title, children }) {
     const auth = usePage().props.auth.user;
-    console.log(auth);
+    const announcement = usePage().props.announcement;
     const { url } = usePage();
     return (
         <>
@@ -94,7 +95,12 @@ export default function AppLayout({ title, children }) {
                                     }}
                                 />
                             </div>
-                            <div className=" gap-4 p-4 lg:px-6">{children}</div>
+                            <div className=" gap-4 p-4 lg:px-6">
+                                {children}
+                                {announcement && announcement.is_active == 1 && (
+                                    <Banner title={announcement.title} content={announcement.content} />
+                                )}
+                            </div>
                         </div>
                     </main>
                 </div>

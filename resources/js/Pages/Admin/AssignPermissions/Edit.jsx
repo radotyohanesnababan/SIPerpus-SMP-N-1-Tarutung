@@ -3,20 +3,30 @@ import { Button } from '@/Components/ui/button';
 import { Card, CardContent } from '@/Components/ui/card';
 import { Input } from '@/Components/ui/input';
 import { Label } from '@/Components/ui/label';
-import { Textaerea } from '@/Components/ui/textarea';
 import AppLayout from '@/Layouts/AppLayout';
 import { Link, useForm } from '@inertiajs/react';
-import { IconArrowLeft, IconCategory } from '@tabler/icons-react';
+import { IconArrowLeft,  IconKeyframe } from '@tabler/icons-react';
+import { useState } from 'react';
+import { MultiSelect } from '@/Components/MultiSelect';
 
 export default function Edit(props) {
+
+    const [selectedPermissions, setSelectedPermissions] = useState(
+        Array.from(new Set(props.role.permissions.map(permission => permission.id)))
+    )
     const { data, setData, reset, post, processing, errors } = useForm({
-        name: props.category.name ?? '',
-        description: props.category.description ?? '',
+        name: props.role.name ?? '',
+        permissions : selectedPermissions,
         _method: props.page_settings.method,
     });
     const onHandleChange = (e) => {
         setData(e.target.name, e.target.value);
     };
+
+    const handlePermissionChange = (selected) =>{
+        setSelectedPermissions(selected);
+        setData('permissions', selected);
+    }
     const onHandleSubmit = (e) => {
         e.preventDefault();
 
@@ -28,10 +38,10 @@ export default function Edit(props) {
                 <HeaderTitle
                     title={props.page_settings.title}
                     subtitle={props.page_settings.subtitle}
-                    icon={IconCategory}
+                    icon={IconKeyframe}
                 />
                 <Button variant="orange" size="lg" asChild>
-                    <Link href={route('admin.categories.index')}>
+                    <Link href={route('admin.assign-permissions.index')}>
                         <IconArrowLeft className="size-4"></IconArrowLeft>Kembali
                     </Link>
                 </Button>
@@ -40,26 +50,27 @@ export default function Edit(props) {
                 <CardContent className="p-6">
                     <form className="space-y-4" onSubmit={onHandleSubmit}>
                         <div className="grid w-full items-center gap-1.5">
-                            <Label htmlFor="name">Nama</Label>
+                            <Label htmlFor="name">Peran</Label>
                             <Input
                                 id="name"
                                 name="name"
-                                placeholder="Masukkan nama kategori"
+                                disabled
                                 value={data.name}
                                 onChange={onHandleChange}
                             />
                             {errors.name && <InputError message={errors.name} />}
                         </div>
                         <div className="grid w-full items-center gap-1.5">
-                            <Label htmlFor="description">Deskripsi</Label>
-                            <Textarea
-                                id="description"
-                                name="description"
-                                placeholder="Masukkan deskripsi kategori"
-                                value={data.description}
-                                onChange={onHandleChange}
-                            />
-                            {errors.description && <InputError message={errors.description} />}
+                            <Label htmlFor="permissions">Izin</Label>
+                            <MultiSelect
+                                options= {props.permissions}
+                                onValueChange={handlePermissionChange}
+                                defaultValue={selectedPermissions}
+                                placeholder="Pilih Izin"
+                                variant="inverted" />
+
+                            {errors.permissions && <InputError message={errors.permissions} />}
+                            
                         </div>
                         <div className="flex justify-end gap-x-2">
                             <Button type="button" variant="ghost" onClick={() => reset()} size="lg">

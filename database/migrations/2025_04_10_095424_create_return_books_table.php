@@ -17,7 +17,7 @@ return new class extends Migration
             $table->id();
             $table->foreignId('borrowed_id')->constrained('borroweds')->cascadeOnDelete();
             $table->foreignId('book_id')->constrained('books')->cascadeOnDelete();
-            $table->integer('user_nisn');
+            $table->bigInteger('user_nisn');
             $table->foreign('user_nisn')->references('nisn')->on('users')->cascadeOnDelete();
             $table->date('returned_at');
             $table->string('status')->default(ReturnBookStatus::CHECKED);

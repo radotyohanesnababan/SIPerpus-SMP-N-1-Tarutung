@@ -26,14 +26,13 @@ class UserRequest extends FormRequest
             'nisn' =>[
                 'required',
                 'integer',
-                
-                Rule::unique('users')->ignore($this->user),
+                Rule::unique('users')->ignore($this->user->nisn, 'nisn'),
             ],
             'email' => [
                 'required',
                 'email',
                 'max:255',
-                Rule::unique('users')->ignore($this->user),
+                Rule::unique('users', 'email')->ignore($this->user->nisn, 'nisn'),
             ],
             'nama' =>[
                 'required',

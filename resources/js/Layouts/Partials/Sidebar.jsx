@@ -1,10 +1,12 @@
 import NavLink from '@/Components/NavLink';
 import {
+    IconAlertCircle,
     IconChartDots2,
     IconCreditCardPay,
     IconCreditCardRefund,
     IconDashboard,
     IconUsersGroup,
+    IconUser
 } from '@tabler/icons-react';
 
 export default function Sidebar({ url, auth }) {
@@ -64,9 +66,39 @@ export default function Sidebar({ url, auth }) {
                 active={url.startsWith('/admin/users')}
             />
 
+            <div className="px-3 py-2 text-sm font-semibold text-foreground">Peran dan  Izin</div>
+            <NavLink
+                url={route('admin.roles.index')}
+                title="Peran"
+                icon={IconAlertCircle}
+                active={url.startsWith('/admin/roles')}
+            />
+            <NavLink
+                url={route('admin.permissions.index')}
+                title="Izin"
+                icon={IconUser}
+                active={url.startsWith('/admin/permissions')}
+            />
+            <NavLink
+                url={route('admin.assign-permissions.index')}
+                title=" Tetapkan Izin"
+                icon={IconUser}
+                active={url.startsWith('/admin/permissions')}
+            />
+
             <div className="px-3 py-2 text-sm font-semibold text-foreground">Lainnya</div>
-            <NavLink url="#" title="Pengumuman" icon={IconChartDots2} />
-            <NavLink url={route('profile.edit')} title="Profil" icon={IconChartDots2} />
+            <NavLink
+                url={route('admin.announcements.index')}
+                title="Pengumuman"
+                icon={IconAlertCircle}
+                active={url.startsWith('/admin/announcements')}
+            />
+            <NavLink
+                url={route('profile.edit')}
+                title=" Edit Profil"
+                icon={IconUser}
+                active={url.startsWith('/admin/profile')}
+            />
         </nav>
     );
 }
