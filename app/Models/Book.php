@@ -100,4 +100,24 @@ class Book extends Model
     public function stock_returned(){
         return $this->updateStock('borrowed', 'available');
     }
+
+    public static function leastLoanBooks($limit = 5)
+    {
+        return self::query()
+            ->select(['id', 'judul', 'publisher_id','category_id'])
+            ->withCount(['borrowed as loans_count'])
+            ->orderBy('loans_count')
+            ->limit($limit)
+            ->get();
+    }
+
+    public static function mostLoanBooks($limit = 5)
+    {
+        return self::query()
+            ->select(['id', 'judul', 'publisher_id','category_id'])
+            ->withCount(['borrowed as loans_count'])
+            ->orderByDesc('loans_count')
+            ->limit($limit)
+            ->get();
+    }
 }

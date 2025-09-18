@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Carbon;
 
 class Borrowed extends Model
 {
@@ -58,5 +59,15 @@ class Borrowed extends Model
             ->where('book_id', $book_id)
             ->whereDoesntHave('returnBook', fn($query)=> $query->where('book_id', $book_id)->where('user_nisn', $user_nisn))
             ->exists();
+    }
+
+    public static function totalLoanBooks(): array
+    {
+        return [
+            'days'=> self::whereDate('created_at', Carbon::now()->toDateString())->count(),
+            'weeks'=> self::whereBetween('created_at', [Carbon::now()->startOfWeek(), Carbon::now()->endOfWeek()])->count(),
+            'months'=> self::whereBetween('created_at', [Carbon::now()->startOfMonth(), Carbon::now()->endOfMonth()])->whereYear('created_at', Carbon::now()->year)->count(),
+            'years'=> self::whereBetween('created_at', [Carbon::now()->startOfYear(), Carbon::now()->endOfYear()])->count(),
+        ];
     }
 }

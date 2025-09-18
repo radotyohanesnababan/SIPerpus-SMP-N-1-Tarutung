@@ -51,7 +51,7 @@ namespace App\Models{
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
  * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Borrowed> $borrowed
- * @property-read int|null $borrowed_count
+ * @property-read int|null $loans_count
  * @property-read \App\Models\Category $category
  * @property-read \App\Models\Publisher $publisher
  * @property-read \App\Models\Stock|null $stock

@@ -6,12 +6,17 @@ import {
     IconCreditCardRefund,
     IconDashboard,
     IconUsersGroup,
-    IconUser
+    IconUser,
+    IconStack2,
+    IconCategory
 } from '@tabler/icons-react';
+import { memo } from 'react';
 
 export default function Sidebar({ url, auth }) {
     return (
-        <nav className="grid  items-start px-2 text-sm font-semibold lg:px-4">
+        <>
+        {auth.role.some((role) => ['admin'].includes(role)) && (
+            <nav className="grid  items-start px-2 text-sm font-semibold lg:px-4">
             <div className="px-3 py-2 text-sm font-semibold text-foreground">Dashboard</div>
             <NavLink
                 url={route('dashboard')}
@@ -27,16 +32,22 @@ export default function Sidebar({ url, auth }) {
                 title="Riwayat Peminjaman"
                 icon={IconCreditCardPay}
             />
+            <NavLink
+                url={route('admin.loan-statistics.index')}
+                active={url.startsWith('/admin/loan-statistics')}
+                title="Statistik Peminjaman"
+                icon={IconCreditCardPay}
+            />
             <NavLink url="#" title="Validasi Peminjaman" icon={IconChartDots2} />
 
             <div className="px-3 py-2 text-sm font-semibold text-foreground">Pengembalian</div>
             <NavLink
                 url={route('admin.return-books.index')}
                 active={url.startsWith('/admin/return-books')}
-                title="Riwayat Pengembalian"
+                title="Validasi Pengembalian"
                 icon={IconCreditCardRefund}
             />
-            <NavLink url="#" title="Validasi Pengembalian" icon={IconChartDots2} />
+            <NavLink url="#" title="Riwayat Pengembalian" icon={IconChartDots2} />
 
             <div className="px-3 py-2 text-sm font-semibold text-foreground">Master</div>
             <NavLink
@@ -57,7 +68,12 @@ export default function Sidebar({ url, auth }) {
                 title="Kategori"
                 icon={IconChartDots2}
             />
-            <NavLink url="#" title="Stok Buku" icon={IconChartDots2} />
+            <NavLink
+                url={route('admin.book-stock-reports.index')}
+                title="Stok Buku"
+                icon={IconStack2}
+                active={url.startsWith('/admin/book-stock-reports')}
+            />
             <NavLink url="#" title="E-book" icon={IconChartDots2} />
             <NavLink
                 url={route('admin.users.index')}
@@ -100,5 +116,63 @@ export default function Sidebar({ url, auth }) {
                 active={url.startsWith('/admin/profile')}
             />
         </nav>
+        )}
+        {auth.role.some((role) => ['member',].includes(role)) && (
+            <nav className="grid  items-start px-2 text-sm font-semibold lg:px-4">
+            <div className="px-3 py-2 text-sm font-semibold text-foreground">Dashboard</div>
+            <NavLink
+                url={route('dashboard')}
+                active={url.startsWith('/dashboard')}
+                title="Dashboard"
+                icon={IconDashboard}
+            />
+            <div className="px-3 py-2 text-sm font-semibold text-foreground">Peminjaman</div>
+            <NavLink
+                url={route('admin.borroweds.index')}
+                active={url.startsWith('/admin/borroweds')}
+                title="Peminjaman"
+                icon={IconCreditCardPay}
+            />
+
+            <div className="px-3 py-2 text-sm font-semibold text-foreground">Pengembalian</div>
+            <NavLink
+                url={route('admin.return-books.index')}
+                active={url.startsWith('/admin/return-books')}
+                title="Pengembalian"
+                icon={IconCreditCardRefund}
+            />
+            
+
+            <div className="px-3 py-2 text-sm font-semibold text-foreground">Koleksi Perpustakaan</div>
+            <NavLink
+                url={route('front.books.index')}
+                active={url.startsWith('/front/books')}
+                title="Buku"
+                icon={IconChartDots2}
+            />
+            <NavLink
+                url={route('front.categories.index')}
+                active={url.startsWith('/front/categories')}
+                title="Kategori"
+                icon={IconCategory}
+            />
+            <NavLink url="#" title="E-book" icon={IconChartDots2} />
+
+            <div className="px-3 py-2 text-sm font-semibold text-foreground">Lainnya</div>
+            <NavLink
+                url={route('admin.announcements.index')}
+                title="Pengumuman"
+                icon={IconAlertCircle}
+                active={url.startsWith('/admin/announcements')}
+            />
+            <NavLink
+                url={route('profile.edit')}
+                title=" Edit Profil"
+                icon={IconUser}
+                active={url.startsWith('/admin/profile')}
+            />
+        </nav>
+        )}
+        </> 
     );
 }

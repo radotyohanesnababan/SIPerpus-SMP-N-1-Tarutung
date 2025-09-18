@@ -17,7 +17,9 @@ class UserSingleResource extends JsonResource
         return [
             'nisn' => $this->nisn,
             'nama' => $this->nama,
-            'email' => $this->email 
+            'email' => $this->email,
+            'role' => $this->getRoleNames(),
+            
         ];
     }
 }

@@ -157,10 +157,10 @@ class BookController extends Controller
                 'publisher_id' => $request->publisher_id,
                 'kondisi' => $request->stok > 0 ? BookStatus::AVAILABLE->value : BookStatus::UNAVAILABLE->value,
                 'category_id' => $request->category_id,
-                'cover' => $this->update_file($request,$book, 'cover', 'books'),
-                'stok' => $request->stok
+                'cover' => $this->update_file($request, $book, 'cover', 'books'),
+                
             ]);
-
+            
             
 
             flashMessage(MessageType::CREATED->message('Buku'),

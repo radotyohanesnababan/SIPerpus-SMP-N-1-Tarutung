@@ -6,6 +6,7 @@ use App\Http\Controllers\Admin\AssignUserController;
 use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\PublisherController;
 use App\Http\Controllers\Admin\BookController;
+use App\Http\Controllers\Admin\BookStockReportController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\Admin\BorrowedController;
 use App\Http\Controllers\Admin\LoanStatisticController;
@@ -14,12 +15,17 @@ use App\Http\Controllers\Admin\RoleController;
 use App\Http\Controllers\Admin\PermissionController;
 use Illuminate\Support\Facades\Route;
 
-Route::middleware('auth')->prefix('admin')->group(function (){
-    
-
-    Route::controller(LoanStatisticController::class)->group(function (){
+Route::middleware('auth','role:admin')->prefix('admin')->group(function (){
+        Route::controller(LoanStatisticController::class)->group(function (){
         Route::get('loan-statistics', 'index')->name('admin.loan-statistics.index');
     });
+
+    Route::controller(BookStockReportController::class)->group(function (){
+        Route::get('book-stock-reports', 'index')->name('admin.book-stock-reports.index');
+        Route::get('book-stock-reports/edit/{stock}', 'edit')->name('admin.book-stock-reports.edit');
+        Route::put('book-stock-reports/edit/{stock}', 'update')->name('admin.book-stock-reports.update');
+    });
+
 
     Route::controller(CategoryController::class)->group(function (){
         Route::get('categories', 'index')->name('admin.categories.index');
@@ -30,7 +36,7 @@ Route::middleware('auth')->prefix('admin')->group(function (){
         Route::delete('categories/destroy/{category}','destroy')->name('admin.categories.destroy');
 
 
-        });
+        
     });
     Route::controller(PublisherController::class)->group(function (){
         Route::get('publishers', 'index')->name('admin.publishers.index');
@@ -123,5 +129,7 @@ Route::controller(AssignUserController::class)->group(function (){
         Route::get('assign-users/edit/{user}', 'edit')->name('admin.assign-users.edit');
         Route::put('assign-users/edit/{user}', 'update')->name('admin.assign-users.update');
 
+
+});
 
 });

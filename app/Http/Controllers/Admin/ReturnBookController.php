@@ -72,8 +72,8 @@ class ReturnBookController extends Controller
             'date' => [
                 'return_date' => Carbon::now()->toDateString(),
                 'borrowed' => [
-                    'borrowed_at' => Carbon::parse($borrowed->borrowed_at)->format('Y-m-d'),
-                    'returned_at' => Carbon::parse($borrowed->returned_at)->format('Y-m-d'),
+                    'borrowed_at' => Carbon::parse($borrowed->borrowed_at)->format('d M Y'),
+                    'returned_at' => Carbon::parse($borrowed->returned_at)->format('d M Y'),
                 ],
             ],
             
@@ -91,6 +91,7 @@ class ReturnBookController extends Controller
                 'user_nisn' => $borrowed->user_nisn,
                 'book_id' => $borrowed->book_id,
                 'return_date' => Carbon::today(),
+                
             ]);
 
             $return_book_check = $returnBook->returnBookCheck()->create([

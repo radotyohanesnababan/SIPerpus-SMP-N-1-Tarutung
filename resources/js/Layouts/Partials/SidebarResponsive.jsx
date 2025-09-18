@@ -7,11 +7,16 @@ import {
     IconCreditCardRefund,
     IconDashboard,
     IconUsersGroup,
+    IconUser,
+    IconBooks,
+    IconCategory
 } from '@tabler/icons-react';
 
 export default function SidebarResponsive({ url, auth }) {
     return (
-        <nav className="grid gap-6 text-lg font-medium">
+        <>
+        {auth.role.some((role) => ['member','admin'].includes(role)) && (
+            <nav className="grid gap-6 text-lg font-medium">
             <ApplicationLogo />
             <nav className="grid  items-start  text-sm font-semibold lg:px-4">
                 <div className="px-3 py-2 text-sm font-semibold text-foreground">Dashboard</div>
@@ -29,16 +34,22 @@ export default function SidebarResponsive({ url, auth }) {
                     title="Riwayat Peminjaman"
                     icon={IconCreditCardPay}
                 />
+                <NavLinkResponsive
+                    url={route('admin.loan-statistics.index')}
+                    active={url.startsWith('/admin/loan-statistics')}
+                    title="Statistik Peminjaman"
+                    icon={IconCreditCardPay}
+                />
                 <NavLinkResponsive url="#" title="Validasi Peminjaman" icon={IconChartDots2} />
 
                 <div className="px-3 py-2 text-sm font-semibold text-foreground">Pengembalian</div>
                 <NavLinkResponsive
                     url={route('admin.return-books.index')}
                     active={url.startsWith('/admin/return-books')}
-                    title="Riwayat Pengembalian"
+                    title="Validasi Pengembalian"
                     icon={IconCreditCardRefund}
                 />
-                <NavLinkResponsive url="#" title="Validasi Pengembalian" icon={IconChartDots2} />
+                <NavLinkResponsive url="#" title="Riwayat Pengembalian" icon={IconChartDots2} />
 
                 <div className="px-3 py-2 text-sm font-semibold text-foreground">Master</div>
                 <NavLinkResponsive
@@ -102,5 +113,74 @@ export default function SidebarResponsive({ url, auth }) {
                 />
             </nav>
         </nav>
+        )}
+
+        {auth.role.some((role) => ['member'].includes(role)) && (
+            <nav className="grid gap-6 text-lg font-medium">
+            <ApplicationLogo />
+            <nav className="grid  items-start  text-sm font-semibold lg:px-4">
+                <div className="px-3 py-2 text-sm font-semibold text-foreground">Dashboard</div>
+                <NavLinkResponsive
+                    url={route('dashboard')}
+                    active={url.startsWith('/dashboard')}
+                    title="Dashboard"
+                    icon={IconDashboard}
+                />
+
+                <div className="px-3 py-2 text-sm font-semibold text-foreground">Peminjaman</div>
+                <NavLinkResponsive
+                    url={route('admin.borroweds.index')}
+                    active={url.startsWith('/admin/borrowed')}
+                    title="Riwayat Peminjaman"
+                    icon={IconCreditCardPay}
+                />
+               
+
+                <div className="px-3 py-2 text-sm font-semibold text-foreground">Pengembalian</div>
+                <NavLinkResponsive
+                    url={route('admin.return-books.index')}
+                    active={url.startsWith('/admin/return-books')}
+                    title="Validasi Pengembalian"
+                    icon={IconCreditCardRefund}
+                />
+                <NavLinkResponsive url="#" title="Riwayat Pengembalian" icon={IconChartDots2} />
+
+                <div className="px-3 py-2 text-sm font-semibold text-foreground">Koleksi Perpustakaan</div>
+                <NavLinkResponsive
+                    url={route('front.books.index')}
+                    active={url.startsWith('/front/books')}
+                    title="Buku"
+                    icon={IconBooks}
+                />
+                
+                <NavLinkResponsive
+                    url={route('front.categories.index')}
+                    active={url.startsWith('/front/categories')}
+                    title="Kategori"
+                    icon={IconCategory}
+                />
+                <NavLinkResponsive url="#" title="Stok Buku" icon={IconChartDots2} />
+                <NavLinkResponsive url="#" title="E-book" icon={IconChartDots2} />
+                
+                
+
+                <div className="px-3 py-2 text-sm font-semibold text-foreground">Lainnya</div>
+                <NavLinkResponsive
+                    url={route('admin.announcements.index')}
+                    title="Pengumuman"
+                    icon={IconAlertCircle}
+                    active={url.startsWith('/admin/announcements')}
+                />
+                <NavLinkResponsive
+                    url={route('profile.edit')}
+                    title="Edit Profil"
+                    icon={IconUser}
+                    active={url.startsWith('/admin/profile')}
+                />
+            </nav>
+        </nav>
+        )}
+        </>
+        
     );
 }

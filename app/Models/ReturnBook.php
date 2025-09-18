@@ -19,6 +19,7 @@ class ReturnBook extends Model
 
     ];
     protected $casts = [
+        'return_date' => 'date',
         'returned_at' => 'date',
         'status'=> ReturnBookStatus::class,
         'kondisi'=>ReturnBookCondition::class,
