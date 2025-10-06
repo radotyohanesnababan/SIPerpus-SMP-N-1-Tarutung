@@ -4,11 +4,10 @@ import { Button } from '@/Components/ui/button';
 import { Card, CardContent } from '@/Components/ui/card';
 import { Input } from '@/Components/ui/input';
 import { Label } from '@/Components/ui/label';
-import { Select, SelectContent, SelectTrigger, SelectValue,SelectItem } from '@/Components/ui/select';
-import { Textarea } from '@/Components/ui/textarea';
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/Components/ui/select';
 import AppLayout from '@/Layouts/AppLayout';
 import { Link, useForm } from '@inertiajs/react';
-import { IconArrowLeft, IconCategory, IconCircleKey, IconVersions } from '@tabler/icons-react';
+import { IconArrowLeft, IconVersions } from '@tabler/icons-react';
 
 export default function Create(props) {
     const { data, setData, reset, post, processing, errors } = useForm({
@@ -60,15 +59,15 @@ export default function Create(props) {
                             >
                                 <SelectTrigger>
                                     <SelectValue>
-                                        {['web','api'].find(guard => guard === data.guard_name) ?? 'Pilih Guard'}
+                                        {['web', 'api'].find((guard) => guard === data.guard_name) ?? 'Pilih Guard'}
                                     </SelectValue>
                                 </SelectTrigger>
                                 <SelectContent>
-                                   {['web','api'].map(guard => (
-                                       <SelectItem key={guard} value={guard}>
-                                           {guard.charAt(0).toUpperCase() + guard.slice(1)}
-                                       </SelectItem>
-                                   ))}
+                                    {['web', 'api'].map((guard) => (
+                                        <SelectItem key={guard} value={guard}>
+                                            {guard.charAt(0).toUpperCase() + guard.slice(1)}
+                                        </SelectItem>
+                                    ))}
                                 </SelectContent>
                             </Select>
                             {errors.guard_name && <InputError message={errors.guard_name} />}

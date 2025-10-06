@@ -11,6 +11,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Builder;
 use App\Models\Stock;
 use App\Observers\BookObserver;
+use Log;
 
 #[ObservedBy(BookObserver::class)]
 class Book extends Model
@@ -44,7 +45,7 @@ class Book extends Model
     {
         return $this->belongsTo(Publisher::class);
     }
-    public function borrowed()
+    public function borroweds()
     {
         return $this->hasMany(Borrowed::class);
     }
@@ -84,7 +85,10 @@ class Book extends Model
             return $stock->update([
                 $columnToDecrement => $stock->$columnToDecrement - 1,
                 $columnToIncrement => $stock->$columnToIncrement + 1,
+                
             ]);
+            
+
             
         } else {
             throw new \Exception('Stok tidak mencukupi untuk melakukan peminjaman.');
@@ -97,6 +101,9 @@ class Book extends Model
     public function stock_lost(){
         return $this->updateStock('borrowed', 'lost');
     }
+   public function stock_damaged(){
+       return $this->updateStock('borrowed', 'damaged');
+   }
     public function stock_returned(){
         return $this->updateStock('borrowed', 'available');
     }
@@ -105,7 +112,7 @@ class Book extends Model
     {
         return self::query()
             ->select(['id', 'judul', 'publisher_id','category_id'])
-            ->withCount(['borrowed as loans_count'])
+            ->withCount(['borroweds as loans_count'])
             ->orderBy('loans_count')
             ->limit($limit)
             ->get();
@@ -115,7 +122,7 @@ class Book extends Model
     {
         return self::query()
             ->select(['id', 'judul', 'publisher_id','category_id'])
-            ->withCount(['borrowed as loans_count'])
+            ->withCount(['borroweds as loans_count'])
             ->orderByDesc('loans_count')
             ->limit($limit)
             ->get();

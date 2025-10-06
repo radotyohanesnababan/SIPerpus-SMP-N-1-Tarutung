@@ -6,3 +6,4 @@ if (!function_exists ('flashMessage')){
         session()->flash('type', $type);
     }
 }
+

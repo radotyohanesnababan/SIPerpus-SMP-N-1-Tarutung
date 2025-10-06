@@ -1,22 +1,28 @@
 import { router } from '@inertiajs/react';
-import { debounce, pickBy } from 'lodash';
-import { useCallback, useEffect } from 'react';
+import { debounce, isEqual, pickBy } from 'lodash';
+import { useMemo, useEffect, useCallback, useRef } from 'react';
 
 export function useFilter({ route, values, only, wait = 300 }) {
-    const reload = useCallback(
+    const lastQuery = useRef(null);
+    const reload = useMemo(() => 
         debounce((query) => {
-            router.get(route, pickBy(query), {
-                only: only,
-                preserveState: true,
-                preserveScroll: true,
-            });
-        }, wait),
-        [route, only, wait],
-    );
+            console.log('[useFilter] reload dipanggil dengan:', query);
+            if (!isEqual(lastQuery.current, query)) {
+                lastQuery.current = query;
+                router.get(route, pickBy(query), {
+                    only,
+                    preserveState: true,
+                    preserveScroll: true,
+                });
+            }
+        }, wait)
+    , [route, only, wait]);
 
     useEffect(() => {
+         console.log('[useFilter] useEffect jalan, values:', values);
         reload(values);
     }, [values, reload]);
 
     return { values };
 }
+

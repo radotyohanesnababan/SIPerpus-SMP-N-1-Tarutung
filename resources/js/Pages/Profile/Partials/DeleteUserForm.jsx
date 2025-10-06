@@ -51,9 +51,8 @@ export default function DeleteUserForm({ className = '' }) {
                 <CardTitle>Hapus Akun</CardTitle>
 
                 <CardDescription>
-                    Setelah akun Anda dihapus, semua sumber daya dan data yang ada di dalamnya akan dihapus
-                    secara permanen. Sebelum menghapus akun Anda, silakan unduh data atau informasi yang ingin
-                    Anda simpan.
+                    Setelah akun Anda dihapus, semua sumber daya dan data yang ada di dalamnya akan dihapus secara
+                    permanen. Sebelum menghapus akun Anda, silakan unduh data atau informasi yang ingin Anda simpan.
                 </CardDescription>
             </CardHeader>
 

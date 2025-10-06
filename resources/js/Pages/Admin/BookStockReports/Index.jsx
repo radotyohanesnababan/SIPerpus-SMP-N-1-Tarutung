@@ -1,15 +1,4 @@
 import HeaderTitle from '@/Components/HeaderTitle';
-import {
-    AlertDialog,
-    AlertDialogAction,
-    AlertDialogCancel,
-    AlertDialogContent,
-    AlertDialogFooter,
-    AlertDialogHeader,
-    AlertDialogTitle,
-    AlertDialogTrigger,
-} from '@/Components/ui/alert-dialog';
-import { Avatar, AvatarFallback, AvatarImage } from '@/Components/ui/avatar';
 import { Button } from '@/Components/ui/button';
 import { Card, CardContent, CardFooter, CardHeader } from '@/Components/ui/card';
 import { Input } from '@/Components/ui/input';
@@ -18,9 +7,8 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/Components/ui/table';
 import { useFilter } from '@/hooks/useFilter';
 import AppLayout from '@/Layouts/AppLayout';
-import { Link, router } from '@inertiajs/react';
-import { AlertDialogDescription } from '@radix-ui/react-alert-dialog';
-import { IconArrowsDownUp, IconCategory, IconPencil, IconPlus, IconRefresh, IconStack2, IconTrash } from '@tabler/icons-react';
+import { Link } from '@inertiajs/react';
+import { IconArrowsDownUp, IconPencil, IconRefresh, IconStack2 } from '@tabler/icons-react';
 import { useEffect, useState } from 'react';
 import { toast } from 'sonner';
 
@@ -150,7 +138,7 @@ export default function Index(props) {
                                         </span>
                                     </Button>
                                 </TableHead>
-                            <TableHead>
+                                <TableHead>
                                     <Button
                                         variant="ghost"
                                         className="group inline-flex "
@@ -205,7 +193,6 @@ export default function Index(props) {
                                                     <IconPencil className="size-4" />
                                                 </Link>
                                             </Button>
-                                            
                                         </div>
                                     </TableCell>
                                 </TableRow>

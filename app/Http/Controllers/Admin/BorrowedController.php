@@ -173,6 +173,18 @@ class BorrowedController extends Controller
                 flashMessage(MessageType::ERROR->message('Buku sudah dipinjam oleh pengguna ini.'), 'error');
                 return to_route('admin.borroweds.index');
             }
+
+            $book->stock->available > 0 ? tap(Borrowed::create([
+                'user_nisn' => $user->nisn,
+                'book_id' => $book->id,
+                'borrowed_at' => Carbon::now()->toDateString(),
+                'returned_at' => Carbon::now()->addDays(7)->toDateString(),
+            ]), function ($borrowed)  {
+                $borrowed->book->stock_borrowed();
+                flashMessage(MessageType::CREATED->message('Peminjaman Berhasil'),
+                'success'
+            );
+            }) : flashMessage(MessageType::ERROR->message('Buku tidak tersedia.'), 'error');
             
 
             $borrowed->update([

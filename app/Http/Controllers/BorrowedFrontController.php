@@ -1,0 +1,83 @@
+<?php
+
+namespace App\Http\Controllers;
+
+use App\Models\Borrowed;
+use Auth;
+use App\Http\Resources\BorrowedFrontResource;
+use App\Http\Resources\BorrowedFrontSingleResource;
+use Illuminate\Http\RedirectResponse;
+use Inertia\Response;
+use App\Models\Book;
+use Carbon\Carbon;
+use Illuminate\Http\Request;
+
+class BorrowedFrontController extends Controller
+{
+    public function index(): Response {
+        $borroweds = Borrowed::query()
+            ->select(['id', 'user_nisn', 'book_id', 'created_at', 'borrowed_at', 'returned_at'])
+            ->where('user_nisn', Auth::user()->nisn)
+            ->filter(request()->only(['search']))
+            ->sorting(request()->only(['field', 'direction']))
+            ->with(['user', 'book'])
+            ->latest('created_at')
+            ->paginate(request()->load ?? 10)
+            ->withQueryString();
+
+        return inertia('Front/Borroweds/Index', [
+            'page_settings' => [
+                'title' => 'Peminjaman',
+                'subtitle' => 'Kelola peminjaman buku di sini.',
+            ],
+            'borroweds'=> BorrowedFrontResource::collection($borroweds)->additional([
+                'meta' => [
+                    'has_pages' => $borroweds->hasPages(),
+                ]
+                ]),
+            'state' => [
+                'page' => request()->page ?? 1,
+                'search' => request()->search ?? '',
+                'load' => 10,
+            ],
+
+        ]);
+    }
+
+    public function show(Borrowed $borrowed): Response {
+        return inertia('Front/Borroweds/Show', [
+            'page_settings' => [
+                'title' => 'Detail Peminjaman',
+                'subtitle' => 'Detail peminjaman buku di sini.',
+            ],
+            'borrowed' =>  new BorrowedFrontSingleResource($borrowed ->load(['user', 'book', 'returnBook']))
+        ]);
+    }
+
+    public function store(Book $book): RedirectResponse{
+
+       // dd(Auth::check(), Auth::user());
+
+        if(Borrowed::checkBorrowedBook(Auth::user()->nisn, $book->id)) {
+            flashMessage('Anda sudah meminjam buku ini, harap kembalikan buku terlebih dahulu', 'error');
+            return to_route('front.books.show', $book->slug);
+        }
+        if(
+            $book->stock->available <= 0
+        ){
+            flashMessage('Stock tidak tersedia', 'error');
+            return to_route('front.books.show', $book->slug);
+        }
+        $borrowed = tap(Borrowed::create([
+                'user_nisn' => Auth::user()->nisn,
+                'book_id' => $book->id,
+                'borrowed_at' => Carbon::now()->toDateString(),
+                'returned_at' => Carbon::now()->addDays(7)->toDateString(),
+        ]), function ($borrowed)  {
+            $borrowed->book->stock_borrowed();
+            flashMessage('Peminjaman Berhasil', 'success');
+        });
+
+        return to_route('front.borroweds.index');
+    }
+}

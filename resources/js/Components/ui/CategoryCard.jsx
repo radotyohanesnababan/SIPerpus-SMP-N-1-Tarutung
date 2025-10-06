@@ -1,14 +1,12 @@
-import { Link } from "@inertiajs/react"
-import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card"
-import { cn } from "@/lib/utils"
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { cn } from '@/lib/utils';
+import { Link } from '@inertiajs/react';
 export default function CategoryCard({ item, className }) {
     return (
-        <Link href={route("front.categories.show", [item.slug])} className="hover:opacity-80 transition">
-            <Card className={cn("h-40 flex flex-col justify-between bg-gray-300", className)}>
+        <Link href={route('front.categories.show', [item.slug])} className="hover:opacity-80 transition">
+            <Card className={cn('h-40 flex flex-col justify-between bg-gray-300', className)}>
                 <CardHeader className="flex flex-row items-center justify-between pb-2">
-                    <CardTitle className="text-base font-semibold">
-                        {item.name}
-                    </CardTitle>
+                    <CardTitle className="text-base font-semibold">{item.name}</CardTitle>
                 </CardHeader>
 
                 <CardContent className="text-sm text-muted-foreground">
@@ -16,5 +14,5 @@ export default function CategoryCard({ item, className }) {
                 </CardContent>
             </Card>
         </Link>
-    )
+    );
 }

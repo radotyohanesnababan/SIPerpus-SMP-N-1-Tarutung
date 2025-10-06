@@ -13,14 +13,17 @@ use Illuminate\Http\RedirectResponse;
 use Throwable;
 use App\Enums\MessageType;
 use App\Enums\ReturnBookCondition;
+use App\Enums\ReturnBookStatus;
 use App\Models\Borrowed;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
+use Log;
 
 class ReturnBookController extends Controller
 {
     public function index(): Response
     {
+        
         $returnBooks = ReturnBook::query()
             ->select(['id', 'borrowed_id','user_nisn','book_id', 'return_date', 'status', 'created_at', 'updated_at',])
             ->filter(request()->only(['search']))
@@ -29,7 +32,7 @@ class ReturnBookController extends Controller
             ->latest('created_at')
             ->paginate(request()->load ?? 10)
             ->withQueryString();
-
+        
         return inertia('Admin/ReturnBooks/Index', [
             'return_books' => ReturnBookResource::collection($returnBooks)->additional([
                 'meta' => [
@@ -45,6 +48,7 @@ class ReturnBookController extends Controller
                 'search' => request()->search ?? '',
                 'load' => 10,
             ],
+            'conditions' => ReturnBookCondition::options(),
             
         ]);
 
@@ -128,6 +132,56 @@ class ReturnBookController extends Controller
             );
             return to_route('admin.return-books.index');
         }catch(Throwable $e){
+            flashMessage(MessageType::ERROR->message(error: $e->getMessage()),'error');
+            return to_route('admin.return-books.index');
+        }
+    }
+
+    public function approve(ReturnBook $returnBook, ReturnBookRequest $request): RedirectResponse
+    {
+        //Log::info("Approve dipanggil untuk returnBook {$returnBook->id}");
+        try{
+           DB::beginTransaction();
+
+           $returnBook = ReturnBook::findOrFail($returnBook->id);
+
+           $return_book_check = $returnBook->returnBookCheck()->create([
+               'returnBook_id' => $returnBook->id,
+               'condition' => $request->condition,
+               'notes' => $request->notes,
+               'book_id' => $returnBook->book_id,
+           ]);
+
+           match($return_book_check->condition->value){
+               ReturnBookCondition::GOOD->value => $returnBook->book->stock_returned(),
+               ReturnBookCondition::DAMAGED->value => $returnBook->book->stock_damaged(),
+               ReturnBookCondition::LOST->value => $returnBook->book->stock_lost(),
+               default => flashMessage(MessageType::ERROR->message('Kondisi buku tidak valid'), 'error')
+           };
+
+            $status = match ($return_book_check->condition->value) {
+            ReturnBookCondition::LOST->value    => ReturnBookStatus::DENIED->value,
+            default                             => ReturnBookStatus::RETURNED->value,
+        };
+          
+           
+           $isOntime = $returnBook->isOnTime();
+           $dayslate = $returnBook->getDaysLate();
+            $returnBook->update([
+               'status' => $status,
+               'dayslate' => $returnBook->getDaysLate(),
+           ]);
+           DB::commit();
+
+            if (!$isOntime && $dayslate > 0) {
+            flashMessage(MessageType::UPDATED->message("Pengembalian buku terlambat {$dayslate} hari"), 'warning');
+        } else {
+            flashMessage(MessageType::UPDATED->message('Pengembalian buku berhasil diproses'), 'success');
+        }
+
+        return to_route('admin.return-books.index');
+        }catch(Throwable $e){
+            DB::rollBack();
             flashMessage(MessageType::ERROR->message(error: $e->getMessage()),'error');
             return to_route('admin.return-books.index');
         }

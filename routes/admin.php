@@ -86,7 +86,8 @@ Route::middleware('auth','role:admin')->prefix('admin')->group(function (){
         Route::get('return-books/{borrowed}/create', 'create')->name('admin.return-books.create');
         Route::put('return-books/{borrowed}/store', 'store')->name('admin.return-books.store');
         Route::delete('return-books/{returnBook}', 'destroy')->name('admin.return-books.destroy');
-        Route::get('return-books/{returnBook}/approve', 'approve')->name('admin.return-books.approve');
+        Route::put('return-books/{returnBook}/approve', 'approve')->name('admin.return-books.approve');
+        
 
 });
 Route::controller(AnnouncementController::class)->group(function (){

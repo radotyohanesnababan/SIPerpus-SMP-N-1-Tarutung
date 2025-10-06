@@ -3,11 +3,10 @@ import { Button } from '@/Components/ui/button';
 import { Card, CardContent } from '@/Components/ui/card';
 import { Input } from '@/Components/ui/input';
 import { Label } from '@/Components/ui/label';
-import { Textarea } from '@/Components/ui/textarea';
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/Components/ui/select';
 import AppLayout from '@/Layouts/AppLayout';
 import { Link, useForm } from '@inertiajs/react';
 import { IconArrowLeft, IconVersions } from '@tabler/icons-react';
-import {Select, SelectContent, SelectTrigger, SelectValue,SelectItem } from '@/Components/ui/select';
 
 export default function Edit(props) {
     const { data, setData, reset, post, processing, errors } = useForm({
@@ -42,13 +41,7 @@ export default function Edit(props) {
                     <form className="space-y-4" onSubmit={onHandleSubmit}>
                         <div className="grid w-full items-center gap-1.5">
                             <Label htmlFor="name">Nama</Label>
-                            <Input
-                                id="name"
-                                name="name"
-                                
-                                value={data.name}
-                                onChange={onHandleChange}
-                            />
+                            <Input id="name" name="name" value={data.name} onChange={onHandleChange} />
                             {errors.name && <InputError message={errors.name} />}
                         </div>
                         <div className="grid w-full items-center gap-1.5">
@@ -59,15 +52,15 @@ export default function Edit(props) {
                             >
                                 <SelectTrigger>
                                     <SelectValue>
-                                        {['web','api'].find(guard => guard === data.guard_name) ?? 'Pilih Guard'}
+                                        {['web', 'api'].find((guard) => guard === data.guard_name) ?? 'Pilih Guard'}
                                     </SelectValue>
                                 </SelectTrigger>
                                 <SelectContent>
-                                   {['web','api'].map(guard => (
-                                       <SelectItem key={guard} value={guard}>
-                                           {guard.charAt(0).toUpperCase() + guard.slice(1)}
-                                       </SelectItem>
-                                   ))}
+                                    {['web', 'api'].map((guard) => (
+                                        <SelectItem key={guard} value={guard}>
+                                            {guard.charAt(0).toUpperCase() + guard.slice(1)}
+                                        </SelectItem>
+                                    ))}
                                 </SelectContent>
                             </Select>
                         </div>

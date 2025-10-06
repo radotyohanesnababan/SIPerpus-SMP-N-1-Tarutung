@@ -23,6 +23,8 @@ import { IconArrowsDownUp, IconCreditCardRefund, IconRefresh, IconTrash } from '
 import { useEffect, useState } from 'react';
 import { toast } from 'sonner';
 
+import Approve from './Approve';
+
 export default function Index(props) {
     useEffect(() => {
         if (props.flash_message?.message) {
@@ -141,9 +143,9 @@ export default function Index(props) {
                                     <Button
                                         variant="ghost"
                                         className="group inline-flex "
-                                        onClick={() => onSortable('status')}
+                                        onClick={() => onSortable('condition')}
                                     >
-                                        Status{' '}
+                                        Kondisi{' '}
                                         <span className="ml-2 flex-none rounded text-muted-foreground">
                                             <IconArrowsDownUp className="size-4 text-muted-foreground" />
                                         </span>
@@ -218,11 +220,21 @@ export default function Index(props) {
                                     <TableCell>{return_book.borrowed.id}</TableCell>
                                     <TableCell>{return_book.user.nama}</TableCell>
                                     <TableCell>{return_book.book.judul}</TableCell>
-                                    <TableCell>{return_book.status}</TableCell>
+                                    <TableCell>{return_book.return_book_check}</TableCell>
                                     <TableCell>{return_book.borrowed.borrowed_at}</TableCell>
                                     <TableCell>{return_book.borrowed.returned_at}</TableCell>
                                     <TableCell>{return_book.return_date}</TableCell>
                                     <TableCell>{return_book.created_at}</TableCell>
+                                    <TableCell>
+                                        <div className="flex items-center gap-x-1">
+                                            {return_book.status === 'Pengecekan' && (
+                                                <Approve
+                                                    conditions={props.conditions}
+                                                    action={route('admin.return-books.approve', [return_book])}
+                                                ></Approve>
+                                            )}
+                                        </div>
+                                    </TableCell>
                                     <TableCell>
                                         <div className="flex items-center gap-x-1">
                                             <AlertDialog>

@@ -4,6 +4,7 @@ namespace App\Models;
 
 use App\Enums\ReturnBookCondition;
 use App\Enums\ReturnBookStatus;
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Builder;
 
@@ -16,6 +17,7 @@ class ReturnBook extends Model
         'return_date',
         'kondisi',
         'keterangan',
+        'status',
 
     ];
     protected $casts = [
@@ -24,6 +26,32 @@ class ReturnBook extends Model
         'status'=> ReturnBookStatus::class,
         'kondisi'=>ReturnBookCondition::class,
     ];
+
+    public function isOnTime(): bool
+{
+    if (!$this->return_date || !$this->returned_at) {
+        return false;
+    }
+
+    $returnedAt = Carbon::parse($this->return_date);   // tanggal aktual user balikin
+    $deadline   = Carbon::parse($this->returned_at);   // tanggal seharusnya balikin
+
+    return $returnedAt->lte($deadline);
+}
+
+    public function getDaysLate(): int
+{
+    if (!$this->return_date || !$this->returned_at) {
+        return 0;
+    }
+
+    $returnedAt = Carbon::parse($this->return_date);
+    $deadline   = Carbon::parse($this->returned_at);
+
+    return $returnedAt->gt($deadline)
+        ? $deadline->diffInDays($returnedAt)
+        : 0;
+}
 
     public function borrowed()
     {

@@ -37,7 +37,6 @@ class BookController extends Controller
                 'publisher_id',
                 'kondisi',
                 'cover',
-                'stok',
                 'category_id',
                 'created_at',
                 
@@ -105,7 +104,12 @@ class BookController extends Controller
                 'kondisi' => $request->stok > 0 ? BookStatus::AVAILABLE->value : BookStatus::UNAVAILABLE->value,
                 'category_id' => $request->category_id,
                 'cover' => $this->upload_file($request, 'cover', 'books'),
-                'stok' => $request->stok
+                
+            ]);
+            
+            $book->stock()->create([
+                'total' => $total = $request->stok,
+                'available' => $total,
             ]);
 
             

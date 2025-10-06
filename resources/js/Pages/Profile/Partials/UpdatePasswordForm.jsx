@@ -1,6 +1,6 @@
 import InputError from '@/Components/InputError';
 import { Button } from '@/Components/ui/button';
-import { CardContent, CardDescription, CardHeader, CardTitle, Card } from '@/Components/ui/card';
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/Components/ui/card';
 import { Input } from '@/Components/ui/input';
 import { Label } from '@/Components/ui/label';
 import { Transition } from '@headlessui/react';

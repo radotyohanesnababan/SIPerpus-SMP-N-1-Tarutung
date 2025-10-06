@@ -6,24 +6,27 @@ Dibangun menggunakan **Laravel + Livewire + SQLite/MySQL**, aplikasi ini membant
 ---
 
 ## ✨ Fitur Utama
+
 - 👨‍💼 **Admin (CMS)**
-  - Manajemen data buku (tambah, edit, hapus)
-  - Manajemen anggota/member
-  - Peminjaman & pengembalian buku
-  - Laporan buku & transaksi
+
+    - Manajemen data buku (tambah, edit, hapus)
+    - Manajemen anggota/member
+    - Peminjaman & pengembalian buku
+    - Laporan buku & transaksi
 
 - 👤 **Member**
-  - Registrasi & login
-  - Peminjaman buku
-  - Pengembalian buku
-  - EBOOK Feature
-  - Melihat daftar buku
-  - Melihat status peminjaman
-  - Profil anggota
+    - Registrasi & login
+    - Peminjaman buku
+    - Pengembalian buku
+    - EBOOK Feature
+    - Melihat daftar buku
+    - Melihat status peminjaman
+    - Profil anggota
 
 ---
 
 ## 🛠️ Teknologi
+
 - [Laravel](https://laravel.com/) 10.x
 - [React](https://reactjs.org/) 3.x
 - [Shadcn UI](https://ui.shadcn.com/)

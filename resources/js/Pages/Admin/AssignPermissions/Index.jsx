@@ -1,14 +1,4 @@
 import HeaderTitle from '@/Components/HeaderTitle';
-import {
-    AlertDialog,
-    AlertDialogAction,
-    AlertDialogCancel,
-    AlertDialogContent,
-    AlertDialogFooter,
-    AlertDialogHeader,
-    AlertDialogTitle,
-    AlertDialogTrigger,
-} from '@/Components/ui/alert-dialog';
 import { Badge } from '@/Components/ui/badge';
 import { Button } from '@/Components/ui/button';
 import { Card, CardContent, CardFooter, CardHeader } from '@/Components/ui/card';
@@ -18,9 +8,8 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/Components/ui/table';
 import { useFilter } from '@/hooks/useFilter';
 import AppLayout from '@/Layouts/AppLayout';
-import { Link, router } from '@inertiajs/react';
-import { AlertDialogDescription } from '@radix-ui/react-alert-dialog';
-import { IconArrowsDownUp, IconCategory, IconCircleKey, IconGitPullRequest, IconKeyframe, IconPencil, IconPlus, IconRefresh, IconTrash, IconVersions } from '@tabler/icons-react';
+import { Link } from '@inertiajs/react';
+import { IconArrowsDownUp, IconGitPullRequest, IconKeyframe, IconRefresh } from '@tabler/icons-react';
 import { useEffect, useState } from 'react';
 import { toast } from 'sonner';
 
@@ -58,8 +47,6 @@ export default function Index(props) {
                     subtitle={props.page_settings.subtitle}
                     icon={IconKeyframe}
                 />
-
-               
             </div>
             <Card>
                 <CardHeader>
@@ -128,7 +115,7 @@ export default function Index(props) {
                                         </span>
                                     </Button>
                                 </TableHead>
-                               
+
                                 <TableHead></TableHead>
                                 <TableHead>
                                     <Button
@@ -150,17 +137,20 @@ export default function Index(props) {
                                     <TableCell>{index + 1 + (meta.current_page - 1) * meta.per_page}</TableCell>
                                     <TableCell>{role.id}</TableCell>
                                     <TableCell>{role.name}</TableCell>
-                                    <TableCell>{role.permissions.map((permission,index)=> <span className='w-auto text-wrap ' key={index}>
-                                        <Badge variant='outline'>{permission}</Badge>
-                                    </span>)}</TableCell>
-                                    <TableCell> 
+                                    <TableCell>
+                                        {role.permissions.map((permission, index) => (
+                                            <span className="w-auto text-wrap " key={index}>
+                                                <Badge variant="outline">{permission}</Badge>
+                                            </span>
+                                        ))}
+                                    </TableCell>
+                                    <TableCell>
                                         <div className="flex items-center gap-x-1">
                                             <Button variant="blue" size="sm" asChild>
                                                 <Link href={route('admin.assign-permissions.edit', [role])}>
                                                     <IconGitPullRequest className="size-4" />
                                                 </Link>
                                             </Button>
-                                           
                                         </div>
                                     </TableCell>
                                 </TableRow>

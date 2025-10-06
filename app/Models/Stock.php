@@ -14,6 +14,7 @@ class Stock extends Model
         'total',
         'available',
         'borrowed',
+        'damaged',
         'lost',
     ];
     public function book(): BelongsTo

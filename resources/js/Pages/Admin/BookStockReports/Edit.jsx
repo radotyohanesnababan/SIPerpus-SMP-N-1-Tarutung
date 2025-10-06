@@ -5,7 +5,7 @@ import { Input } from '@/Components/ui/input';
 import { Label } from '@/Components/ui/label';
 import AppLayout from '@/Layouts/AppLayout';
 import { Link, useForm } from '@inertiajs/react';
-import { IconArrowLeft, IconCategory, IconStack2 } from '@tabler/icons-react';
+import { IconArrowLeft, IconStack2 } from '@tabler/icons-react';
 import { useRef } from 'react';
 
 export default function Edit(props) {
@@ -19,43 +19,40 @@ export default function Edit(props) {
     const calculateMinimumTotal = (available, borrowed, lost) => {
         return available + borrowed + lost;
     };
-    const initialTotal = useRef(data.total)
+    const initialTotal = useRef(data.total);
     const onHandleChange = (e) => {
         const { name, value } = e.target;
         const newValue = parseInt(value, 10) || 0;
 
-      setData((prevData) => {
-    const minimumTotal = initialTotal.current;
+        setData((prevData) => {
+            const minimumTotal = initialTotal.current;
 
-    const parsedValue = Number(newValue) || 0;
+            const parsedValue = Number(newValue) || 0;
 
-    // kalau field yang diubah 'total'
-    if (name === "total") {
-        
-        const validTotal = newValue >= minimumTotal ? newValue : minimumTotal;
-        const totalDiff = validTotal - prevData.total;
-        const newAvailable = prevData.available + totalDiff;
+            // kalau field yang diubah 'total'
+            if (name === 'total') {
+                const validTotal = newValue >= minimumTotal ? newValue : minimumTotal;
+                const totalDiff = validTotal - prevData.total;
+                const newAvailable = prevData.available + totalDiff;
 
-        return {
-            ...prevData,
-            total: validTotal,
-            available: newAvailable>= 0 ? newAvailable : 0,
-        };
-    }
-    return {
-        ...prevData,
-        [name]: newValue,
+                return {
+                    ...prevData,
+                    total: validTotal,
+                    available: newAvailable >= 0 ? newAvailable : 0,
+                };
+            }
+            return {
+                ...prevData,
+                [name]: newValue,
+            };
+        });
     };
-});
-
-};
     const onHandleSubmit = (e) => {
         e.preventDefault();
 
         post(props.page_settings.action);
     };
 
-    
     return (
         <div className="flex w-full flex-col pb-32">
             <div className="mb-8 flex flex-col items-start justify-between gap-y-4 lg:flex-row lg:items-center">
@@ -109,13 +106,7 @@ export default function Edit(props) {
                         </div>
                         <div className="grid w-full items-center gap-1.5">
                             <Label htmlFor="lost">Hilang</Label>
-                            <Input
-                                id="lost"
-                                name="lost"
-                                value={data.lost}
-                                onChange={onHandleChange}
-                                disabled
-                            />
+                            <Input id="lost" name="lost" value={data.lost} onChange={onHandleChange} disabled />
                             {errors.lost && <InputError message={errors.lost} />}
                         </div>
                         <div className="flex justify-end gap-x-2">

@@ -3,7 +3,10 @@
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\BookFrontController;
 use App\Http\Controllers\CategoryFrontController;
+use App\Http\Controllers\BorrowedFrontController;
+use App\Http\Controllers\ReturnBookFrontController;
 use App\Http\Controllers\ProfileController;
+use App\Models\Borrowed;
 use App\Models\Category;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
@@ -30,6 +33,19 @@ Route::controller(BookFrontController::class)->middleware(['web','auth','role:me
 Route::controller(CategoryFrontController::class)->middleware(['web','auth','role:member'])->group(function () {
     Route::get('categories', 'index')->name('front.categories.index');
     Route::get('categories/{category:slug}', 'show')->name('front.categories.show');
+});
+
+Route::controller(BorrowedFrontController::class)->middleware(['web','auth','role:member'])->group(function () {
+    Route::get('borroweds', 'index')->name('front.borroweds.index');
+    Route::get('borroweds/{borrowed:id}/detail', 'show')->name('front.borroweds.show');
+    Route::post('borroweds/{book:slug}/create', 'store')->name('front.borroweds.store');
+    
+});
+Route::controller(ReturnBookFrontController::class)->middleware(['web','auth','role:member'])->group(function () {
+    Route::get('return-books', 'index')->name('front.return-books.index');
+    Route::get('return-books/{returnBook:id}/detail', 'show')->name('front.return-books.show');
+    Route::post('return-books/{book:slug}/create/{borrowed:id}', 'store')->name('front.return-books.store');
+    
 });
 
 Route::get('testing', fn () => inertia('Testing'));
