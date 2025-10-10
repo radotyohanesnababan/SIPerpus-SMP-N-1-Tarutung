@@ -6,6 +6,7 @@ use App\Http\Controllers\CategoryFrontController;
 use App\Http\Controllers\BorrowedFrontController;
 use App\Http\Controllers\ReturnBookFrontController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\WelcomeController;
 use App\Models\Borrowed;
 use App\Models\Category;
 use Illuminate\Foundation\Application;
@@ -19,6 +20,10 @@ Route::get('/', function () {
         'laravelVersion' => Application::VERSION,
         'phpVersion' => PHP_VERSION,
     ]);
+});
+
+Route::controller(WelcomeController::class)->group(function () {
+    Route::get('/', 'index')->name('welcome');
 });
 
 Route::controller(DashboardController::class)->middleware('auth')->group(function () {

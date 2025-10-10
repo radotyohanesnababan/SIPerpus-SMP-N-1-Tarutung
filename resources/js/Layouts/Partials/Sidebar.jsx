@@ -6,6 +6,7 @@ import {
     IconCreditCardPay,
     IconCreditCardRefund,
     IconDashboard,
+    IconNotebook,
     IconStack2,
     IconUser,
     IconUsersGroup,
@@ -73,14 +74,18 @@ export default function Sidebar({ url, auth }) {
                         icon={IconStack2}
                         active={url.startsWith('/admin/book-stock-reports')}
                     />
-                    <NavLink url="#" title="E-book" icon={IconChartDots2} />
+                    <NavLink
+                        url={route('admin.ebooks.index')}
+                        title="E-book"
+                        icon={IconNotebook}
+                        active={url.startsWith('/admin/ebooks')}
+                    />
                     <NavLink
                         url={route('admin.users.index')}
                         title="Anggota"
                         icon={IconUsersGroup}
                         active={url.startsWith('/admin/users')}
                     />
-
                     <div className="px-3 py-2 text-sm font-semibold text-foreground">Peran dan Izin</div>
                     <NavLink
                         url={route('admin.roles.index')}
@@ -154,7 +159,12 @@ export default function Sidebar({ url, auth }) {
                         title="Kategori"
                         icon={IconCategory}
                     />
-                    <NavLink url="#" title="E-book" icon={IconChartDots2} />
+                    <NavLink
+                        url={route('admin.ebooks.index')}
+                        title="E-book"
+                        icon={IconNotebook}
+                        active={url.startsWith('/admin/ebook')}
+                    />
 
                     <div className="px-3 py-2 text-sm font-semibold text-foreground">Lainnya</div>
                     <NavLink

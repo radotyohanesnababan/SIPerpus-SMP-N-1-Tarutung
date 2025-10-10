@@ -13,33 +13,39 @@ export default function flashMessage(params) {
 
 export const messages = {
     503: {
-        title: 'Service Unavailable',
-        description: 'Sorry, we are doing some maintenance. Please check back later.',
+        title: 'Layanan Tidak Tersedia',
+        description: 'Maaf, kami sedang melakukan pemeliharaan sistem. Silakan coba lagi nanti.',
         status: 503,
     },
     500: {
-        title: 'Server Error',
-        description: 'Sorry, something went wrong. Please try again later.',
+        title: 'Kesalahan Server',
+        description: 'Maaf, terjadi kesalahan pada server. Silakan coba lagi beberapa saat.',
         status: 500,
     },
     404: {
-        title: 'Page Not Found',
-        description: "Sorry, we couldn't find the page you were looking for.",
+        title: 'Halaman Tidak Ditemukan',
+        description: 'Maaf, halaman yang Anda cari tidak ditemukan atau sudah dihapus.',
         status: 404,
     },
     403: {
-        title: 'Forbidden',
-        description: "Sorry, you don't have permission to access this page.",
+        title: 'Akses Ditolak',
+        description: 'Maaf, Anda tidak memiliki izin untuk mengakses halaman ini.',
         status: 403,
     },
     401: {
-        title: 'Unauthorized',
-        description: 'Sorry, you need to authorized to access this page.',
+        title: 'Tidak Diizinkan',
+        description: 'Maaf, Anda harus masuk terlebih dahulu untuk mengakses halaman ini.',
         status: 401,
     },
     429: {
-        title: 'Too Many Requests',
-        description: 'Sorry, you are being rate limited. Please try again later.',
+        title: 'Terlalu Banyak Permintaan',
+        description: 'Maaf, Anda mengirim terlalu banyak permintaan. Silakan coba lagi nanti.',
         status: 429,
     },
+    419: {
+        title: 'Sesi Berakhir',
+        description: 'Sesi Anda telah berakhir. Silakan muat ulang halaman atau masuk kembali.',
+        status: 419,
+    },
 };
+

@@ -70,8 +70,18 @@ export default function SidebarResponsive({ url, auth }) {
                             title="Kategori"
                             icon={IconChartDots2}
                         />
-                        <NavLinkResponsive url="#" title="Stok Buku" icon={IconChartDots2} />
-                        <NavLinkResponsive url="#" title="E-book" icon={IconChartDots2} />
+                       <NavLinkResponsive
+                        url={route('admin.book-stock-reports.index')}
+                        title="Stok Buku"
+                        icon={IconStack2}
+                        active={url.startsWith('/admin/book-stock-reports')}
+                    />
+                        <NavLinkResponsive
+                                                url={route('admin.ebooks.index')}
+                                                title="E-book"
+                                                icon={IconNotebook}
+                                                active={url.startsWith('/admin/ebook')}
+                                            />
                         <NavLinkResponsive
                             url={route('admin.users.index')}
                             title="Anggota"
@@ -158,8 +168,18 @@ export default function SidebarResponsive({ url, auth }) {
                             title="Kategori"
                             icon={IconCategory}
                         />
-                        <NavLinkResponsive url="#" title="Stok Buku" icon={IconChartDots2} />
-                        <NavLinkResponsive url="#" title="E-book" icon={IconChartDots2} />
+                        <NavLinkResponsive
+                        url={route('admin.book-stock-reports.index')}
+                        title="Stok Buku"
+                        icon={IconStack2}
+                        active={url.startsWith('/admin/book-stock-reports')}
+                    />
+                        <NavLinkResponsive
+                                                url={route('admin.ebooks.index')}
+                                                title="E-book"
+                                                icon={IconNotebook}
+                                                active={url.startsWith('/admin/ebook')}
+                                            />
 
                         <div className="px-3 py-2 text-sm font-semibold text-foreground">Lainnya</div>
                         <NavLinkResponsive

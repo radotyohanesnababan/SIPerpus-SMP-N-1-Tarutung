@@ -11,22 +11,20 @@ import { Link, useForm } from '@inertiajs/react';
 import { IconArrowLeft, IconBooks } from '@tabler/icons-react';
 import { useRef } from 'react';
 
-export default function Create(props) {
-    console.log(props.page_settings.action)
+export default function Edit(props) {
     const fileInputCover = useRef(null);
     const onHandleReset = () => {
         reset();
         fileInputCover.current.value = null;
     };
     const { data, setData, reset, post, processing, errors } = useForm({
-        judul: '',
-        tahun_terbit: null,
-        deskripsi: '',
-        isbn: '',
-        stok: 0,
+        judul: props.book.judul || '',
+        tahun_terbit: props.book.tahun_terbit || null,
+        deskripsi: props.book.deskripsi || '',
+        isbn: props.book.isbn || '',
         cover: null,
-        category_id: null,
-        publisher_id: null,
+        category_id: props.book.category_id || null,
+        publisher_id: props.book.publisher_id || null,
         _method: props.page_settings.method,
     });
     const onHandleChange = (e) => {
@@ -155,18 +153,7 @@ export default function Create(props) {
                             </Select>
                             {errors.publisher_id && <InputError message={errors.publisher_id} />}
                         </div>
-                        <div className="grid w-full items-center gap-1.5">
-                            <Label htmlFor="stok">Stok</Label>
-                            <Input
-                                id="stok"
-                                name="stok"
-                                type="number"
-                                placeholder="Masukkan stok awal"
-                                value={data.stok}
-                                onChange={onHandleChange}
-                            />
-                            {errors.stok && <InputError message={errors.stok} />}
-                        </div>
+
                         <div className="grid w-full items-center gap-1.5">
                             <Label htmlFor="cover">Cover</Label>
                             <Input
@@ -195,6 +182,6 @@ export default function Create(props) {
     );
 }
 
-Create.layout = (page) => (
+Edit.layout = (page) => (
     <AppLayout children={page} title={page.props.page_settings.title} subtitle={page.props.page_settings.subtitle} />
 );

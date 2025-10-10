@@ -9,6 +9,7 @@ use App\Http\Controllers\Admin\BookController;
 use App\Http\Controllers\Admin\BookStockReportController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\Admin\BorrowedController;
+use App\Http\Controllers\Admin\EbookController;
 use App\Http\Controllers\Admin\LoanStatisticController;
 use App\Http\Controllers\Admin\ReturnBookController;
 use App\Http\Controllers\Admin\RoleController;
@@ -56,6 +57,18 @@ Route::middleware('auth','role:admin')->prefix('admin')->group(function (){
         Route::get('books/edit/{book}', 'edit')->name('admin.books.edit');
         Route::put('books/edit/{book}', 'update')->name('admin.books.update');
         Route::delete('books/destroy/{book}','destroy')->name('admin.books.destroy');
+
+
+    });
+
+    Route::controller(EbookController::class)->group(function (){
+        
+        Route::get('ebooks', 'index')->name('admin.ebooks.index');
+        Route::get('ebooks/create', 'create')->name('admin.ebooks.create');
+        Route::post('ebooks/create', 'store')->name('admin.ebooks.store');
+        Route::get('ebooks/edit/{ebook}', 'edit')->name('admin.ebooks.edit');
+        Route::put('ebooks/edit/{ebook}', 'update')->name('admin.ebooks.update');
+        Route::delete('ebooks/destroy/{ebook}','destroy')->name('admin.ebooks.destroy');
 
 
     });

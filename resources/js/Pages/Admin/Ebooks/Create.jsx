@@ -12,19 +12,21 @@ import { IconArrowLeft, IconBooks } from '@tabler/icons-react';
 import { useRef } from 'react';
 
 export default function Create(props) {
-    console.log(props.page_settings.action)
+console.log(props.page_settings.action)
     const fileInputCover = useRef(null);
+    const fileInputPDF = useRef(null);
     const onHandleReset = () => {
         reset();
         fileInputCover.current.value = null;
+        fileInputPDF.current.value = null;
     };
     const { data, setData, reset, post, processing, errors } = useForm({
         judul: '',
         tahun_terbit: null,
         deskripsi: '',
         isbn: '',
-        stok: 0,
         cover: null,
+        file_path: null,
         category_id: null,
         publisher_id: null,
         _method: props.page_settings.method,
@@ -35,7 +37,8 @@ export default function Create(props) {
     const onHandleSubmit = (e) => {
         e.preventDefault();
 
-        post(props.page_settings.action);
+        post(props.page_settings.action, { forceFormData: true });
+
     };
 
     return (
@@ -47,7 +50,7 @@ export default function Create(props) {
                     icon={IconBooks}
                 />
                 <Button variant="orange" size="lg" asChild>
-                    <Link href={route('admin.books.index')}>
+                    <Link href={route('admin.ebooks.index')}>
                         <IconArrowLeft className="size-4"></IconArrowLeft>Kembali
                     </Link>
                 </Button>
@@ -156,19 +159,8 @@ export default function Create(props) {
                             {errors.publisher_id && <InputError message={errors.publisher_id} />}
                         </div>
                         <div className="grid w-full items-center gap-1.5">
-                            <Label htmlFor="stok">Stok</Label>
-                            <Input
-                                id="stok"
-                                name="stok"
-                                type="number"
-                                placeholder="Masukkan stok awal"
-                                value={data.stok}
-                                onChange={onHandleChange}
-                            />
-                            {errors.stok && <InputError message={errors.stok} />}
-                        </div>
-                        <div className="grid w-full items-center gap-1.5">
                             <Label htmlFor="cover">Cover</Label>
+                            <p className='text-sm text-muted-foreground'>File yang diterima : JPG,PNG,BMP.</p>
                             <Input
                                 cursor="pointer"
                                 id="cover"
@@ -178,6 +170,19 @@ export default function Create(props) {
                                 ref={fileInputCover}
                             />
                             {errors.cover && <InputError message={errors.cover} />}
+                        </div>
+                        <div className="grid w-full items-center gap-1.5">
+                            <Label htmlFor="file_path">File PDF</Label>
+                            <p className='text-sm text-muted-foreground'>File yang diterima : PDF</p>
+                            <Input
+                                cursor="pointer"
+                                id="file_path"
+                                name="file_path"
+                                type="file"
+                                onChange={(e) => setData(e.target.name, e.target.files[0])}
+                                ref={fileInputPDF}
+                            />
+                            {errors.file_path && <InputError message={errors.file_path} />}
                         </div>
 
                         <div className="flex justify-end gap-x-2">

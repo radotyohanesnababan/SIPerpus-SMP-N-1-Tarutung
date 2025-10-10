@@ -10,6 +10,7 @@ use App\Models\Borrowed;
 use App\Models\ReturnBook;
 use App\Models\Book;
 use App\Models\User;
+use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 
@@ -40,16 +41,7 @@ class DashboardController extends Controller
             ->latest('created_at')
             ->limit(5)
             ->with(['user', 'book'])
-            ->get();  
-//         dd([
-//     'auth_user' => Auth::user(),
-//     'role'      => Auth::user()->getRoleNames(),
-//     'nisn'      => Auth::user()->nisn,
-//     'borrowed_count' => \App\Models\Borrowed::where('user_nisn', Auth::user()->nisn)->count(),
-//     'all_count' => \App\Models\Borrowed::count(),
-// ]);
-
-        
+            ->get();          
         return inertia('Dashboard',[
             'page_settings'=>[
                 'title'=>'Dashboard',
@@ -58,6 +50,7 @@ class DashboardController extends Controller
                 
             ],
             'page_data'=>[
+                'transactionsChart'=>$this->chart(),
                 'borroweds'=>TransactionBorrowedResource::collection($borroweds),
                 'return_books'=>TransactionReturnBookResource::collection($return_books),
                 'total_books'=>Auth::user()->hasAnyRole(['admin','member'])? Book::count() : 0,
@@ -79,5 +72,50 @@ class DashboardController extends Controller
 
             ]   
         ]);
+    }
+
+    public function chart(): array {
+        $end_date = Carbon::now();
+        $start_date = $end_date->copy()->subMonth(3)->startOfMonth();
+
+        
+        $borroweds = Borrowed::query()
+            ->selectRaw('DATE(created_at) as date, COUNT(*) as borroweds')
+            ->whereBetween('created_at', [$start_date, $end_date])
+            ->when(Auth::user()->hasAnyRole(['admin']),function($query){
+                return $query;
+            },function($query){
+                return $query->where('user_nisn', Auth::user()->nisn);
+            })
+            ->groupBy('date')
+            ->orderBy('date')
+            ->pluck('borroweds', 'date');
+
+        $return_books = ReturnBook::query()
+            ->selectRaw('DATE(created_at) as date, COUNT(*) as returned')
+            ->whereBetween('created_at', [$start_date, $end_date])
+            ->when(Auth::user()->hasAnyRole(['admin']),function($query){
+                return $query;
+            },function($query){
+                return $query->where('user_nisn', Auth::user()->nisn);
+            })
+            ->whereNotNull('created_at')
+            ->groupBy('date')
+            ->orderBy('date')
+            ->pluck('returned', 'date');
+        
+            $charts =[];
+            $period = Carbon::parse($start_date) ->daysUntil($end_date);
+            //dd($return_books, $borroweds);
+            foreach($period as $date){
+                $date_string = $date->toDateString();
+                $charts[] =[
+                    'date' => $date_string,
+                    'borrowed' => $borroweds->get($date_string, 0),
+                    'return_book' => $return_books->get($date_string, 0),
+                ];
+            }
+
+            return $charts;
     }
 }
