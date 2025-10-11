@@ -33,3 +33,13 @@ Dibangun menggunakan **Laravel + Livewire + SQLite/MySQL**, aplikasi ini membant
 - Database: SQLite / MySQL
 
 ---
+## 🛠️ Akun Log-in 
+
+- Admin
+    - Username: `admin@example.com`
+    - Password: `password`
+- Member
+    - Username: `member@example.com`
+    - Password: `password`
+
+---
