@@ -7,7 +7,7 @@ import {
     IconCreditCardRefund,
     IconDashboard,
     IconNotebook,
-    IconStack2,
+    IconStack,
     IconUser,
     IconUsersGroup,
 } from '@tabler/icons-react';
@@ -71,7 +71,7 @@ export default function Sidebar({ url, auth }) {
                     <NavLink
                         url={route('admin.book-stock-reports.index')}
                         title="Stok Buku"
-                        icon={IconStack2}
+                        icon={IconStack}
                         active={url.startsWith('/admin/book-stock-reports')}
                     />
                     <NavLink

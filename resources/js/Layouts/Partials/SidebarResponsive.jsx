@@ -9,6 +9,7 @@ import {
     IconCreditCardRefund,
     IconDashboard,
     IconUser,
+    IconStack,
     IconUsersGroup,
 } from '@tabler/icons-react';
 
@@ -171,7 +172,7 @@ export default function SidebarResponsive({ url, auth }) {
                         <NavLinkResponsive
                         url={route('admin.book-stock-reports.index')}
                         title="Stok Buku"
-                        icon={IconStack2}
+                        icon={IconStack}
                         active={url.startsWith('/admin/book-stock-reports')}
                     />
                         <NavLinkResponsive
