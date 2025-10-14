@@ -11,7 +11,7 @@ use Illuminate\Http\RedirectResponse;
 use Throwable;
 use App\Enums\MessageType;
 
-use App\Models\Book;
+
 use App\Http\Resources\Admin\BookResource;
 use App\Http\Requests\Admin\BookRequest;
 use App\Http\Requests\Admin\EbookRequest;
@@ -35,15 +35,15 @@ class EbookController extends Controller
                 'isbn',
                 'deskripsi',
                 'publisher_id',
-                'kondisi',
                 'file_path',
+                'cover',
                 'category_id',
                 'created_at',
                 
             ])
             ->filter(request()->only(['search']))
             ->sorting(request()->only(['field', 'direction']))
-            ->with(['category', 'publisher', 'stock'])
+            ->with(['category', 'publisher'])
             ->latest('created_at')
             ->paginate(request()->load ?? 10)
             ->withQueryString();
@@ -103,20 +103,11 @@ class EbookController extends Controller
                 'isbn' => $request->isbn,
                 'deskripsi' => $request->deskripsi,
                 'publisher_id' => $request->publisher_id,
-                'kondisi' => $request->stok > 0 ? BookStatus::AVAILABLE->value : BookStatus::UNAVAILABLE->value,
                 'category_id' => $request->category_id,
                 'cover' => $this->upload_file($request, 'cover', 'ebooks'),
                 'file_path' => $this->upload_file($request, 'file_path', 'ebooks'),
                 
             ]);
-
-            $ebook->stock()->create([
-                'total' => $total = $request->stok,
-                'available' => $total,
-            ]);
-
-            
-
             flashMessage(MessageType::CREATED->message('Ebook'),
                 'success'
             );
@@ -168,10 +159,7 @@ class EbookController extends Controller
                 'file_path' => $this->update_file($request, $ebook, 'file_path', 'ebooks'),
                 
             ]);
-            
-            
-
-            flashMessage(MessageType::CREATED->message('Ebook'),
+            flashMessage(MessageType::UPDATED->message('Ebook'),
                 'success'
             );
             return to_route('admin.ebooks.index');

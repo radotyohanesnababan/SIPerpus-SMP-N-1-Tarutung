@@ -4,6 +4,7 @@ use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\BookFrontController;
 use App\Http\Controllers\CategoryFrontController;
 use App\Http\Controllers\BorrowedFrontController;
+use App\Http\Controllers\EbookFrontController;
 use App\Http\Controllers\ReturnBookFrontController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\WelcomeController;
@@ -13,14 +14,14 @@ use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
-Route::get('/', function () {
-    return Inertia::render('Welcome', [
-        'canLogin' => Route::has('login'),
-        'canRegister' => Route::has('register'),
-        'laravelVersion' => Application::VERSION,
-        'phpVersion' => PHP_VERSION,
-    ]);
-});
+// Route::get('/', function () {
+//     return Inertia::render('Welcome', [
+//         'canLogin' => Route::has('login'),
+//         'canRegister' => Route::has('register'),
+//         'laravelVersion' => Application::VERSION,
+//         'phpVersion' => PHP_VERSION,
+//     ]);
+// });
 
 Route::controller(WelcomeController::class)->group(function () {
     Route::get('/', 'index')->name('welcome');
@@ -33,6 +34,12 @@ Route::controller(DashboardController::class)->middleware('auth')->group(functio
 Route::controller(BookFrontController::class)->middleware(['web','auth','role:member'])->group(function () {
     Route::get('books', 'index')->name('front.books.index');
     Route::get('books/{book:slug}', 'show')->name('front.books.show');
+});
+
+Route::controller(EbookFrontController::class)->middleware(['web','auth','role:member'])->group(function () {
+    Route::get('ebooks', 'index')->name('front.ebooks.index');
+    Route::get('ebooks/{ebook:slug}', 'show')->name('front.ebooks.show');
+    Route::get('ebooks/download/{ebook:id}', 'download')->name('front.ebooks.download');
 });
 
 Route::controller(CategoryFrontController::class)->middleware(['web','auth','role:member'])->group(function () {
@@ -49,6 +56,7 @@ Route::controller(BorrowedFrontController::class)->middleware(['web','auth','rol
 Route::controller(ReturnBookFrontController::class)->middleware(['web','auth','role:member'])->group(function () {
     Route::get('return-books', 'index')->name('front.return-books.index');
     Route::get('return-books/{returnBook:id}/detail', 'show')->name('front.return-books.show');
+    Route::get('return-books/{returnBook:id}/download-sp', 'download')->name('front.return-books.download');
     Route::post('return-books/{book:slug}/create/{borrowed:id}', 'store')->name('front.return-books.store');
     
 });

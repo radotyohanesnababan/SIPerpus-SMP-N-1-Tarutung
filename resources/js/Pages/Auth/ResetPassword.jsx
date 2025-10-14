@@ -9,10 +9,10 @@ import { useEffect } from 'react';
 console.log('ResetPassword component loaded');
 
 export default function ResetPassword({ token, email }) {
-    console.log('ABCDEFGHIJKLMNOPQRSTUVWXYZ');
+    //console.log('ABCDEFGHIJKLMNOPQRSTUVWXYZ');
     useEffect(() => {
-        console.log('Token dari React:', token);
-        console.log('Email dari React:', email);
+        //console.log('Token dari React:', token);
+        //console.log('Email dari React:', email);
     }, [token, email]);
     const { data, setData, post, processing, errors, reset } = useForm({
         token: token,

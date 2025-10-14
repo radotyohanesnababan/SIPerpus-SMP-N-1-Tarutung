@@ -8,7 +8,7 @@ import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@
 import { useFilter } from '@/hooks/useFilter';
 import AppLayout from '@/Layouts/AppLayout';
 import { Link } from '@inertiajs/react';
-import { IconArrowsDownUp, IconPencil, IconRefresh, IconStack2 } from '@tabler/icons-react';
+import { IconArrowsDownUp, IconPencil, IconRefresh, IconStack } from '@tabler/icons-react';
 import { useEffect, useState } from 'react';
 import { toast } from 'sonner';
 
@@ -44,7 +44,7 @@ export default function Index(props) {
                 <HeaderTitle
                     title={props.page_settings.title}
                     subtitle={props.page_settings.subtitle}
-                    icon={IconStack2}
+                    icon={IconStack}
                 />
             </div>
             <Card>

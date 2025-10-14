@@ -1,12 +1,10 @@
 import HeaderTitle from '@/Components/HeaderTitle';
+import { Alert, AlertDescription, AlertTitle } from '@/Components/ui/alert';
 import { Button } from '@/Components/ui/button';
 import { Card, CardContent, CardFooter, CardHeader } from '@/Components/ui/card';
-import { Link } from '@inertiajs/react';
-import { IconCircleCheck } from '@tabler/icons-react';
-
 import AppLayout from '@/Layouts/AppLayout';
-import { IconCreditCardRefund } from '@tabler/icons-react';
-import { Alert,AlertDescription,AlertTitle } from '@/Components/ui/alert';
+import { Link } from '@inertiajs/react';
+import { IconCircleCheck, IconCreditCardRefund } from '@tabler/icons-react';
 
 export default function Show(props) {
     return (
@@ -79,21 +77,43 @@ export default function Show(props) {
 
             <h2 className="font-semibold leading-relaxed text-foreground">Informasi Pengembalian</h2>
 
-            {props.return_book.status === 'Dikembalikan'? (
-            <Alert variant='success'>
-                <AlertTitle>Informasi</AlertTitle>
-                <AlertDescription>
-                    Setelah melalui pengecekan, buku anda telah dikembalikan pada tanggal <time dateTime={props.return_book.return_date}>{props.return_book.return_date}</time>
-                </AlertDescription>
-            </Alert>
-        ) : (
-            <Alert variant='destructive'>
-                <AlertTitle>Informasi</AlertTitle>
-                <AlertDescription>
-                    Setelah melalui pengecekan, buku anda belum dikembalikan. Silahkan mengembalikan buku atau hubungi petugas perpustakaan.
-                </AlertDescription>
-            </Alert>
-        )}
+            {props.return_book.status === 'Dikembalikan' ? (
+                <Alert variant="success">
+                    <AlertTitle>Informasi</AlertTitle>
+                    <AlertDescription>
+                        Setelah melalui pengecekan, buku anda telah <strong>dikembalikan</strong> pada tanggal{' '}
+                        <time dateTime={props.return_book.return_date}>{props.return_book.return_date}</time>.
+                    </AlertDescription>
+                </Alert>
+            ) : props.return_book.status === 'Pengecekan' ? (
+                <Alert variant="info">
+                    <AlertTitle>Informasi</AlertTitle>
+                    <AlertDescription>
+                        Buku anda <strong>sedang dalam proses pengecekan</strong> oleh petugas perpustakaan. Mohon
+                        tunggu konfirmasi lebih lanjut.
+                    </AlertDescription>
+                </Alert>
+            ) : (
+                <Alert variant="destructive">
+                    <AlertTitle>Informasi</AlertTitle>
+                    <AlertDescription>
+                        Setelah melalui pengecekan, buku anda <strong>belum dikembalikan</strong>. Silakan segera
+                        mengembalikan buku atau hubungi petugas perpustakaan.
+                    </AlertDescription>
+                    <AlertDescription>
+                        Jika buku hilang, silahkan download surat pernyataan buku hilang dibawah ini dan serahkan ke
+                        petugas perpustakaan.
+                    </AlertDescription>
+                    <Link
+                        href={route('front.return-books.download', [props.return_book.id])}
+                        className="inline-block bg-red-400 font-semibold py-2 px-2 rounded-lg mt-4 border border-red-500 hover:bg-red-500 text-white text-md"
+                    >
+                        Download Surat Pernyataan
+                    </Link>
+
+                    <AlertDescription></AlertDescription>
+                </Alert>
+            )}
 
             <Card>
                 <CardContent className="p-6 space-y-20">

@@ -1,18 +1,116 @@
-import HeaderTitle from '@/Components/HeaderTitle';
 import WelcomeLayout from '@/Layouts/WelcomeLayout';
-import { IconWashEco } from '@tabler/icons-react';
+import { Link } from '@inertiajs/react';
+import 'swiper/css';
+import 'swiper/css/navigation';
+import 'swiper/css/pagination';
+import { Autoplay, Navigation, Pagination } from 'swiper/modules';
+import { Swiper, SwiperSlide } from 'swiper/react';
 
 export default function Welcome(props) {
     const auth = props.auth.user;
+    const categories = props.page_data.categories || [];
+    const slides = [
+        'https://picsum.photos/800/400?random=1',
+        'https://picsum.photos/800/400?random=2',
+        'https://picsum.photos/800/400?random=3',
+    ];
+
     return (
         <div className="flex flex-col w-full pb-32 space-y-4">
-           <div className="flex flex-col items-center justify-center gap-y-4 lg:flex-row lg:items-center lg:justify-center">
-                <HeaderTitle
-                    title={props.page_settings.title}
-                    subtitle={props.page_settings.subtitle}
-                    icon={IconWashEco}
-                ></HeaderTitle>
-            </div>
+            <div className="flex flex-col items-center justify-center gap-y-4 lg:flex-row lg:items-center lg:justify-center"></div>
+            <section
+                id="beranda"
+                className="flex flex-col md:flex-row items-center justify-between px-6 py-20 container mx-auto gap-10 opacity-0 animate-fadeIn"
+            >
+                <div className="flex justify-center md:w-1/2">
+                    <img
+                        src="/storage/logosekolah.png"
+                        alt="Perpustakaan"
+                        className="w-72 md:w-[420px] rounded-2xl shadow-xl ring-4 ring-sky-100"
+                    />
+                </div>
+
+                <div className="text-center md:text-left md:w-1/2 space-y-4">
+                    <h1 className="text-3xl md:text-4xl font-bold text-sky-700">
+                        Selamat Datang di Sistem Informasi Perpustakaan
+                    </h1>
+                    <p className="text-gray-600 leading-relaxed">
+                        Temukan berbagai koleksi buku digital dan cetak dari Perpustakaan SMP Negeri 1 Tarutung. Siswa
+                        dan guru dapat meminjam, membaca, dan mencari buku dengan mudah.
+                    </p>
+                    <Link
+                        href={route('register')}
+                        className="inline-block mt-4 px-6 py-3 bg-sky-500 text-white font-semibold rounded-lg hover:bg-sky-600 transition-all duration-300"
+                    >
+                        Daftar Sekarang
+                    </Link>
+                </div>
+            </section>
+
+            <section id="kategori" className="bg-sky-100/60 py-20 px-6 opacity-0 animate-fadeIn delay-150">
+                <div className="container mx-auto text-center">
+                    <h2 className="text-3xl font-bold text-sky-700 mb-10">Kategori Buku</h2>
+
+                    <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8 m-20">
+                        {categories.slice(0, 6).map((item) => (
+                            <div
+                                key={item.id}
+                                className="bg-white rounded-xl shadow-md hover:shadow-lg transition overflow-hidden transform hover:-translate-y-1 duration-300"
+                            >
+                                <div className="p-4">
+                                    <h3 className="text-xl font-semibold text-sky-700">{item.name}</h3>
+                                    <p className="text-gray-600 text-sm mt-2">
+                                        Jelajahi koleksi buku {item.name.toLowerCase()} untuk memperluas wawasanmu.
+                                    </p>
+                                </div>
+                            </div>
+                        ))}
+                    </div>
+                </div>
+            </section>
+
+            <section id="tentang" className="py-20 px-6 bg-white opacity-0 animate-fadeIn delay-300">
+                <div className="container mx-auto flex flex-col md:flex-row items-center gap-10">
+                    <div className="md:w-1/2">
+                        <Swiper
+                            modules={[Autoplay, Pagination, Navigation]}
+                            spaceBetween={30}
+                            centeredSlides={true}
+                            autoplay={{
+                                delay: 3000,
+                                disableOnInteraction: false,
+                            }}
+                            pagination={{
+                                clickable: true,
+                            }}
+                            navigation={true}
+                            className="mySwiper"
+                        >
+                            {slides.map((src, index) => (
+                                <SwiperSlide key={index}>
+                                    <img
+                                        src={src}
+                                        alt={`Slide ${index + 1}`}
+                                        className="w-full h-64 sm:h-80 md:h-96 object-cover"
+                                    />
+                                </SwiperSlide>
+                            ))}
+                        </Swiper>
+                    </div>
+                    <div className="md:w-1/2 space-y-4">
+                        <h2 className="text-3xl font-bold text-sky-700">Tentang Perpustakaan</h2>
+                        <p className="text-gray-600 leading-relaxed">
+                            Perpustakaan SMP Negeri 1 Tarutung hadir untuk mendukung kegiatan belajar mengajar dengan
+                            menyediakan berbagai koleksi buku pelajaran, referensi, dan literatur umum. Kami terus
+                            berinovasi dengan sistem digital agar siswa dan guru dapat mengakses informasi dengan cepat.
+                        </p>
+                        <p className="text-gray-600 leading-relaxed">
+                            Kami percaya bahwa membaca adalah jendela dunia, dan melalui SIPERPUS, setiap siswa dapat
+                            memperluas wawasan di mana pun dan kapan pun.
+                        </p>
+                    </div>
+                </div>
+            </section>
         </div>
     );
 }

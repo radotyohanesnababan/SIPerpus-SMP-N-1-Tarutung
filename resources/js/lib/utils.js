@@ -48,4 +48,3 @@ export const messages = {
         status: 419,
     },
 };
-

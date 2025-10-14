@@ -21,6 +21,7 @@ class CategoryFrontResource extends JsonResource
             'description' => $this->description,
             'books_count' => $this->books_count,
             'books' => BookFrontResource::collection($this->whenLoaded('books')),
+            'ebooks' => EbookFrontResource::collection($this->whenLoaded('ebooks')),
         ];
     }
 }

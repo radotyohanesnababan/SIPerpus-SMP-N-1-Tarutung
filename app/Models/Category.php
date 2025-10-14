@@ -24,6 +24,10 @@ class Category extends Model
     {
         return $this->hasMany(Book::class);
     }
+    public function ebooks(): HasMany
+    {
+        return $this->hasMany(Ebook::class);
+    }
 
     public function scopeFilter(Builder $query, array $filters): void
     {

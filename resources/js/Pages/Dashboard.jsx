@@ -16,7 +16,7 @@ import {
 } from '@tabler/icons-react';
 
 export default function Dashboard(props) {
-    console.log(props.page_data.transactionChart);
+    //console.log(props.page_data.transactionChart);
     const auth = props.auth.user;
     return (
         <div className="flex flex-col w-full pb-32 space-y-4">
@@ -115,8 +115,8 @@ export default function Dashboard(props) {
                     </CardStat>
                 </div>
             )}
-            
-            <ChartCustom chartData={props.page_data.transactionsChart}/>
+
+            <ChartCustom chartData={props.page_data.transactionsChart} />
 
             <div className="flex flex-col justify-between w-full gap-2 lg:flex-row">
                 <Card className="w-full lg:w-1/2">

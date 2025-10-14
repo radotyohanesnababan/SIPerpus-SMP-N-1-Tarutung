@@ -30,14 +30,14 @@ export default function Index(props) {
             toast[props.flash_message.type || 'success'](props.flash_message.message);
         }
     }, [props.flash_message]);
-    console.log('[Component] props.books:', props.books);
+    //console.log('[Component] props.books:', props.books);
     const { data: books, meta } = props.books;
     const [params, setParams] = useState(() => ({
         search: props.state?.search || '',
         load: props.state?.load || 10,
         page: props.state?.page || 1,
     }));
-    console.log('[Component] render ulang, params:', params);
+    //console.log('[Component] render ulang, params:', params);
     const onSortable = (field) => {
         setParams({
             ...params,

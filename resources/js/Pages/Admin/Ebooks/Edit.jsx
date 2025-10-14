@@ -13,18 +13,21 @@ import { useRef } from 'react';
 
 export default function Edit(props) {
     const fileInputCover = useRef(null);
+    const fileInputPDF = useRef(null);
     const onHandleReset = () => {
         reset();
         fileInputCover.current.value = null;
+        fileInputPDF.current.value = null;
     };
     const { data, setData, reset, post, processing, errors } = useForm({
-        judul: props.book.judul || '',
-        tahun_terbit: props.book.tahun_terbit || null,
-        deskripsi: props.book.deskripsi || '',
-        isbn: props.book.isbn || '',
+        judul: props.ebook.judul || '',
+        tahun_terbit: props.ebook.tahun_terbit || null,
+        deskripsi: props.ebook.deskripsi || '',
+        isbn: props.ebook.isbn || '',
         cover: null,
-        category_id: props.book.category_id || null,
-        publisher_id: props.book.publisher_id || null,
+        file_path: null,
+        category_id: props.ebook.category_id || null,
+        publisher_id: props.ebook.publisher_id || null,
         _method: props.page_settings.method,
     });
     const onHandleChange = (e) => {
@@ -33,7 +36,7 @@ export default function Edit(props) {
     const onHandleSubmit = (e) => {
         e.preventDefault();
 
-        post(props.page_settings.action);
+        post(props.page_settings.action, { forceFormData: true });
     };
 
     return (
@@ -45,7 +48,7 @@ export default function Edit(props) {
                     icon={IconBooks}
                 />
                 <Button variant="orange" size="lg" asChild>
-                    <Link href={route('admin.books.index')}>
+                    <Link href={route('admin.ebooks.index')}>
                         <IconArrowLeft className="size-4"></IconArrowLeft>Kembali
                     </Link>
                 </Button>
@@ -153,9 +156,9 @@ export default function Edit(props) {
                             </Select>
                             {errors.publisher_id && <InputError message={errors.publisher_id} />}
                         </div>
-
                         <div className="grid w-full items-center gap-1.5">
                             <Label htmlFor="cover">Cover</Label>
+                            <p className="text-sm text-muted-foreground">File yang diterima : JPG,PNG,BMP.</p>
                             <Input
                                 cursor="pointer"
                                 id="cover"
@@ -165,6 +168,19 @@ export default function Edit(props) {
                                 ref={fileInputCover}
                             />
                             {errors.cover && <InputError message={errors.cover} />}
+                        </div>
+                        <div className="grid w-full items-center gap-1.5">
+                            <Label htmlFor="file_path">File PDF</Label>
+                            <p className="text-sm text-muted-foreground">File yang diterima : PDF</p>
+                            <Input
+                                cursor="pointer"
+                                id="file_path"
+                                name="file_path"
+                                type="file"
+                                onChange={(e) => setData(e.target.name, e.target.files[0])}
+                                ref={fileInputPDF}
+                            />
+                            {errors.file_path && <InputError message={errors.file_path} />}
                         </div>
 
                         <div className="flex justify-end gap-x-2">

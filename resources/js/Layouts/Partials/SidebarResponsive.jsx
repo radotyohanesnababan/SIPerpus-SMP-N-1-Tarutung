@@ -8,8 +8,9 @@ import {
     IconCreditCardPay,
     IconCreditCardRefund,
     IconDashboard,
-    IconUser,
+    IconNotebook,
     IconStack,
+    IconUser,
     IconUsersGroup,
 } from '@tabler/icons-react';
 
@@ -71,18 +72,18 @@ export default function SidebarResponsive({ url, auth }) {
                             title="Kategori"
                             icon={IconChartDots2}
                         />
-                       <NavLinkResponsive
-                        url={route('admin.book-stock-reports.index')}
-                        title="Stok Buku"
-                        icon={IconStack2}
-                        active={url.startsWith('/admin/book-stock-reports')}
-                    />
                         <NavLinkResponsive
-                                                url={route('admin.ebooks.index')}
-                                                title="E-book"
-                                                icon={IconNotebook}
-                                                active={url.startsWith('/admin/ebook')}
-                                            />
+                            url={route('admin.book-stock-reports.index')}
+                            title="Stok Buku"
+                            icon={IconStack}
+                            active={url.startsWith('/admin/book-stock-reports')}
+                        />
+                        <NavLinkResponsive
+                            url={route('admin.ebooks.index')}
+                            title="E-book"
+                            icon={IconNotebook}
+                            active={url.startsWith('/admin/ebook')}
+                        />
                         <NavLinkResponsive
                             url={route('admin.users.index')}
                             title="Anggota"
@@ -141,7 +142,7 @@ export default function SidebarResponsive({ url, auth }) {
                         <div className="px-3 py-2 text-sm font-semibold text-foreground">Peminjaman</div>
                         <NavLinkResponsive
                             url={route('front.borroweds.index')}
-                            active={url.startsWith('/frontborrowed')}
+                            active={url.startsWith('/borroweds')}
                             title="Peminjaman"
                             icon={IconCreditCardPay}
                         />
@@ -149,7 +150,7 @@ export default function SidebarResponsive({ url, auth }) {
                         <div className="px-3 py-2 text-sm font-semibold text-foreground">Pengembalian</div>
                         <NavLinkResponsive
                             url={route('front.return-books.index')}
-                            active={url.startsWith('/front/return-books')}
+                            active={url.startsWith('/return-books')}
                             title="Pengembalian"
                             icon={IconCreditCardRefund}
                         />
@@ -158,29 +159,29 @@ export default function SidebarResponsive({ url, auth }) {
                         <div className="px-3 py-2 text-sm font-semibold text-foreground">Koleksi Perpustakaan</div>
                         <NavLinkResponsive
                             url={route('front.books.index')}
-                            active={url.startsWith('/front/books')}
+                            active={url.startsWith('/books')}
                             title="Buku"
                             icon={IconBooks}
                         />
 
                         <NavLinkResponsive
                             url={route('front.categories.index')}
-                            active={url.startsWith('/front/categories')}
+                            active={url.startsWith('/categories')}
                             title="Kategori"
                             icon={IconCategory}
                         />
                         <NavLinkResponsive
-                        url={route('admin.book-stock-reports.index')}
-                        title="Stok Buku"
-                        icon={IconStack}
-                        active={url.startsWith('/admin/book-stock-reports')}
-                    />
+                            url={route('admin.book-stock-reports.index')}
+                            title="Stok Buku"
+                            icon={IconStack}
+                            active={url.startsWith('/admin/book-stock-reports')}
+                        />
                         <NavLinkResponsive
-                                                url={route('admin.ebooks.index')}
-                                                title="E-book"
-                                                icon={IconNotebook}
-                                                active={url.startsWith('/admin/ebook')}
-                                            />
+                            url={route('front.ebooks.index')}
+                            title="E-book"
+                            icon={IconNotebook}
+                            active={url.startsWith('/ebook')}
+                        />
 
                         <div className="px-3 py-2 text-sm font-semibold text-foreground">Lainnya</div>
                         <NavLinkResponsive

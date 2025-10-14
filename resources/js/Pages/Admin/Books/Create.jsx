@@ -12,7 +12,7 @@ import { IconArrowLeft, IconBooks } from '@tabler/icons-react';
 import { useRef } from 'react';
 
 export default function Create(props) {
-    console.log(props.page_settings.action)
+    //console.log(props.page_settings.action)
     const fileInputCover = useRef(null);
     const onHandleReset = () => {
         reset();

@@ -8,8 +8,8 @@ export default function NavLink({ active = false, url = '#', title, icon: Icon, 
             href={url}
             className={cn(
                 active
-                    ? 'bg-gradient-to-r from-orange-500 via-orange-600 to-orange-500 font-semibold text-white hover:text-white'
-                    : 'text-muted-foreground hover:text-orange-500',
+                    ? 'bg-gradient-to-r from-blue-300 via-blue-400 to-blue-300 font-semibold text-gray-900 hover:text-gray-900'
+                    : 'text-muted-foreground hover:text-blue-400',
                 'flex items-center gap-3 rounded-lg p-2 font-medium transition-all',
             )}
         >

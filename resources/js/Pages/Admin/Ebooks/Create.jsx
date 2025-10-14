@@ -12,7 +12,6 @@ import { IconArrowLeft, IconBooks } from '@tabler/icons-react';
 import { useRef } from 'react';
 
 export default function Create(props) {
-console.log(props.page_settings.action)
     const fileInputCover = useRef(null);
     const fileInputPDF = useRef(null);
     const onHandleReset = () => {
@@ -38,7 +37,6 @@ console.log(props.page_settings.action)
         e.preventDefault();
 
         post(props.page_settings.action, { forceFormData: true });
-
     };
 
     return (
@@ -160,7 +158,7 @@ console.log(props.page_settings.action)
                         </div>
                         <div className="grid w-full items-center gap-1.5">
                             <Label htmlFor="cover">Cover</Label>
-                            <p className='text-sm text-muted-foreground'>File yang diterima : JPG,PNG,BMP.</p>
+                            <p className="text-sm text-muted-foreground">File yang diterima : JPG,PNG,BMP.</p>
                             <Input
                                 cursor="pointer"
                                 id="cover"
@@ -173,7 +171,7 @@ console.log(props.page_settings.action)
                         </div>
                         <div className="grid w-full items-center gap-1.5">
                             <Label htmlFor="file_path">File PDF</Label>
-                            <p className='text-sm text-muted-foreground'>File yang diterima : PDF</p>
+                            <p className="text-sm text-muted-foreground">File yang diterima : PDF</p>
                             <Input
                                 cursor="pointer"
                                 id="file_path"

@@ -5,7 +5,7 @@ import { Input } from '@/Components/ui/input';
 import { Label } from '@/Components/ui/label';
 import AppLayout from '@/Layouts/AppLayout';
 import { Link, useForm } from '@inertiajs/react';
-import { IconArrowLeft, IconStack2 } from '@tabler/icons-react';
+import { IconArrowLeft, IconStack } from '@tabler/icons-react';
 import { useRef } from 'react';
 
 export default function Edit(props) {
@@ -59,7 +59,7 @@ export default function Edit(props) {
                 <HeaderTitle
                     title={props.page_settings.title}
                     subtitle={props.page_settings.subtitle}
-                    icon={IconStack2}
+                    icon={IconStack}
                 />
                 <Button variant="orange" size="lg" asChild>
                     <Link href={route('admin.book-stock-reports.index')}>

@@ -12,6 +12,7 @@ use App\Models\ReturnBook;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Resources\ReturnBookFrontResource;
 use App\Models\Borrowed;
+use Barryvdh\DomPDF\Facade\Pdf;
 use Redirect;
 
 class ReturnBookFrontController extends Controller
@@ -58,6 +59,7 @@ class ReturnBookFrontController extends Controller
                 'title' => 'Detail Pengembalian',
                 'subtitle' => 'Detail pengembalian buku yang anda kembalikan',
             ],
+
             
         ]);
     }
@@ -72,4 +74,19 @@ class ReturnBookFrontController extends Controller
         flashMessage('Buku sedang dilakukan pengecekan pengembalian, mohon tunggu.','success');
         return to_route('front.return-books.show',[$returnBook->id]);
     }
+
+    public function download(ReturnBook $returnBook)
+{
+    $returnBook->load(['book', 'user', 'borrowed']);
+
+    $pdf = Pdf::loadView('sphilang', [
+        'returnBook' => $returnBook,
+    ])->setPaper('a4', 'portrait');
+
+    $filename = 'Surat_Pernyataan_Hilang_' . $returnBook->id . '.pdf';
+
+    return $pdf->download($filename);
+}
+
+
 }

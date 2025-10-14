@@ -14,8 +14,7 @@ class CategoryFrontController extends Controller
     public function index(): Response
     {
         $categories = Category::query()
-            ->withCount('books')
-           
+            ->withCount('books', 'ebooks')
             ->latest()
             ->paginate(12);
 

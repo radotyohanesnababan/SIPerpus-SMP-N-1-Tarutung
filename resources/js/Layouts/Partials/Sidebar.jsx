@@ -133,7 +133,7 @@ export default function Sidebar({ url, auth }) {
                     <div className="px-3 py-2 text-sm font-semibold text-foreground">Peminjaman</div>
                     <NavLink
                         url={route('front.borroweds.index')}
-                        active={url.startsWith('/front/borroweds')}
+                        active={url.startsWith('/borroweds')}
                         title="Peminjaman"
                         icon={IconCreditCardPay}
                     />
@@ -141,7 +141,7 @@ export default function Sidebar({ url, auth }) {
                     <div className="px-3 py-2 text-sm font-semibold text-foreground">Pengembalian</div>
                     <NavLink
                         url={route('front.return-books.index')}
-                        active={url.startsWith('/front/return-books')}
+                        active={url.startsWith('/return-books')}
                         title="Pengembalian"
                         icon={IconCreditCardRefund}
                     />
@@ -149,21 +149,21 @@ export default function Sidebar({ url, auth }) {
                     <div className="px-3 py-2 text-sm font-semibold text-foreground">Koleksi Perpustakaan</div>
                     <NavLink
                         url={route('front.books.index')}
-                        active={url.startsWith('/front/books')}
+                        active={url.startsWith('/books')}
                         title="Buku"
                         icon={IconChartDots2}
                     />
                     <NavLink
                         url={route('front.categories.index')}
-                        active={url.startsWith('/front/categories')}
+                        active={url.startsWith('/categories')}
                         title="Kategori"
                         icon={IconCategory}
                     />
                     <NavLink
-                        url={route('admin.ebooks.index')}
+                        url={route('front.ebooks.index')}
                         title="E-book"
                         icon={IconNotebook}
-                        active={url.startsWith('/admin/ebook')}
+                        active={url.startsWith('/ebook')}
                     />
 
                     <div className="px-3 py-2 text-sm font-semibold text-foreground">Lainnya</div>

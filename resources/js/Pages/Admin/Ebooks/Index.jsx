@@ -20,7 +20,7 @@ import { useFilter } from '@/hooks/useFilter';
 import AppLayout from '@/Layouts/AppLayout';
 import { Link, router } from '@inertiajs/react';
 import { AlertDialogDescription } from '@radix-ui/react-alert-dialog';
-import { IconArrowsDownUp, IconBook, IconBooks, IconPencil, IconPlus, IconRefresh, IconTrash } from '@tabler/icons-react';
+import { IconArrowsDownUp, IconBook, IconPencil, IconPlus, IconRefresh, IconTrash } from '@tabler/icons-react';
 import { useEffect, useState } from 'react';
 import { toast } from 'sonner';
 
@@ -36,7 +36,7 @@ export default function Index(props) {
         load: props.state?.load || 10,
         page: props.state?.page || 1,
     }));
-    console.log('[Component] render ulang, params:', params);
+    //console.log('[Component] render ulang, params:', params);
     const onSortable = (field) => {
         setParams({
             ...params,
@@ -141,7 +141,6 @@ export default function Index(props) {
                                         </span>
                                     </Button>
                                 </TableHead>
-                                <TableHead>Stok</TableHead>
                                 <TableHead>
                                     <Button
                                         variant="ghost"
@@ -149,18 +148,6 @@ export default function Index(props) {
                                         onClick={() => onSortable('tahun_terbit')}
                                     >
                                         Tahun Terbit{' '}
-                                        <span className="ml-2 flex-none rounded text-muted-foreground">
-                                            <IconArrowsDownUp className="size-4 text-muted-foreground" />
-                                        </span>
-                                    </Button>
-                                </TableHead>
-                                <TableHead>
-                                    <Button
-                                        variant="ghost"
-                                        className="group inline-flex "
-                                        onClick={() => onSortable('kondisi')}
-                                    >
-                                        Kondisi Buku{' '}
                                         <span className="ml-2 flex-none rounded text-muted-foreground">
                                             <IconArrowsDownUp className="size-4 text-muted-foreground" />
                                         </span>
@@ -234,9 +221,8 @@ export default function Index(props) {
                                     <TableCell>{index + 1 + (meta.current_page - 1) * meta.per_page}</TableCell>
                                     <TableCell>{ebook.judul}</TableCell>
                                     <TableCell>{ebook.isbn}</TableCell>
-                                    <TableCell>{ebook.stok.total}</TableCell>
+
                                     <TableCell>{ebook.tahun_terbit}</TableCell>
-                                    <TableCell>{ebook.kondisi}</TableCell>
                                     <TableCell>{ebook.category.name}</TableCell>
                                     <TableCell>{ebook.publisher.name}</TableCell>
                                     <TableCell>

@@ -17,6 +17,13 @@ class WelcomeController extends Controller
 {
     public function index(){
 
+        $categories = Category::query()
+            ->select(['id', 'name', 'slug', 'created_at'])
+            ->latest('created_at')
+            ->limit(10)
+            ->withCount('books')
+            ->get();
+
         $borroweds = Borrowed::query()
             ->select(['id', 'user_nisn', 'book_id', 'created_at'])
             
@@ -45,6 +52,7 @@ class WelcomeController extends Controller
             'page_data'=>[
                 'borroweds'=>TransactionBorrowedResource::collection($borroweds),
                 'return_books'=>TransactionReturnBookResource::collection($return_books),
+                'categories'=>$categories,
                
                 
 

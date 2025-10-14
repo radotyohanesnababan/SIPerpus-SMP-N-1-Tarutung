@@ -6,18 +6,20 @@ use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration
 {
+   
     public function up(): void
     {
         Schema::table('ebooks', function (Blueprint $table) {
-            $table->string('cover')->nullable()->after('judul');
+            if (Schema::hasColumn('ebooks', 'kondisi')) {
+                $table->dropColumn('kondisi');
+            }
         });
     }
 
     public function down(): void
     {
         Schema::table('ebooks', function (Blueprint $table) {
-            $table->dropColumn('cover');
+            $table->string('kondisi')->nullable();
         });
     }
 };
-

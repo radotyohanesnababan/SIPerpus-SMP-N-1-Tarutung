@@ -15,7 +15,6 @@ class Ebook extends Model
         'isbn',
         'deskripsi',
         'cover',
-        'kondisi',
         'file_path',
         'category_id',
         'publisher_id',
@@ -27,10 +26,6 @@ class Ebook extends Model
     public function category()
     {
         return $this->belongsTo(Category::class);
-    }
-    public function stock()
-    {
-        return $this->hasOne(Stock::class);
     }
     public function publisher()
     {
@@ -52,7 +47,6 @@ class Ebook extends Model
                     'slug',
                     'tahun_terbit',
                     'isbn',
-                    'kondisi',
                 ], 'REGEXP', $search);
             });
         });
