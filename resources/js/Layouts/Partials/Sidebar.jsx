@@ -2,6 +2,7 @@ import NavLink from '@/Components/NavLink';
 import {
     IconAlertCircle,
     IconCategory,
+    IconChartArea,
     IconChartDots2,
     IconCreditCardPay,
     IconCreditCardRefund,
@@ -24,7 +25,13 @@ export default function Sidebar({ url, auth }) {
                         title="Dashboard"
                         icon={IconDashboard}
                     />
-
+                    <div className="px-3 py-2 text-sm font-semibold text-foreground">Laporan Performa</div>
+                    <NavLink
+                        url={route('admin.reports.index')}
+                        active={url.startsWith('/admin/reports')}
+                        title="Laporan Performa"
+                        icon={IconChartArea}
+                    />
                     <div className="px-3 py-2 text-sm font-semibold text-foreground">Peminjaman</div>
                     <NavLink
                         url={route('admin.borroweds.index')}
@@ -80,12 +87,21 @@ export default function Sidebar({ url, auth }) {
                         icon={IconNotebook}
                         active={url.startsWith('/admin/ebooks')}
                     />
+                   
+                    <div className="px-3 py-2 text-sm font-semibold text-foreground">Anggota</div>
                     <NavLink
                         url={route('admin.users.index')}
-                        title="Anggota"
+                        title="Daftar Anggota"
                         icon={IconUsersGroup}
                         active={url.startsWith('/admin/users')}
                     />
+                     <NavLink
+                        url={route('admin.kelas.index')}
+                        title="Kenaikan Kelas"
+                        icon={IconUsersGroup}
+                        active={url.startsWith('/admin/kelas')}
+                    />
+                    
                     <div className="px-3 py-2 text-sm font-semibold text-foreground">Peran dan Izin</div>
                     <NavLink
                         url={route('admin.roles.index')}
@@ -105,6 +121,7 @@ export default function Sidebar({ url, auth }) {
                         icon={IconUser}
                         active={url.startsWith('/admin/permissions')}
                     />
+
 
                     <div className="px-3 py-2 text-sm font-semibold text-foreground">Lainnya</div>
                     <NavLink

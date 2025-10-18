@@ -106,11 +106,6 @@ class BookController extends Controller
                 'cover' => $this->upload_file($request, 'cover', 'books'),
                 
             ]);
-            
-            $book->stock()->create([
-                'total' => $total = $request->stok,
-                'available' => $total,
-            ]);
 
             
 

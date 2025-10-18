@@ -84,12 +84,20 @@ export default function SidebarResponsive({ url, auth }) {
                             icon={IconNotebook}
                             active={url.startsWith('/admin/ebook')}
                         />
-                        <NavLinkResponsive
-                            url={route('admin.users.index')}
-                            title="Anggota"
-                            icon={IconUsersGroup}
-                            active={url.startsWith('/admin/users')}
-                        />
+                        
+                        <div className="px-3 py-2 text-sm font-semibold text-foreground">Anggota</div>
+                                            <NavLinkResponsive
+                                                url={route('admin.users.index')}
+                                                title="Daftar Anggota"
+                                                icon={IconUsersGroup}
+                                                active={url.startsWith('/admin/users')}
+                                            />
+                                             <NavLinkResponsive
+                                                url={route('admin.kelas.index')}
+                                                title="Kenaikan Kelas"
+                                                icon={IconUsersGroup}
+                                                active={url.startsWith('/admin/kelas')}
+                                            />
                         <div className="px-3 py-2 text-sm font-semibold text-foreground">Peran dan Izin</div>
                         <NavLinkResponsive
                             url={route('admin.roles.index')}

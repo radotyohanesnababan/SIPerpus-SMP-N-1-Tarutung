@@ -10,6 +10,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rules;
+use App\Models\Kelas;
 use Inertia\Inertia;
 use Inertia\Response;
 
@@ -20,7 +21,9 @@ class RegisteredUserController extends Controller
      */
     public function create(): Response
     {
-        return Inertia::render('Auth/Register');
+        return Inertia::render('Auth/Register', [
+            'kelas' => Kelas::all(['id', 'tingkat'])
+        ]);
     }
 
     /**
@@ -36,6 +39,7 @@ class RegisteredUserController extends Controller
             'nisn' => 'required|string|size:10|unique:'.User::class,
             'email' => 'required|string|lowercase|email|max:255|unique:'.User::class,
             'password' => ['required', 'confirmed', Rules\Password::defaults()],
+            'kelas_id' => 'nullable|exists:kelas,id',
         ]);
 
         $user = User::create([
@@ -43,6 +47,7 @@ class RegisteredUserController extends Controller
             'email' => $request->email,
             'nisn' => $request->nisn,
             'password' => Hash::make($request->password),
+            'kelas_id' => $request->kelas_id
         ]);
 
         $user->assignRole('member'); 

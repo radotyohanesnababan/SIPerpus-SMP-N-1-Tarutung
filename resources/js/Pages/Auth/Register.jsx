@@ -4,14 +4,32 @@ import { Button } from '@/Components/ui/button';
 import { Input } from '@/Components/ui/input';
 import { Label } from '@/Components/ui/label';
 import { Head, Link, useForm } from '@inertiajs/react';
-export default function Register() {
+import 'swiper/css';
+import 'swiper/css/navigation';
+import 'swiper/css/pagination';
+import { Autoplay, Navigation, Pagination } from 'swiper/modules';
+import { Swiper, SwiperSlide } from 'swiper/react';
+import {
+    Select,
+    SelectTrigger,
+    SelectValue,
+    SelectContent,
+    SelectItem,
+} from "@/Components/ui/select";
+export default function Register({kelas = []}) {
     const { data, setData, post, processing, errors, reset } = useForm({
         nama: '',
         email: '',
         nisn: '',
         password: '',
         password_confirmation: '',
+        kelas_id: '',
     });
+     const slides = [
+        'https://picsum.photos/1080/720?random=1',
+        'https://picsum.photos/1080/720?random=2',
+        'https://picsum.photos/1080/720?random=3',
+    ];
 
     const onHandleChange = (e) => {
         setData(e.target.name, e.target.value);
@@ -36,7 +54,7 @@ export default function Register() {
                             <div className="grid gap-2 text-center">
                                 <h1 className="text-3xl font-bold">Daftar</h1>
                                 <p className="text-balance text-muted-foreground">
-                                    Masukkan informasi siswa anda untuk masuk.
+                                    Masukkan informasi siswa anda untuk mendaftar.
                                 </p>
                             </div>
                             <form onSubmit={submit}>
@@ -68,6 +86,30 @@ export default function Register() {
 
                                         {errors.nisn && <InputError message={errors.nisn} />}
                                     </div>
+                                    <div className='grid gap-2'>
+                                        <Label htmlFor="kelas">Kelas</Label>
+                                        <Select
+                                            value={data.kelas_id || ""}
+                                            onValueChange={(value) => setData("kelas_id", value)}
+                                        >
+                                            <SelectTrigger className="w-full">
+                                                <SelectValue placeholder="Pilih Kelas" />
+                                            </SelectTrigger>
+                                            <SelectContent>
+                                                {Array.isArray(kelas) && kelas.length > 0 ? (
+                                                    kelas.map((k) => (
+                                                        <SelectItem key={k.id} value={String(k.id)}>
+                                                            {k.tingkat}
+                                                        </SelectItem>
+                                                    ))
+                                                ) : (
+                                                    <SelectItem value="">Belum ada data kelas</SelectItem>
+                                                )}
+                                            </SelectContent>
+                                        </Select>
+                                        <InputError message={errors.kelas_id} className="mt-2" />
+                                    </div>
+
                                     <div className="grid gap-2">
                                         <Label htmlFor="email">Email</Label>
 
@@ -113,24 +155,46 @@ export default function Register() {
                                     </div>
                                     <Button
                                         type="submit"
-                                        variant="default"
+                                        variant="skyblue"
                                         size="xl"
                                         className="w-full"
                                         disabled={processing}
                                     >
-                                        Dafter
+                                        Daftar Sekarang!
                                     </Button>
                                 </div>
                             </form>
                             <div className="mt-4 text-center text-sm">
                                 Sudah punya akun?
-                                <Link href={route.login} className="underline">
+                                <Link href={route('login')} className="underline">
                                     Masuk
                                 </Link>
                             </div>
                         </div>
                     </div>
                 </div>
+                <div className='hidden lg:block'>
+                <Swiper
+                                        modules={[Autoplay, Pagination, Navigation]}
+                                        spaceBetween={30}
+                                        centeredSlides={true}
+                                        autoplay={{
+                                            delay: 3000,
+                                            disableOnInteraction: false,
+                                        }}
+                                        pagination={{
+                                            clickable: false,
+                                        }}
+                                        navigation={false}
+                                        className="w-full h-full"
+                                    >
+                                        {slides.map((src, index) => (
+                                            <SwiperSlide key={index}>
+                                                <img src={src} alt={`Slide ${index + 1}`} className="w-full h-full object-cover" />
+                                            </SwiperSlide>
+                                        ))}
+                                    </Swiper>
+            </div>
             </div>
         </div>
     );

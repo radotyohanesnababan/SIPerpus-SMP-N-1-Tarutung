@@ -6,7 +6,6 @@ import { Label } from '@/Components/ui/label';
 import GuestLayout from '@/Layouts/GuestLayout';
 import { Head, useForm } from '@inertiajs/react';
 import { useEffect } from 'react';
-console.log('ResetPassword component loaded');
 
 export default function ResetPassword({ token, email }) {
     //console.log('ABCDEFGHIJKLMNOPQRSTUVWXYZ');
@@ -107,7 +106,9 @@ export default function ResetPassword({ token, email }) {
 }
 
 ResetPassword.layout = (page) => (
-    <GuestLayout title="Reset Password" children={page}>
+    <GuestLayout title="Reset Password">
         <Head title="Reset Password" />
+        {page}
     </GuestLayout>
 );
+

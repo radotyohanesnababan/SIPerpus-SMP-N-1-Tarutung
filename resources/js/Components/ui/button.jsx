@@ -16,6 +16,7 @@ const buttonVariants = cva(
                 ghost: 'hover:bg-accent hover:text-accent-foreground',
                 link: 'text-orange-500 underline-offset-4 hover:underline',
                 orange: 'text-white bg-gradient-to-r from-orange-500 via-orange-500 to-orange-500',
+                skyblue: 'text-white bg-gradient-to-r from-sky-500 via-sky-500 to-sky-500',
                 red: 'text-white bg-gradient-to-r from-red-500 via-red-500 to-red-500',
                 blue: 'text-white bg-gradient-to-r from-blue-500 via-blue-500 to-blue-500',
                 green: 'text-white bg-gradient-to-r from-green-500 via-green-500 to-green-500',

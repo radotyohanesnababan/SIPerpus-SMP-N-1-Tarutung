@@ -91,7 +91,7 @@ export default function Dashboard(props) {
                             iconClassName: 'text-white',
                         }}
                     >
-                        <div className="text-2xl font-bold">{props.page_data.total_books}</div>
+                        <div className="text-2xl font-bold">{props.page_data.total_categories}</div>
                     </CardStat>
                     <CardStat
                         data={{

@@ -7,8 +7,18 @@ import { Input } from '@/Components/ui/input';
 import { Label } from '@/Components/ui/label';
 import GuestLayout from '@/Layouts/GuestLayout';
 import { Link, useForm } from '@inertiajs/react';
+import 'swiper/css';
+import 'swiper/css/navigation';
+import 'swiper/css/pagination';
+import { Autoplay, Navigation, Pagination } from 'swiper/modules';
+import { Swiper, SwiperSlide } from 'swiper/react';
 
 export default function Login({ status, canResetPassword }) {
+     const slides = [
+        'https://picsum.photos/1080/720?random=1',
+        'https://picsum.photos/1080/720?random=2',
+        'https://picsum.photos/1080/720?random=3',
+    ];
     const { data, setData, post, processing, errors, reset } = useForm({
         email: '',
         password: '',
@@ -100,7 +110,7 @@ export default function Login({ status, canResetPassword }) {
                             <div>
                                 <Button
                                     type="submit"
-                                    variant="orange"
+                                    variant="skyblue"
                                     size="xl"
                                     className="w-full mt-2"
                                     disabled={processing}
@@ -111,12 +121,34 @@ export default function Login({ status, canResetPassword }) {
                         </form>
                         <div className="mt-4 text-center text-sm">
                             Belum punya akun?
-                            <Link href={route.register} className="underline">
+                            <Link href={route('register')} className="underline">
                                 Daftar
                             </Link>
                         </div>
                     </div>
                 </div>
+            </div>
+            <div className='hidden lg:block'>
+                <Swiper
+                                        modules={[Autoplay, Pagination, Navigation]}
+                                        spaceBetween={30}
+                                        centeredSlides={true}
+                                        autoplay={{
+                                            delay: 3000,
+                                            disableOnInteraction: false,
+                                        }}
+                                        pagination={{
+                                            clickable: false,
+                                        }}
+                                        navigation={false}
+                                        className="w-full h-full"
+                                    >
+                                        {slides.map((src, index) => (
+                                            <SwiperSlide key={index}>
+                                                <img src={src} alt={`Slide ${index + 1}`} className="w-full h-full object-cover" />
+                                            </SwiperSlide>
+                                        ))}
+                                    </Swiper>
             </div>
 
             {status && <div className="mb-4 text-sm font-medium text-green-600">{status}</div>}

@@ -9,6 +9,8 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use App\Notifications\ResetPasswordNotification;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Spatie\Permission\Traits\HasRoles;
 
 class User extends Authenticatable implements MustVerifyEmail
@@ -29,6 +31,7 @@ class User extends Authenticatable implements MustVerifyEmail
         'nama',
         'email',
         'password',
+        'kelas_id',
     ];
 
     /**
@@ -65,6 +68,20 @@ class User extends Authenticatable implements MustVerifyEmail
             });
         });
     }
+    public function sendPasswordResetNotification($token)
+{
+    $this->notify(new ResetPasswordNotification($token));
+}   
+    public function kelas()
+{
+    return $this->belongsTo(Kelas::class, 'kelas_id');
+}
+    public function borroweds(): HasMany
+    {
+        return $this->hasMany(Borrowed::class, 'user_nisn', 'nisn');
+    }
+
+
 
     public function scopeSorting(Builder $query, array $sorts): void
     {

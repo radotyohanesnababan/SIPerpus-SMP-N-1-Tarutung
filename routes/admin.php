@@ -10,15 +10,21 @@ use App\Http\Controllers\Admin\BookStockReportController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\Admin\BorrowedController;
 use App\Http\Controllers\Admin\EbookController;
+use App\Http\Controllers\Admin\KelasUpgradeController;
 use App\Http\Controllers\Admin\LoanStatisticController;
 use App\Http\Controllers\Admin\ReturnBookController;
 use App\Http\Controllers\Admin\RoleController;
 use App\Http\Controllers\Admin\PermissionController;
+use App\Http\Controllers\Admin\ReportController;
 use Illuminate\Support\Facades\Route;
 
 Route::middleware('auth','role:admin')->prefix('admin')->group(function (){
         Route::controller(LoanStatisticController::class)->group(function (){
         Route::get('loan-statistics', 'index')->name('admin.loan-statistics.index');
+         });
+    Route::controller(ReportController::class)->group(function (){
+       Route::get('reports', 'index')->name('admin.reports.index');
+       Route::get('reports/generate', 'generate')->name('admin.reports.generate'); 
     });
 
     Route::controller(BookStockReportController::class)->group(function (){
@@ -143,6 +149,14 @@ Route::controller(AssignUserController::class)->group(function (){
         Route::get('assign-users/edit/{user}', 'edit')->name('admin.assign-users.edit');
         Route::put('assign-users/edit/{user}', 'update')->name('admin.assign-users.update');
 
+
+});
+
+Route::controller(KelasUpgradeController::class)->group(function (){
+       Route::get('kelas', 'index')
+        ->name('admin.kelas.index');
+    Route::post('kelas/upgrade', 'upgrade')
+        ->name('admin.kelas.upgrade.post');
 
 });
 

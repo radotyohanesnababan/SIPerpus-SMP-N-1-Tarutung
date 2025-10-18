@@ -22,6 +22,19 @@ use Inertia\Inertia;
 //         'phpVersion' => PHP_VERSION,
 //     ]);
 // });
+use Illuminate\Support\Facades\Mail;
+
+// Route::get('/test-email', function () {
+//     try {
+//         Mail::raw('Halo, ini email sungguhan dari Laravel (development).', function ($message) {
+//             $message->to('deandra.121180052@student.itera.ac.id')
+//                     ->subject('Tes Kirim Email Laravel');
+//         });
+//         return '✅ Email berhasil dikirim!';
+//     } catch (\Exception $e) {
+//         return '❌ Gagal: ' . $e->getMessage();
+//     }
+// });
 
 Route::controller(WelcomeController::class)->group(function () {
     Route::get('/', 'index')->name('welcome');

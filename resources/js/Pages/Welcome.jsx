@@ -16,31 +16,54 @@ export default function Welcome(props) {
     ];
 
     return (
-        <div className="flex flex-col w-full pb-32 space-y-4">
+        <div className="flex flex-col w-full ">
             <div className="flex flex-col items-center justify-center gap-y-4 lg:flex-row lg:items-center lg:justify-center"></div>
             <section
                 id="beranda"
-                className="flex flex-col md:flex-row items-center justify-between px-6 py-20 container mx-auto gap-10 opacity-0 animate-fadeIn"
+                className="relative flex flex-col md:flex-row items-center justify-between px-6 py-20 container mx-auto gap-10 overflow-hidden"
             >
+                <div className="absolute inset-0 -z-10 opacity-40">
+                    <Swiper
+                        modules={[Autoplay, Pagination, Navigation]}
+                        spaceBetween={30}
+                        centeredSlides={true}
+                        autoplay={{
+                            delay: 3000,
+                            disableOnInteraction: false,
+                        }}
+                        pagination={{
+                            clickable: true,
+                        }}
+                        navigation={false}
+                        className="w-full h-full"
+                    >
+                        {slides.map((src, index) => (
+                            <SwiperSlide key={index}>
+                                <img src={src} alt={`Slide ${index + 1}`} className="w-full h-full object-cover" />
+                            </SwiperSlide>
+                        ))}
+                    </Swiper>
+                </div>
+
                 <div className="flex justify-center md:w-1/2">
                     <img
-                        src="/storage/logosekolah.png"
+                        src="/storage/logo/logosekolah.png"
                         alt="Perpustakaan"
-                        className="w-72 md:w-[420px] rounded-2xl shadow-xl ring-4 ring-sky-100"
+                        className="w-72 md:w-[420px] rounded-2xl shadow-xl ring-4 ring-sky-100 bg-black/50 backdrop-blur-sm"
                     />
                 </div>
 
-                <div className="text-center md:text-left md:w-1/2 space-y-4">
-                    <h1 className="text-3xl md:text-4xl font-bold text-sky-700">
+                <div className="text-center md:text-left md:w-1/2 space-y-4 text-black drop-shadow-lg">
+                    <h1 className="text-3xl md:text-4xl font-bold text-sky-600">
                         Selamat Datang di Sistem Informasi Perpustakaan
                     </h1>
-                    <p className="text-gray-600 leading-relaxed">
+                    <p className="leading-relaxed">
                         Temukan berbagai koleksi buku digital dan cetak dari Perpustakaan SMP Negeri 1 Tarutung. Siswa
                         dan guru dapat meminjam, membaca, dan mencari buku dengan mudah.
                     </p>
                     <Link
                         href={route('register')}
-                        className="inline-block mt-4 px-6 py-3 bg-sky-500 text-white font-semibold rounded-lg hover:bg-sky-600 transition-all duration-300"
+                        className="inline-block mt-4 px-6 py-3 bg-sky-500 text-black font-semibold rounded-lg hover:bg-sky-600 transition-all duration-300"
                     >
                         Daftar Sekarang
                     </Link>
