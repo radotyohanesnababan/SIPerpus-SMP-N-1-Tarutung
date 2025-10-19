@@ -57,7 +57,7 @@ export default function AppLayout({ title, children }) {
 
                 <footer className="bg-sky-400 text-gray-700 py-3 px-2">
                     <div className="container mx-auto flex flex-col md:flex-row justify-between items-start md:items-center gap-6">
-                        <div className="space-y-1 text-sm md:text-base">
+                        <div className="space-y-1 text-sm md:text-base ml-4">
                             <p className="font-semibold">
                                 &copy; {new Date().getFullYear()} Perpustakaan SMP Negeri 1 Tarutung
                             </p>
@@ -65,7 +65,7 @@ export default function AppLayout({ title, children }) {
                             <p>Kabupaten Tapanuli Utara, Provinsi Sumatera Utara</p>
                         </div>
 
-                        <div className="flex flex-col md:items-end space-y-2 text-sm md:text-base">
+                        <div className="flex flex-col md:items-end space-y-2 text-sm md:text-base mr-4">
                             <a href="https://www.smpnegeri1tarutung.sch.id" className="hover:text-sky-200 transition">
                                 Website Sekolah
                             </a>

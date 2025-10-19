@@ -57,7 +57,7 @@ export default function Welcome(props) {
                     <h1 className="text-3xl md:text-4xl font-bold text-sky-600">
                         Selamat Datang di Sistem Informasi Perpustakaan
                     </h1>
-                    <p className="leading-relaxed">
+                    <p className="leading-relaxed dark:text-gray-200">
                         Temukan berbagai koleksi buku digital dan cetak dari Perpustakaan SMP Negeri 1 Tarutung. Siswa
                         dan guru dapat meminjam, membaca, dan mencari buku dengan mudah.
                     </p>
