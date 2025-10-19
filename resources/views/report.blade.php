@@ -6,13 +6,13 @@
   <title>Laporan Perpustakaan</title>
   <style>
     body{font-family: Arial, Helvetica, sans-serif; color:#111}
-    .container{max-width:900px;margin:24px auto;padding:18px;border:1px solid #ddd}
+    .container{max-width:900px;margin:24px auto;padding:18px;border:0px; solid #ddd}
     .header{text-align:center;margin-bottom:18px}
     .header h1{margin:6px 0;font-size:18px}
     .header p{margin:2px 0;font-size:13px}
     .period{margin-bottom:18px;text-align:center}
     table{width:100%;border-collapse:collapse;margin-bottom:18px}
-    table th, table td{border:1px solid #ccc;padding:8px;text-align:left;font-size:13px}
+    table th, table td{border:1px solid #1a0101;padding:8px;text-align:left;font-size:13px}
     table th{background:#f3f3f3}
     .two-col{display:flex;gap:16px}
     .card{flex:1;padding:12px;border:1px solid #eee;background:#fafafa}
@@ -22,27 +22,88 @@
   </style>
 </head>
 <body>
-  <div class="container">
-    <div class="header">
-      <h1>PEMERINTAH KABUPATEN TAPANULI UTARA</h1>
-      <h1>DINAS PENDIDIKAN DAN KEBUDAYAAN</h1>
-      <h1>SMP NEGERI 1 TARUTUNG</h1>
-      <p>Jalan Nahum Situmorang Tarutung 22413 &nbsp; Provinsi Sumatera Utara</p>
-      <p>Email : <a href="mailto:smpn1tarutung.taput@gmail.com">smpn1tarutung.taput@gmail.com</a></p>
-    </div>
+@php
+    // path file logo; sesuaikan jika lokasinya berbeda
+    $logoSekolahPath = public_path('storage/logo/logosekolah.png');
+    $logoPemkabPath  = public_path('storage/logo/logopemkab.png');
+
+    $logoSekolahBase64 = file_exists($logoSekolahPath) ? 'data:image/'.pathinfo($logoSekolahPath, PATHINFO_EXTENSION).';base64,'.base64_encode(file_get_contents($logoSekolahPath)) : null;
+    $logoPemkabBase64  = file_exists($logoPemkabPath)  ? 'data:image/'.pathinfo($logoPemkabPath, PATHINFO_EXTENSION).';base64,'.base64_encode(file_get_contents($logoPemkabPath)) : null;
+@endphp
+
+<div class="container" style="max-width:900px;margin:18px auto;padding:0 18px;">
+  <table width="100%" style="margin-bottom: 6px; border: none; outline: none; box-shadow: none;">
+    <tr>
+      <td style="width: 18%; text-align: left; border: none; vertical-align: middle;">
+        @if($logoSekolahBase64)
+          <img src="{{ $logoSekolahBase64 }}" alt="Logo Sekolah" style="height: 120px; width: auto; display: block;">
+        @endif
+      </td>
+      <td style="width: 64%; text-align: center; vertical-align: middle; border: none;">
+        <div style="line-height:1.1;">
+          <div style="font-size:17px; border: none; font-weight:700; margin-bottom:2px;">PEMERINTAH KABUPATEN TAPANULI UTARA</div>
+          <div style="font-size:17px; border: none; font-weight:700; margin-bottom:2px;">DINAS PENDIDIKAN DAN KEBUDAYAAN</div>
+          <div style="font-size:17px; border: none; font-weight:700; margin-bottom:4px;">SMP NEGERI 1 TARUTUNG</div>
+          <div style="font-size:11px; border: none; margin-bottom:2px;">
+            Jalan Nahum Situmorang Tarutung 22413 &nbsp; Provinsi Sumatera Utara
+          </div>
+          <div style="font-size:11px;">
+            Email: <span style="text-decoration: none; color: #000;">smpn1tarutung.taput@gmail.com</span>
+          </div>
+        </div>
+      </td>
+      <td style="width: 18%; text-align: right; border: none; vertical-align: middle;">
+        @if($logoPemkabBase64)
+          <img src="{{ $logoPemkabBase64 }}" alt="Logo Pemkab" style="height: 90px; width: auto; display: block;">
+        @endif
+      </td>
+    </tr>
+  </table>
+  <div style="width:100%; margin-top:4px; border: none;">
+    <div style="border-bottom:3px solid #000; margin-bottom:2px;"></div>
+    <div style="border-bottom:1px solid #000; margin-bottom:8px;"></div>
+  </div>
+</div>
+
 
     <div class="period">
-      <h2>LAPORAN PERPUSTAKAAN</h2>
+      <h2 style="font-size:17px">LAPORAN PERPUSTAKAAN</h2>
       <p>{{ $start ?? 'DD/MM/YYYY' }} &ndash; {{ $end ?? 'DD/MM/YYYY' }}</p>
     </div>
 
     <!-- 1. Laporan Stok Buku -->
-    <h3>1. Laporan Stok Buku</h3>
+    <h4>1. Laporan Stok Buku</h4>
 
-    <div class="card small">
-      <strong>a. Total Stok Buku</strong>
-      <p>Total Buku : {{ $totalBuku ?? 'xxx' }} Eksemplar</p>
-      <p>Total Judul : {{ $totalJudul ?? 'xxx' }} Judul</p>
+    <div  style="margin-bottom:12px">
+      <strong>a. Total Buku</strong>
+    <table>
+        <thead>
+          <tr>
+            <th>No</th>
+            <th>Jenis</th>
+            <th>Total</th>
+          </tr>
+        </thead>
+        <tbody>
+            <tr>
+              <td>1</td>
+              <td>Buku</td>
+              <td>{{ $totalBuku ?? 'xxx' }}</td>
+            </tr>
+             <tr>
+              <td>2</td>
+              <td>Judul</td>
+              <td>{{ $totalJudul ?? 'xxx' }}</td>
+            </tr>
+             </tr>
+             <tr>
+              <td>3</td>
+              <td>E-Book</td>
+              <td>{{ $ebook_total ?? 'xxx' }}</td>
+            </tr>
+        </tbody>
+      </table>
+
     </div>
 
     <div style="margin-top:12px">
@@ -90,6 +151,7 @@
               <td>{{ $i + 1 }}</td>
               <td>{{ $book['judul'] }}</td>
               <td>{{ $book['publisher'] }}</td>
+              <td>{{ $book['copies'] }}</td>
 
             </tr>
           @empty
@@ -124,7 +186,7 @@
     </div>
 
     <!-- 2. Laporan Peminjaman Buku -->
-    <h3>2. Laporan Peminjaman Buku</h3>
+    <h4>2. Laporan Peminjaman Buku</h4>
     <div class="two-col" style="margin-bottom:12px">
       <div class="card">
         <p><strong>Total Buku yang dipinjam :</strong> {{ $borrowed_total ?? '-' }}</p>
@@ -143,22 +205,56 @@
     </div>
 
     <!-- 3. Laporan Pengembalian Buku -->
-    <h3>3. Laporan Pengembalian Buku</h3>
-    <div class="card small">
-      <p>Jumlah buku yang dikembalikan tepat waktu : {{ $returned_on_time ?? '-' }}</p>
-      <p>Jumlah buku yang terlambat dikembalikan : {{ $returned_late ?? '-' }}</p>
-      <p>Rata rata durasi keterlambatan : {{ $avg_late_duration ?? '-' }} hari</p>
+    <h4>3. Laporan Pengembalian Buku</h4>
+    <div>
+      <table>
+      <tbody>
+        <tr>
+          <th>Jumlah buku yang dikembalikan tepat waktu</th>
+          <td>{{ $returned_on_time }}</td>
+
+        </tr>
+        <tr>
+          <th>Jumlah buku yang terlambat dikembalikan</th>
+          <td>{{ $returned_late }}</td>
+
+        </tr>
+         <tr>
+          <th>Rata rata durasi keterlambatan</th>
+          <td>{{ $avg_late_duration }}</td>
+
+        </tr>
+      </tbody>
+      </table>
     </div>
 
     <!-- 4. Laporan Aktifitas Ebook -->
-    <h3>4. Laporan Aktifitas Ebook</h3>
-    <div class="card small">
-        <p>Total Ebook tersedia : {{ $ebook_total ?? '-' }} Judul</p>
-      <p>E-book paling sering di download : {{ $ebook_top ?? '-' }}</p>
+    <h4>4. Laporan Aktifitas Ebook</h4>
+    <div>
+      <table>
+      <tbody>
+        <tr>
+          <th>Total Ebook Tersedia</th>
+          <td>{{ $ebook_total ?? '-' }}</td>
+
+        </tr>
+      </tbody>
+      </table>
+      <div class="card">
+        <p><strong>Ebook Paling Sering Didownload :</strong></p>
+        <ol>
+          @forelse(($ebook_top ?? []) as $book)
+            <li>{{ $book }}</li>
+          @empty
+            <li>-</li>
+          @endforelse
+        </ol>
+      </div>
     </div>
+    
 
     <!-- 5. Aktivitas Anggota Perpustakaan -->
-    <h3>5. Aktivitas Anggota Perpustakaan</h3>
+    <h4>5. Aktivitas Anggota Perpustakaan</h4>
     <p><strong>Total Peminjaman Berdasarkan Kelas</strong></p>
     <table>
       <thead>
@@ -179,55 +275,9 @@
 
     <div class="chart-wrap" style="position: relative; width: 100%; max-width: 600px; height: 300px; margin: auto;">
     <p>Distribusi Peminjaman Berdasarkan Kelas</p>
-    <canvas id="classChart"></canvas>
-    </div>
-
-    <div class="footer">
-      <p>Untuk pertanyaan: <a href="mailto:smpn1tarutung.taput@gmail.com">smpn1tarutung.taput@gmail.com</a></p>
-    </div>
+    <img src="{{ $chart_base64 }}" style="width:100%; max-width:600px; height:auto;">
 
   </div>
-
-  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-  <script>
-    (function(){
-      try{
-        var labels = @json($chart_labels ?? array_keys(($class_totals ?? ['VII'=>0,'VIII'=>0,'IX'=>0])));
-        var data = @json($chart_data ?? array_values(($class_totals ?? ['VII'=>0,'VIII'=>0,'IX'=>0])));
-
-        
-        if(typeof Chart !== 'undefined'){
-          var ctx = document.getElementById('classChart').getContext('2d');
-          new Chart(ctx, {
-    type: 'doughnut',
-    data: {
-        labels: labels,
-        datasets: [{
-            data: data,
-            backgroundColor: ['#36A2EB','#FFCE56','#FF6384'],
-            borderWidth: 1
-        }]
-    },
-    options: {
-        responsive: true,
-        maintainAspectRatio: false,
-        plugins: {
-            legend: {
-                position: 'bottom'
-            }
-        }
-    }
-});
-        } else {
-         
-          var c = document.getElementById('classChart');
-          c.parentNode.innerHTML = '<p style="color:#666">(Chart tidak tersedia — sertakan Chart.js atau kirim data chart dari controller)</p>';
-        }
-      }catch(e){
-        console.warn('Chart render skipped', e);
-      }
-    })();
-  </script>
 
 </body>
 </html>

@@ -17,6 +17,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Inertia\Inertia;
 use Inertia\Response;
+use QuickChart;
 
 class ReportController extends Controller
 {
@@ -38,14 +39,16 @@ class ReportController extends Controller
         $start = Carbon::parse($request->input('start', now()->startOfMonth()));
         $end   = Carbon::parse($request->input('end', now()->endOfMonth()));
 
-        // 1️⃣ Total Buku
+        //dd($start, $end);
+
+        // 1. Total Buku
         $totalBuku = Stock::get()->sum(function($stock) {
             return $stock->available + $stock->borrowed + $stock->damaged + $stock->lost;
         });
         $totalJudul = Book::count();
 
 
-        // 2️⃣ Daftar Buku per Penerbit
+        // 2.Daftar Buku per Penerbit
         $publishers = Publisher::with(['books.stock'])
             ->get()
             ->map(function ($publisher) {
@@ -62,7 +65,7 @@ class ReportController extends Controller
             })
             ->toArray();
 
-        // 3️⃣ Buku baru dalam periode
+        // 3.Buku baru dalam periode
                 $new_books = Book::with(['publisher:id,name', 'stock:book_id,available,borrowed,damaged,lost'])
             ->whereBetween('created_at', [$start, $end])
             ->get()
@@ -82,7 +85,7 @@ class ReportController extends Controller
 
 
 
-        // 4️⃣ Buku hilang (Eloquent murni)
+        // 4. Buku hilang 
             $lost_books = Book::whereHas('stock', fn($q) => $q->where('lost', '>', 0))
                 ->with('stock:id,book_id,lost')
                 ->get()
@@ -92,7 +95,7 @@ class ReportController extends Controller
                 ])
                 ->toArray();
 
-        // 5️⃣ Laporan peminjaman
+        // 5. Laporan peminjaman
         $borrowed = Borrowed::whereBetween('borrowed_at', [$start, $end])->get();
         $borrowed_total = $borrowed->count();
 
@@ -111,28 +114,69 @@ class ReportController extends Controller
         ->toArray();
 
 
-        // 6️⃣ Laporan pengembalian
-        $returned = ReturnBook::whereBetween('created_at', [$start, $end])->get();
+        // 6.Laporan pengembalian
+        $returned = ReturnBook::whereBetween('return_date', [$start, $end])->get();
         $returned_on_time = $returned->where('is_late', false)->count();
         $returned_late = $returned->where('is_late', true)->count();
         $avg_late_duration = round($returned->avg('late_days') ?? 0, 1);
 
-        // 7️⃣ Ebook
-        $ebook_top = Ebook::orderByDesc('download_count')->value('judul');
+        // 7.Ebook
+        $ebook_top = Ebook::orderByDesc('download_count')->take(3)->pluck('judul');
         $ebook_total = Ebook::count();
 
-       // 8️⃣ Aktivitas per kelas (Eloquent murni, sesuai struktur kelas + users + borroweds)
+       // 8. Aktivitas per kelas (Eloquent murni, sesuai struktur kelas + users + borroweds)
         $class_totals = Kelas::withCount(['users as borroweds_count' => function ($query) {
-            // join ke borroweds lewat nisn
             $query->join('borroweds', 'users.nisn', '=', 'borroweds.user_nisn');
         }])->pluck('borroweds_count', 'tingkat')->toArray();
+
+        // Chart.js via QuickChart
+        // Buat konfigurasi chart Chart.js
+    $total = array_sum($class_totals);
+$percentages = [];
+foreach ($class_totals as $kelas => $val) {
+    $percentages[] = round($val / $total * 100, 1);
+}
+
+// Dataset
+$data = array_values($class_totals);
+$labels = [];
+foreach ($class_totals as $kelas => $val) {
+    $labels[] = $kelas . ' (' . round($val / $total * 100,1) . '%)';
+}
+
+$qc = new QuickChart();
+$qc->width = 500;
+$qc->height = 300;
+$qc->config = json_encode([
+    'type' => 'doughnut',
+    'data' => [
+        'labels' => $labels,
+        'datasets' => [[
+            'data' => $data,
+            'backgroundColor' => ['#36A2EB','#FFCE56','#FF6384']
+        ]]
+    ],
+    'options' => [
+        'plugins' => [
+            'legend' => [
+                'position' => 'bottom',
+                'labels' => [
+                    'font' => ['size' => 12]
+                ]
+            ]
+        ]
+    ]
+]);
+$chart_url = $qc->getUrl();
+$image = file_get_contents($chart_url);
+$chart_base64 = 'data:image/png;base64,' . base64_encode($image);
 
         // Kirim semua ke PDF view
         $data = compact(
             'start', 'end', 'totalBuku', 'publishers', 'new_books', 'lost_books',
             'borrowed_total', 'avg_duration', 'top_borrowed',
             'returned_on_time', 'returned_late', 'avg_late_duration',
-            'ebook_top', 'class_totals', 'totalJudul', 'ebook_total'
+            'ebook_top', 'class_totals', 'totalJudul', 'ebook_total', 'chart_url', 'chart_base64'
         );
 
         $pdf = Pdf::loadView('report', $data)->setPaper('a4', 'portrait');
@@ -140,6 +184,6 @@ class ReportController extends Controller
 
         return $pdf->download($filename);
 
-        //return view ('report', $data);
+        return view ('report', $data);
     }
 }

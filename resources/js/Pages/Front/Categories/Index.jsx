@@ -16,7 +16,7 @@ export default function Index(props) {
                 />
             </div>
             <div className="box-content py-2 h-80">
-                <div className="flex flex-col gap-8 mb-24 lg:grid lg:grid-cols-4">
+                <div className="flex flex-col gap-8 mb-24 lg:grid lg:grid-cols-4 ">
                     {categories.map((category, index) => (
                         <CategoryCard key={index} item={category}></CategoryCard>
                     ))}

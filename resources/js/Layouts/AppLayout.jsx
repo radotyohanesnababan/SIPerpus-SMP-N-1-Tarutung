@@ -16,6 +16,7 @@ import * as VisuallyHidden from '@radix-ui/react-visually-hidden';
 import { IconLayoutSidebar } from '@tabler/icons-react';
 import Sidebar from './Partials/Sidebar';
 import SidebarResponsive from './Partials/SidebarResponsive';
+import ThemeSwitcher from '@/Components/ThemeSwitcher';
 
 export default function AppLayout({ title, children }) {
     const auth = usePage().props.auth.user;
@@ -30,6 +31,7 @@ export default function AppLayout({ title, children }) {
                     <div className="flex flex-col h-full min-h-screen gap-2">
                         <div className="flex h-14 items-center border-b px-4 lg:h-[60px] lg:px-6">
                             <ApplicationLogo />
+                            <ThemeSwitcher />
                         </div>
                         <div className="flex-1">
                             {/* Sidebar */}

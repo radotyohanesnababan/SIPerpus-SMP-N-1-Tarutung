@@ -4,7 +4,7 @@ import { Link } from '@inertiajs/react';
 export default function CategoryCard({ item, className }) {
     return (
         <Link href={route('front.categories.show', [item.slug])} className="hover:opacity-80 transition">
-            <Card className={cn('h-40 flex flex-col justify-between bg-gray-300', className)}>
+            <Card className={cn('h-40 flex flex-col justify-between bg-gray-300 dark:bg-gray-700', className)}>
                 <CardHeader className="flex flex-row items-center justify-between pb-2">
                     <CardTitle className="text-base font-semibold">{item.name}</CardTitle>
                 </CardHeader>

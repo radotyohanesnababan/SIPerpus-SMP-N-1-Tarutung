@@ -46,7 +46,7 @@ export default function Index({ kelas, status, ...props }) {
             />
 
            <div className="max-w-xl mx-auto py-10">
-        <div className="space-y-6 bg-white rounded-lg p-6 shadow">
+        <div className="space-y-6 bg-white dark:bg-gray-800 rounded-lg p-6 shadow">
           <h2 className="text-2xl font-semibold text-center mb-4">
             Pilih Periode Laporan
           </h2>

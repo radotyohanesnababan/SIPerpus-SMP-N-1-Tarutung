@@ -16,8 +16,9 @@
         @viteReactRefresh
         @vite(['resources/js/app.jsx', "resources/js/Pages/{$page['component']}.jsx"])
         @inertiaHead
+        <script src="/js/theme.js"></script>
     </head>
-    <body class="font-sans antialiased">
+    <body class="font-sans antialiased max-h-screen">
         @inertia
     </body>
 </html>
