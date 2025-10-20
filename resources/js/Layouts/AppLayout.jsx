@@ -66,15 +66,17 @@ export default function AppLayout({ title, children }) {
                             <DropdownMenuTrigger asChild>
                                 <Button variant="ghost" className="flex gap-x-2 rounded-full cursor-pointer">
                                     <span>Hi, {auth.nama}</span>
-                                    <Avatar>
-                                        <AvatarFallback>{auth.nama.substring(0, 1)}</AvatarFallback>
-                                    </Avatar>
+                                   
                                 </Button>
                             </DropdownMenuTrigger>
-                            <DropdownMenuContent align="end" className="border rounded-lg bg-white">
+                            <DropdownMenuContent align="end" className="border rounded-lg bg-white dark:bg-gray-800 z-10" >
                                 <DropdownMenuLabel>Account</DropdownMenuLabel>
                                 <DropdownMenuSeparator />
-                                <DropdownMenuItem>Profile</DropdownMenuItem>
+                                <DropdownMenuItem asChild>
+                                    <Link href={route('profile.edit')} method="get" as="button" className="w-full">
+                                        Profile
+                                    </Link>
+                                </DropdownMenuItem>
                                 <DropdownMenuItem asChild>
                                     <Link href={route('logout')} method="post" as="button" className="w-full">
                                         Logout

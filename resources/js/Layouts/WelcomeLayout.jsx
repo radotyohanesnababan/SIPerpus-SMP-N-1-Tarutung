@@ -11,13 +11,13 @@ export default function AppLayout({ title, children }) {
             <Head title={title} />
             <Toaster position="top-center" richColors />
 
-            <div className="flex flex-col min-h-screen text-gray-800 scroll-smooth">
+            <div className="flex flex-col min-h-screen text-gray-800 scroll-smooth overflow-x-hidden">
                 <header className="flex h-16 items-center justify-between border-b bg-white/70 backdrop-blur-md px-6 shadow-md sticky top-0 z-50">
                     <div className="flex items-center gap-3">
                         <img
                             src="/storage/logo/logosekolah.png"
                             alt="Logo"
-                            className="h-12 w-12 rounded-full p-1 shadow-md"
+                            className="h-12 w-12 rounded-full p-1 shadow-md object-contain"
                         />
                         <span className="text-xl font-bold text-sky-700">SIPERPUS</span>
                     </div>

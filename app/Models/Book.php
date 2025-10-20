@@ -16,6 +16,7 @@ use Log;
 #[ObservedBy(BookObserver::class)]
 class Book extends Model
 {
+    use HasFactory;
     protected $fillable = [
         'judul',
         'slug',

@@ -58,12 +58,22 @@ export default function Index(props) {
                     icon={IconUsersGroup}
                 />
 
-                <Button variant="orange" size="lg" asChild>
-                    <Link href={route('admin.users.create')}>
+                <div className='flex gap-2'>
+                    <Button variant="skyblue" size="lg" asChild>
+                    <Link href={route('admin.users.create', {role: 'member'})}>
                         <IconPlus className="size-4" />
-                        Tambah
+                        Tambah Anggota
                     </Link>
                 </Button>
+                 <Button variant="red" size="lg" asChild>
+                    <Link href={route('admin.users.create',{role: 'admin'})}>
+                        <IconPlus className="size-4" />
+                        Tambah Admin 
+                    </Link>
+                </Button>
+                </div>
+
+                
             </div>
             <Card>
                 <CardHeader>
@@ -148,6 +158,18 @@ export default function Index(props) {
                                     <Button
                                         variant="ghost"
                                         className="group inline-flex "
+                                        onClick={() => onSortable('email')}
+                                    >
+                                        Role/Peran{' '}
+                                        <span className="ml-2 flex-none rounded text-muted-foreground">
+                                            <IconArrowsDownUp className="size-4 text-muted-foreground" />
+                                        </span>
+                                    </Button>
+                                </TableHead>
+                                <TableHead>
+                                    <Button
+                                        variant="ghost"
+                                        className="group inline-flex "
                                         onClick={() => onSortable('created_at')}
                                     >
                                         Dibuat Pada{' '}
@@ -177,6 +199,7 @@ export default function Index(props) {
                                     <TableCell>{user.nisn}</TableCell>
                                     <TableCell>{user.nama}</TableCell>
                                     <TableCell>{user.email}</TableCell>
+                                    <TableCell>{user.roles}</TableCell>
                                     <TableCell>{user.created_at}</TableCell>
                                     <TableCell>
                                         <div className="flex items-center gap-x-1">

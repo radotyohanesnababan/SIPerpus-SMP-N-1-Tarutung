@@ -17,7 +17,7 @@ class ProfileUpdateRequest extends FormRequest
     {
        // dd($this->user()->nisn);
         return [
-            'name' => ['required', 'string', 'max:255'],
+            'nama' => ['required', 'string', 'max:255'],
             'email' => [
                 'required',
                 'string',

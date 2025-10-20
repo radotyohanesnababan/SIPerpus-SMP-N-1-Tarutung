@@ -92,7 +92,7 @@ export default function Welcome(props) {
                 </div>
             </section>
 
-            <section id="tentang" className="py-20 px-6 bg-white opacity-0 animate-fadeIn delay-300">
+            <section id="tentang" className="py-20 px-6 bg-white opacity-0 animate-fadeIn delay-300 overflow-hidden">
                 <div className="container mx-auto flex flex-col md:flex-row items-center gap-10">
                     <div className="md:w-1/2">
                         <Swiper

@@ -18,7 +18,7 @@ class UserController extends Controller
 {
     public function index()
     {
-        $users = User::query()
+        $users = User::with('roles')
             ->select(['nisn', 'nama', 'email', 'created_at'])
             ->filter (request()->only(['search']))
             ->sorting(request()->only(['field', 'direction']))
@@ -43,9 +43,11 @@ class UserController extends Controller
         ]);
     }
 
-    public function create() :Response
-    {
+    public function create(Request $request,) :Response
+    {   
+        $role = $request->query('role', 'member');
         return inertia('Admin/Users/Create', [
+            'role' => $role,
             'page_settings' => [
                 'title' => 'Tambah Pengguna',
                 'subtitle' => 'Buat pengguna baru di sini.',
@@ -59,12 +61,15 @@ class UserController extends Controller
     public function store (UserRequest $request): RedirectResponse
     {
         try{
-            User::create([
-                'nisn' => $nisn = $request->nisn,
-                'nama' => $nama = $request->nama,
-                'email' => $email = $request->email,
+            $user = User::create([
+                'nisn' =>  $request->nisn,
+                'nama' => $request->nama,
+                'email' => $request->email,
                 'password' => Hash::make($request->password),
+                
             ]);
+
+            $user->assignRole($request->role);
             flashMessage(MessageType::CREATED->message('Pengguna'),
                 'success'
             );

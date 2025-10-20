@@ -26,13 +26,13 @@ class UserRequest extends FormRequest
             'nisn' =>[
                 'required',
                 'integer',
-                Rule::unique('users')->ignore($this->user->nisn, 'nisn'),
+                Rule::unique('users')->ignore($this->user?->nisn, 'nisn'),
             ],
             'email' => [
                 'required',
                 'email',
                 'max:255',
-                Rule::unique('users', 'email')->ignore($this->user->nisn, 'nisn'),
+                Rule::unique('users', 'email')->ignore($this->user?->email, 'email'),
             ],
             'nama' =>[
                 'required',
@@ -45,7 +45,13 @@ class UserRequest extends FormRequest
                 'min:8',
                 'confirmed',
             ]),
-            Rule::when($this->routeIs('admin.users.update'), [
+            'role' => Rule::when($this->routeIs('admin.users.store'), [
+                'required',
+                'in:admin,member',
+                'max:255',
+
+            ])
+            , Rule::when($this->routeIs('admin.users.update'), [
                 'nullable',
                 'string',
                 'min:8',
@@ -62,6 +68,7 @@ class UserRequest extends FormRequest
             'email' => 'Email',
             'nama' => 'Nama',
             'password' => 'Kata Sandi',
+            'role' => 'Peran',
         ];
     }
 }
