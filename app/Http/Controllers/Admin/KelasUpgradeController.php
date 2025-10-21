@@ -68,7 +68,7 @@ class KelasUpgradeController extends Controller
             flashMessage(MessageType::UPDATED->message('Pengguna lulus dan keluar dari sistem.'),
                 'success'
             );
-           return to_route('admin.upgrade.index');
+           return to_route('admin.kelas.index');
         }
 
         $jumlah = User::where('kelas_id', $kelasAsal->id)
@@ -77,6 +77,6 @@ class KelasUpgradeController extends Controller
             flashMessage(MessageType::UPDATED->message('Sebanyak ' . $jumlah . ' pengguna telah dipindahkan ke kelas ' . $kelasTujuan->tingkat . '.'),
                 'success'
             );
-        return to_route('admin.upgrade.index');
+        return to_route('admin.kelas.index');
     }
 }
