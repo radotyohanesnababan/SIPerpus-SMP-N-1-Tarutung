@@ -30,8 +30,8 @@ export default function Create(props) {
         <div className="flex w-full flex-col pb-32">
             <div className="mb-8 flex flex-col items-start justify-between gap-y-4 lg:flex-row lg:items-center">
                 <HeaderTitle
-                    title={props.page_settings.title} 
-                    subtitle={props.page_settings.subtitle} 
+                    title={props.page_settings.title}
+                    subtitle={props.page_settings.subtitle}
                     icon={IconUsersGroup}
                 />
                 <Button variant="orange" size="lg" asChild>
@@ -45,31 +45,19 @@ export default function Create(props) {
                     <form className="space-y-4" onSubmit={onHandleSubmit}>
                         <div className="grid w-full items-center gap-1.5">
                             <Label htmlFor="role">Peran(Tidak Dapat Diubah )</Label>
-                            <Input
-                                id="role"
-                                name="role"
-                                disabled
-                                value={data.role}
-                                onChange={onHandleChange}
-                            />
+                            <Input id="role" name="role" disabled value={data.role} onChange={onHandleChange} />
                             {errors.nisn && <InputError message={errors.nisn} />}
                         </div>
                         <div className="grid w-full items-center gap-1.5">
-                        <Label htmlFor="nisn">
-                            {data.role === 'admin' ? 'NIP' : 'NISN'}
-                        </Label>
-                        <Input
-                            id="nisn"
-                            name="nisn"
-                            placeholder={
-                            data.role === 'admin'
-                                ? 'Masukkan NIP pengguna'
-                                : 'Masukkan NISN pengguna'
-                            }
-                            value={data.nisn}
-                            onChange={onHandleChange}
-                        />
-                        {errors.nisn && <InputError message={errors.nisn} />}
+                            <Label htmlFor="nisn">{data.role === 'admin' ? 'NIP' : 'NISN'}</Label>
+                            <Input
+                                id="nisn"
+                                name="nisn"
+                                placeholder={data.role === 'admin' ? 'Masukkan NIP pengguna' : 'Masukkan NISN pengguna'}
+                                value={data.nisn}
+                                onChange={onHandleChange}
+                            />
+                            {errors.nisn && <InputError message={errors.nisn} />}
                         </div>
                         <div className="grid w-full items-center gap-1.5">
                             <Label htmlFor="nama">Nama</Label>
@@ -100,7 +88,6 @@ export default function Create(props) {
                                 id="password"
                                 name="password"
                                 placeholder="Masukkan password pengguna"
-
                                 value={data.password}
                                 type="password"
                                 onChange={onHandleChange}

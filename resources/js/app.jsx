@@ -17,15 +17,13 @@ createInertiaApp({
             return;
         }
 
-        const appElement=(
-            <ThemeProvider defaultTheme='dark' storageKey='current-theme'>
+        const appElement = (
+            <ThemeProvider defaultTheme="dark" storageKey="current-theme">
                 <App {...props} />
-
             </ThemeProvider>
-        )
+        );
 
         createRoot(el).render(appElement);
-        
     },
     progress: {
         color: '#4B5563',

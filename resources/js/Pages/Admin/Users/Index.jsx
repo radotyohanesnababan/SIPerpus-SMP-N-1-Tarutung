@@ -58,22 +58,20 @@ export default function Index(props) {
                     icon={IconUsersGroup}
                 />
 
-                <div className='flex gap-2'>
+                <div className="flex gap-2">
                     <Button variant="skyblue" size="lg" asChild>
-                    <Link href={route('admin.users.create', {role: 'member'})}>
-                        <IconPlus className="size-4" />
-                        Tambah Anggota
-                    </Link>
-                </Button>
-                 <Button variant="red" size="lg" asChild>
-                    <Link href={route('admin.users.create',{role: 'admin'})}>
-                        <IconPlus className="size-4" />
-                        Tambah Admin 
-                    </Link>
-                </Button>
+                        <Link href={route('admin.users.create', { role: 'member' })}>
+                            <IconPlus className="size-4" />
+                            Tambah Anggota
+                        </Link>
+                    </Button>
+                    <Button variant="red" size="lg" asChild>
+                        <Link href={route('admin.users.create', { role: 'admin' })}>
+                            <IconPlus className="size-4" />
+                            Tambah Admin
+                        </Link>
+                    </Button>
                 </div>
-
-                
             </div>
             <Card>
                 <CardHeader>

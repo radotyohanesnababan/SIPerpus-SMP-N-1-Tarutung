@@ -87,7 +87,7 @@ export default function Sidebar({ url, auth }) {
                         icon={IconNotebook}
                         active={url.startsWith('/admin/ebooks')}
                     />
-                   
+
                     <div className="px-3 py-2 text-sm font-semibold text-foreground">Anggota</div>
                     <NavLink
                         url={route('admin.users.index')}
@@ -95,13 +95,13 @@ export default function Sidebar({ url, auth }) {
                         icon={IconUsersGroup}
                         active={url.startsWith('/admin/users')}
                     />
-                     <NavLink
+                    <NavLink
                         url={route('admin.kelas.index')}
                         title="Kenaikan Kelas"
                         icon={IconUsersGroup}
                         active={url.startsWith('/admin/kelas')}
                     />
-                    
+
                     <div className="px-3 py-2 text-sm font-semibold text-foreground">Peran dan Izin</div>
                     <NavLink
                         url={route('admin.roles.index')}
@@ -121,7 +121,6 @@ export default function Sidebar({ url, auth }) {
                         icon={IconUser}
                         active={url.startsWith('/admin/permissions')}
                     />
-
 
                     <div className="px-3 py-2 text-sm font-semibold text-foreground">Lainnya</div>
                     <NavLink

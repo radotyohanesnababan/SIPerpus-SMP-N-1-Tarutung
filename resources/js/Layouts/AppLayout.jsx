@@ -1,5 +1,6 @@
 import ApplicationLogo from '@/Components/ApplicationLogo';
 import Banner from '@/Components/Banner';
+import ThemeSwitcher from '@/Components/ThemeSwitcher';
 import { Button } from '@/Components/ui/button';
 import {
     DropdownMenuItem,
@@ -10,13 +11,11 @@ import {
 import { Sheet, SheetContent, SheetDescription, SheetHeader, SheetTitle, SheetTrigger } from '@/Components/ui/sheet';
 import { Toaster } from '@/Components/ui/sonner';
 import { Head, Link, usePage } from '@inertiajs/react';
-import { Avatar, AvatarFallback } from '@radix-ui/react-avatar';
 import { DropdownMenu, DropdownMenuContent } from '@radix-ui/react-dropdown-menu';
 import * as VisuallyHidden from '@radix-ui/react-visually-hidden';
 import { IconLayoutSidebar } from '@tabler/icons-react';
 import Sidebar from './Partials/Sidebar';
 import SidebarResponsive from './Partials/SidebarResponsive';
-import ThemeSwitcher from '@/Components/ThemeSwitcher';
 
 export default function AppLayout({ title, children }) {
     const auth = usePage().props.auth.user;
@@ -66,10 +65,12 @@ export default function AppLayout({ title, children }) {
                             <DropdownMenuTrigger asChild>
                                 <Button variant="ghost" className="flex gap-x-2 rounded-full cursor-pointer">
                                     <span>Hi, {auth.nama}</span>
-                                   
                                 </Button>
                             </DropdownMenuTrigger>
-                            <DropdownMenuContent align="end" className="border rounded-lg bg-white dark:bg-gray-800 z-10" >
+                            <DropdownMenuContent
+                                align="end"
+                                className="border rounded-lg bg-white dark:bg-gray-800 z-10"
+                            >
                                 <DropdownMenuLabel>Account</DropdownMenuLabel>
                                 <DropdownMenuSeparator />
                                 <DropdownMenuItem asChild>

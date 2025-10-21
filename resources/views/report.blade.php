@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width,initial-scale=1">
   <title>Laporan Perpustakaan</title>
   <style>
-    body{font-family: Arial, Helvetica, sans-serif; color:#111}
+    body{margin:20px; font-family: Arial, Helvetica, sans-serif; color:#111}
     .container{max-width:900px;margin:24px auto;padding:18px;border:0px; solid #ddd}
     .header{text-align:center;margin-bottom:18px}
     .header h1{margin:6px 0;font-size:18px}
@@ -16,6 +16,12 @@
     table th{background:#f3f3f3}
     .two-col{display:flex;gap:16px}
     .card{flex:1;padding:12px;border:1px solid #eee;background:#fafafa}
+        .two-col .card {
+        margin-right: 16px;
+    }
+    .two-col .card:last-child {
+        margin-right: 0;
+    }
     .chart-wrap{text-align:center;margin:12px 0}
     .footer{font-size:12px;color:#666;margin-top:8px}
     .small{font-size:13px;color:#333}

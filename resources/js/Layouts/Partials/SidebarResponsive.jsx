@@ -28,6 +28,13 @@ export default function SidebarResponsive({ url, auth }) {
                             title="Dashboard"
                             icon={IconDashboard}
                         />
+                        <div className="px-3 py-2 text-sm font-semibold text-foreground">Laporan Performa</div>
+                        <NavLinkResponsive
+                            url={route('admin.reports.index')}
+                            active={url.startsWith('/admin/reports')}
+                            title="Laporan Performa"
+                            icon={IconChartArea}
+                        />
 
                         <div className="px-3 py-2 text-sm font-semibold text-foreground">Peminjaman</div>
                         <NavLinkResponsive
@@ -84,20 +91,20 @@ export default function SidebarResponsive({ url, auth }) {
                             icon={IconNotebook}
                             active={url.startsWith('/admin/ebook')}
                         />
-                        
+
                         <div className="px-3 py-2 text-sm font-semibold text-foreground">Anggota</div>
-                                            <NavLinkResponsive
-                                                url={route('admin.users.index')}
-                                                title="Daftar Anggota"
-                                                icon={IconUsersGroup}
-                                                active={url.startsWith('/admin/users')}
-                                            />
-                                             <NavLinkResponsive
-                                                url={route('admin.kelas.index')}
-                                                title="Kenaikan Kelas"
-                                                icon={IconUsersGroup}
-                                                active={url.startsWith('/admin/kelas')}
-                                            />
+                        <NavLinkResponsive
+                            url={route('admin.users.index')}
+                            title="Daftar Anggota"
+                            icon={IconUsersGroup}
+                            active={url.startsWith('/admin/users')}
+                        />
+                        <NavLinkResponsive
+                            url={route('admin.kelas.index')}
+                            title="Kenaikan Kelas"
+                            icon={IconUsersGroup}
+                            active={url.startsWith('/admin/kelas')}
+                        />
                         <div className="px-3 py-2 text-sm font-semibold text-foreground">Peran dan Izin</div>
                         <NavLinkResponsive
                             url={route('admin.roles.index')}

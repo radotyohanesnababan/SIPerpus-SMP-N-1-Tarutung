@@ -1,6 +1,6 @@
-import { Moon, Sun } from "lucide-react";
-import { useTheme } from "./ThemeProvider";
-import { Button } from "./ui/button";
+import { Moon, Sun } from 'lucide-react';
+import { useTheme } from './ThemeProvider';
+import { Button } from './ui/button';
 
 export default function ThemeSwitcher() {
     const { theme, setTheme } = useTheme();
@@ -18,12 +18,7 @@ export default function ThemeSwitcher() {
     };
 
     return (
-        <Button
-            variant="outline"
-            size="icon"
-            className='ml-auto'
-            onClick={toggleTheme}
-        >
+        <Button variant="outline" size="icon" className="ml-auto" onClick={toggleTheme}>
             {theme === 'dark' ? <Sun className="h-4 w-4" /> : <Moon className="h-4 w-4" />}
         </Button>
     );
