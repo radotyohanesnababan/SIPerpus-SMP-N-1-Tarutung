@@ -4,16 +4,19 @@ import { Button } from '@/Components/ui/button';
 import { Card, CardContent } from '@/Components/ui/card';
 import { Input } from '@/Components/ui/input';
 import { Label } from '@/Components/ui/label';
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/Components/ui/select';
 import AppLayout from '@/Layouts/AppLayout';
 import { Link, useForm } from '@inertiajs/react';
 import { IconArrowLeft, IconUsersGroup } from '@tabler/icons-react';
 
 export default function Create(props) {
+    const { kelas } = props;
     const { data, setData, reset, post, processing, errors } = useForm({
         nisn: '',
         nama: '',
         email: '',
         password: '',
+        kelas_id: '',
         password_confirmation: '',
         role: props.role || 'member',
         _method: props.page_settings.method,
@@ -44,9 +47,9 @@ export default function Create(props) {
                 <CardContent className="p-6">
                     <form className="space-y-4" onSubmit={onHandleSubmit}>
                         <div className="grid w-full items-center gap-1.5">
-                            <Label htmlFor="role">Peran(Tidak Dapat Diubah )</Label>
+                            <Label htmlFor="role">Peran(Tidak Dapat Diubah)</Label>
                             <Input id="role" name="role" disabled value={data.role} onChange={onHandleChange} />
-                            {errors.nisn && <InputError message={errors.nisn} />}
+                            {errors.role && <InputError message={errors.role} />}
                         </div>
                         <div className="grid w-full items-center gap-1.5">
                             <Label htmlFor="nisn">{data.role === 'admin' ? 'NIP' : 'NISN'}</Label>
@@ -70,6 +73,34 @@ export default function Create(props) {
                             />
                             {errors.nama && <InputError message={errors.nama} />}
                         </div>
+
+                        {data.role !== 'admin' && (
+                            <div className="grid w-full items-center gap-1.5">
+                                <Label htmlFor="kelas_id">Kelas</Label>
+                                <Select
+                                    value={data.kelas_id || ''}
+                                    onValueChange={(value) => setData('kelas_id', value)}
+                                >
+                                    <SelectTrigger className="w-full">
+                                        <SelectValue placeholder="Pilih Kelas" />
+                                    </SelectTrigger>
+                                    <SelectContent>
+                                        {Array.isArray(kelas) && kelas.length > 0 ? (
+                                            kelas.map((k) => (
+                                                <SelectItem key={k.id} value={String(k.id)}>
+                                                    {k.tingkat}
+                                                </SelectItem>
+                                            ))
+                                        ) : (
+                                            <SelectItem value="" disabled>
+                                                Belum ada data kelas
+                                            </SelectItem>
+                                        )}
+                                    </SelectContent>
+                                </Select>
+                                {errors.kelas_id && <InputError message={errors.kelas_id} />}
+                            </div>
+                        )}
                         <div className="grid w-full items-center gap-1.5">
                             <Label htmlFor="email">Email</Label>
                             <Input

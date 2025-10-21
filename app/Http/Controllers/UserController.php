@@ -10,6 +10,7 @@ use App\Http\Requests\Admin\UserRequest;
 use Illuminate\Http\RedirectResponse;
 use Throwable;
 use App\Enums\MessageType;
+use App\Models\Kelas;
 use App\Traits\HasFile;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Hash;
@@ -43,10 +44,11 @@ class UserController extends Controller
         ]);
     }
 
-    public function create(Request $request,) :Response
-    {   
+    public function create(Request $request, Kelas $kelas) :Response
+    {   $kelas = Kelas::all();
         $role = $request->query('role', 'member');
         return inertia('Admin/Users/Create', [
+            'kelas' => $kelas,
             'role' => $role,
             'page_settings' => [
                 'title' => 'Tambah Pengguna',
@@ -65,6 +67,7 @@ class UserController extends Controller
                 'nisn' =>  $request->nisn,
                 'nama' => $request->nama,
                 'email' => $request->email,
+                'kelas_id' => $request->kelas_id,
                 'password' => Hash::make($request->password),
                 
             ]);
@@ -80,8 +83,12 @@ class UserController extends Controller
         }
     }
 
-    public function edit(User $user):Response{
+    public function edit(User $user, Request $request, Kelas $kelas):Response{
+        $kelas = Kelas::all();
+        $role = $user->getRoleNames()->first();
         return inertia('Admin/Users/Edit',[
+            'kelas' => $kelas,
+            'role' => $role,
             'page_settings' => [
                 'title' => 'Edit Pengguna',
                 'subtitle' => 'Perbarui informasi pengguna disini.',
@@ -99,6 +106,7 @@ class UserController extends Controller
                 'nisn' => $request->nisn,
                 'nama' =>  $request->nama,
                 'email' => $request->email,
+                'kelas_id' => $request->kelas_id,
                 'password' => Hash::make($request->password),
             ]);
             flashMessage(MessageType::UPDATED->message('Pengguna'),
