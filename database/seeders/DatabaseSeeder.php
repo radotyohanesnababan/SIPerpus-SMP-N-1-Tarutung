@@ -4,6 +4,7 @@ namespace Database\Seeders;
 
 use App\Models\Book;
 use App\Models\Category;
+use App\Models\Kelas;
 use App\Models\Publisher;
 use App\Models\Stock;
 use App\Models\User;
