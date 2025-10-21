@@ -3,20 +3,14 @@ import InputError from '@/Components/InputError';
 import { Button } from '@/Components/ui/button';
 import { Input } from '@/Components/ui/input';
 import { Label } from '@/Components/ui/label';
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/Components/ui/select';
 import { Head, Link, useForm } from '@inertiajs/react';
 import 'swiper/css';
 import 'swiper/css/navigation';
 import 'swiper/css/pagination';
 import { Autoplay, Navigation, Pagination } from 'swiper/modules';
 import { Swiper, SwiperSlide } from 'swiper/react';
-import {
-    Select,
-    SelectTrigger,
-    SelectValue,
-    SelectContent,
-    SelectItem,
-} from "@/Components/ui/select";
-export default function Register({kelas = []}) {
+export default function Register({ kelas = [] }) {
     const { data, setData, post, processing, errors, reset } = useForm({
         nama: '',
         email: '',
@@ -25,7 +19,7 @@ export default function Register({kelas = []}) {
         password_confirmation: '',
         kelas_id: '',
     });
-     const slides = [
+    const slides = [
         'https://picsum.photos/1080/720?random=1',
         'https://picsum.photos/1080/720?random=2',
         'https://picsum.photos/1080/720?random=3',
@@ -86,11 +80,11 @@ export default function Register({kelas = []}) {
 
                                         {errors.nisn && <InputError message={errors.nisn} />}
                                     </div>
-                                    <div className='grid gap-2'>
+                                    <div className="grid gap-2">
                                         <Label htmlFor="kelas">Kelas</Label>
                                         <Select
-                                            value={data.kelas_id || ""}
-                                            onValueChange={(value) => setData("kelas_id", value)}
+                                            value={data.kelas_id || ''}
+                                            onValueChange={(value) => setData('kelas_id', value)}
                                         >
                                             <SelectTrigger className="w-full">
                                                 <SelectValue placeholder="Pilih Kelas" />
@@ -173,28 +167,28 @@ export default function Register({kelas = []}) {
                         </div>
                     </div>
                 </div>
-                <div className='hidden lg:block'>
-                <Swiper
-                                        modules={[Autoplay, Pagination, Navigation]}
-                                        spaceBetween={30}
-                                        centeredSlides={true}
-                                        autoplay={{
-                                            delay: 3000,
-                                            disableOnInteraction: false,
-                                        }}
-                                        pagination={{
-                                            clickable: false,
-                                        }}
-                                        navigation={false}
-                                        className="w-full h-full"
-                                    >
-                                        {slides.map((src, index) => (
-                                            <SwiperSlide key={index}>
-                                                <img src={src} alt={`Slide ${index + 1}`} className="w-full h-full object-cover" />
-                                            </SwiperSlide>
-                                        ))}
-                                    </Swiper>
-            </div>
+                <div className="hidden lg:block">
+                    <Swiper
+                        modules={[Autoplay, Pagination, Navigation]}
+                        spaceBetween={30}
+                        centeredSlides={true}
+                        autoplay={{
+                            delay: 3000,
+                            disableOnInteraction: false,
+                        }}
+                        pagination={{
+                            clickable: false,
+                        }}
+                        navigation={false}
+                        className="w-full h-full"
+                    >
+                        {slides.map((src, index) => (
+                            <SwiperSlide key={index}>
+                                <img src={src} alt={`Slide ${index + 1}`} className="w-full h-full object-cover" />
+                            </SwiperSlide>
+                        ))}
+                    </Swiper>
+                </div>
             </div>
         </div>
     );

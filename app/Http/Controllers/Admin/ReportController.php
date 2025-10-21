@@ -132,8 +132,8 @@ class ReportController extends Controller
         // Chart.js via QuickChart
         // Buat konfigurasi chart Chart.js
     $total = array_sum($class_totals);
-$percentages = [];
-foreach ($class_totals as $kelas => $val) {
+    $percentages = [];
+    foreach ($class_totals as $kelas => $val) {
     $percentages[] = round($val / $total * 100, 1);
 }
 
@@ -168,7 +168,13 @@ $qc->config = json_encode([
     ]
 ]);
 $chart_url = $qc->getUrl();
-$image = file_get_contents($chart_url);
+$ch = curl_init($chart_url);
+curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+$image = curl_exec($ch);
+if ($image === false) {
+    dd('Curl error: '.curl_error($ch));
+}
+curl_close($ch);
 $chart_base64 = 'data:image/png;base64,' . base64_encode($image);
 
         // Kirim semua ke PDF view
@@ -182,7 +188,9 @@ $chart_base64 = 'data:image/png;base64,' . base64_encode($image);
         $pdf = Pdf::loadView('report', $data)->setPaper('a4', 'portrait');
         $filename = 'Laporan_Perpustakaan_' . now()->format('Ymd_His') . '.pdf';
 
-        return $pdf->download($filename);
+        //return $pdf->download($filename);
+
+        //dd($chart_base64);
 
         return view ('report', $data);
     }

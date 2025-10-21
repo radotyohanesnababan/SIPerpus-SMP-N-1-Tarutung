@@ -35,6 +35,13 @@ class DatabaseSeeder extends Seeder
         Publisher::factory()->count(11)->create();
         Category::factory()->count(8)->create();
 
+        //Buat Kelas
+        $kelasList = ['VII', 'VIII', 'IX'];
+
+        foreach ($kelasList as $tingkat) {
+            Kelas::firstOrCreate(['tingkat' => $tingkat]);
+        }
+
         // Buat buku + stok pakai transaction per buku
         // $books = Book::factory()->count(12)->make(); 
 

@@ -14,7 +14,7 @@ import { Autoplay, Navigation, Pagination } from 'swiper/modules';
 import { Swiper, SwiperSlide } from 'swiper/react';
 
 export default function Login({ status, canResetPassword }) {
-     const slides = [
+    const slides = [
         'https://picsum.photos/1080/720?random=1',
         'https://picsum.photos/1080/720?random=2',
         'https://picsum.photos/1080/720?random=3',
@@ -128,27 +128,27 @@ export default function Login({ status, canResetPassword }) {
                     </div>
                 </div>
             </div>
-            <div className='hidden lg:block'>
+            <div className="hidden lg:block">
                 <Swiper
-                                        modules={[Autoplay, Pagination, Navigation]}
-                                        spaceBetween={30}
-                                        centeredSlides={true}
-                                        autoplay={{
-                                            delay: 3000,
-                                            disableOnInteraction: false,
-                                        }}
-                                        pagination={{
-                                            clickable: false,
-                                        }}
-                                        navigation={false}
-                                        className="w-full h-full"
-                                    >
-                                        {slides.map((src, index) => (
-                                            <SwiperSlide key={index}>
-                                                <img src={src} alt={`Slide ${index + 1}`} className="w-full h-full object-cover" />
-                                            </SwiperSlide>
-                                        ))}
-                                    </Swiper>
+                    modules={[Autoplay, Pagination, Navigation]}
+                    spaceBetween={30}
+                    centeredSlides={true}
+                    autoplay={{
+                        delay: 3000,
+                        disableOnInteraction: false,
+                    }}
+                    pagination={{
+                        clickable: false,
+                    }}
+                    navigation={false}
+                    className="w-full h-full"
+                >
+                    {slides.map((src, index) => (
+                        <SwiperSlide key={index}>
+                            <img src={src} alt={`Slide ${index + 1}`} className="w-full h-full object-cover" />
+                        </SwiperSlide>
+                    ))}
+                </Swiper>
             </div>
 
             {status && <div className="mb-4 text-sm font-medium text-green-600">{status}</div>}

@@ -111,4 +111,3 @@ ResetPassword.layout = (page) => (
         {page}
     </GuestLayout>
 );
-
