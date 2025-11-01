@@ -85,7 +85,12 @@ class ReturnBookFrontController extends Controller
 
     $filename = 'Surat_Pernyataan_Hilang_' . $returnBook->id . '.pdf';
 
-    return $pdf->download($filename);
+    ob_end_clean();
+
+
+     return response($pdf->output(), 200)
+        ->header('Content-Type', 'application/pdf')
+        ->header('Content-Disposition', 'attachment; filename="' . $filename . '"');
 }
 
 

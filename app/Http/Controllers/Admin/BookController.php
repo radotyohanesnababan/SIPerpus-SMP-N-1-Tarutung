@@ -162,7 +162,7 @@ class BookController extends Controller
             
             
 
-            flashMessage(MessageType::CREATED->message('Buku'),
+            flashMessage(MessageType::UPDATED->message('Buku'),
                 'success'
             );
             return to_route('admin.books.index');

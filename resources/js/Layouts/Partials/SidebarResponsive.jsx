@@ -2,8 +2,11 @@ import ApplicationLogo from '@/Components/ApplicationLogo';
 import NavLinkResponsive from '@/Components/NavLinkResponsive';
 import {
     IconAlertCircle,
+    IconAntenna,
     IconBooks,
+    IconBuilding,
     IconCategory,
+    IconChartArea,
     IconChartDots2,
     IconCreditCardPay,
     IconCreditCardRefund,
@@ -49,35 +52,40 @@ export default function SidebarResponsive({ url, auth }) {
                             title="Statistik Peminjaman"
                             icon={IconCreditCardPay}
                         />
-                        <NavLinkResponsive url="#" title="Validasi Peminjaman" icon={IconChartDots2} />
+                        
 
                         <div className="px-3 py-2 text-sm font-semibold text-foreground">Pengembalian</div>
                         <NavLinkResponsive
                             url={route('admin.return-books.index')}
-                            active={url.startsWith('/admin/return-books')}
+                            active={route().current('admin.return-books.*')}
                             title="Validasi Pengembalian"
                             icon={IconCreditCardRefund}
                         />
-                        <NavLinkResponsive url="#" title="Riwayat Pengembalian" icon={IconChartDots2} />
+                        <NavLinkResponsive
+                            url={route('admin.return-books-records.index')}
+                            active={route().current('admin.return-books-records.*')}
+                            title="Riwayat Pengembalian"
+                            icon={IconCreditCardRefund}
+                        />
 
                         <div className="px-3 py-2 text-sm font-semibold text-foreground">Master</div>
                         <NavLinkResponsive
                             url={route('admin.books.index')}
                             active={url.startsWith('/admin/books')}
                             title="Buku"
-                            icon={IconChartDots2}
+                            icon={IconBooks}
                         />
                         <NavLinkResponsive
                             url={route('admin.publishers.index')}
                             active={url.startsWith('/admin/publishers')}
                             title="Penerbit"
-                            icon={IconChartDots2}
+                            icon={IconBuilding}
                         />
                         <NavLinkResponsive
                             url={route('admin.categories.index')}
                             active={url.startsWith('/admin/categories')}
                             title="Kategori"
-                            icon={IconChartDots2}
+                            icon={IconCategory}
                         />
                         <NavLinkResponsive
                             url={route('admin.book-stock-reports.index')}
@@ -105,7 +113,7 @@ export default function SidebarResponsive({ url, auth }) {
                             icon={IconUsersGroup}
                             active={url.startsWith('/admin/kelas')}
                         />
-                        <div className="px-3 py-2 text-sm font-semibold text-foreground">Peran dan Izin</div>
+                        {/* <div className="px-3 py-2 text-sm font-semibold text-foreground">Peran dan Izin</div>
                         <NavLinkResponsive
                             url={route('admin.roles.index')}
                             title="Peran"
@@ -123,20 +131,20 @@ export default function SidebarResponsive({ url, auth }) {
                             title="Izin"
                             icon={IconUser}
                             active={url.startsWith('/admin/assign-permissions')}
-                        />
+                        /> */}
 
                         <div className="px-3 py-2 text-sm font-semibold text-foreground">Lainnya</div>
                         <NavLinkResponsive
                             url={route('admin.announcements.index')}
                             title="Pengumuman"
-                            icon={IconAlertCircle}
+                            icon={IconAntenna}
                             active={url.startsWith('/admin/announcements')}
                         />
                         <NavLinkResponsive
                             url={route('profile.edit')}
                             title="Edit Profil"
                             icon={IconUser}
-                            active={url.startsWith('/admin/profile')}
+                            active={url.startsWith('/profile')}
                         />
                     </nav>
                 </nav>
@@ -200,16 +208,10 @@ export default function SidebarResponsive({ url, auth }) {
 
                         <div className="px-3 py-2 text-sm font-semibold text-foreground">Lainnya</div>
                         <NavLinkResponsive
-                            url={route('admin.announcements.index')}
-                            title="Pengumuman"
-                            icon={IconAlertCircle}
-                            active={url.startsWith('/admin/announcements')}
-                        />
-                        <NavLinkResponsive
                             url={route('profile.edit')}
                             title="Edit Profil"
                             icon={IconUser}
-                            active={url.startsWith('/admin/profile')}
+                            active={url.startsWith('/profile')}
                         />
                     </nav>
                 </nav>

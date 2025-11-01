@@ -56,7 +56,12 @@ class BorrowedFrontController extends Controller
 
     public function store(Book $book): RedirectResponse{
 
-       // dd(Auth::check(), Auth::user());
+        //dd(Auth::check(), Auth::user());
+        //dd(Borrowed::activeBorrowedBook(Auth::user()->nisn));
+        if (Borrowed::activeBorrowedBook(Auth::user()->nisn) >= 2) {
+        flashMessage('Anda sudah meminjam 2 buku. Kembalikan salah satu dulu sebelum meminjam lagi.', 'error');
+        return to_route('front.books.show', $book->slug);
+        }
 
         if(Borrowed::checkBorrowedBook(Auth::user()->nisn, $book->id)) {
             flashMessage('Anda sudah meminjam buku ini, harap kembalikan buku terlebih dahulu', 'error');

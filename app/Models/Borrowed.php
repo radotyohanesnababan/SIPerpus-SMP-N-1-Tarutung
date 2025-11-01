@@ -28,7 +28,7 @@ class Borrowed extends Model
     }
     public function returnBook()
     {
-        return $this->hasOne(ReturnBook::class);
+        return $this->hasOne(ReturnBook::class, 'borrowed_id', 'id');
     }
 
     public function scopeFilter(Builder $query, array $filters): void
@@ -59,6 +59,16 @@ class Borrowed extends Model
             ->where('book_id', $book_id)
             ->whereDoesntHave('returnBook', fn($query)=> $query->where('book_id', $book_id)->where('user_nisn', $user_nisn))
             ->exists();
+    }
+
+    public static function activeBorrowedBook(int $user_nisn): int
+    {
+        return self::query()
+        ->where('user_nisn', $user_nisn)
+        ->whereDoesntHave('returnBook', function ($query) {
+            $query->where('status', 'Dikembalikan');
+        })
+        ->count();
     }
 
     public static function totalLoanBooks(): array

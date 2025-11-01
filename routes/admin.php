@@ -16,6 +16,7 @@ use App\Http\Controllers\Admin\ReturnBookController;
 use App\Http\Controllers\Admin\RoleController;
 use App\Http\Controllers\Admin\PermissionController;
 use App\Http\Controllers\Admin\ReportController;
+use App\Http\Controllers\Admin\ReturnBookRecordController;
 use Illuminate\Support\Facades\Route;
 
 Route::middleware('auth','role:admin')->prefix('admin')->group(function (){
@@ -106,6 +107,11 @@ Route::middleware('auth','role:admin')->prefix('admin')->group(function (){
         Route::put('return-books/{borrowed}/store', 'store')->name('admin.return-books.store');
         Route::delete('return-books/{returnBook}', 'destroy')->name('admin.return-books.destroy');
         Route::put('return-books/{returnBook}/approve', 'approve')->name('admin.return-books.approve');
+        
+
+});
+ Route::controller(ReturnBookRecordController::class)->group(function (){
+        Route::get('return-books-records', 'index')->name('admin.return-books-records.index');
         
 
 });

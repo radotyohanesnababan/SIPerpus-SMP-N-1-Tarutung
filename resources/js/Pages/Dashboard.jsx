@@ -126,7 +126,7 @@ export default function Dashboard(props) {
                                 <CardTitle> Transaksi Peminjaman</CardTitle>
                                 <CardDescription>Data Peminjaman Terbaru</CardDescription>
                             </div>
-                            <Button variant="orange" asChild>
+                            <Button variant="skyblue" asChild>
                                 {auth.role.some((role) => ['admin'].includes(role)) ? (
                                     <Link href={route('admin.borroweds.index')}>
                                         Lihat Semua
@@ -169,7 +169,7 @@ export default function Dashboard(props) {
                                 <CardTitle> Transaksi Pengembalian</CardTitle>
                                 <CardDescription>Data Pengembalian Terbaru</CardDescription>
                             </div>
-                            <Button variant="orange" asChild>
+                            <Button variant="skyblue" asChild>
                                 {auth.role.some((role) => ['admin'].includes(role)) ? (
                                     <Link href={route('admin.return-books.index')}>
                                         Lihat Semua

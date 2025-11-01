@@ -10,29 +10,6 @@
             font-size: 12pt;
             line-height: 1.5;
         }
-        .kop {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            position: relative;
-            border-bottom: 2px solid black;
-            padding-bottom: 6px;
-            margin-bottom: 20px;
-        }
-        .kop img {
-            position: absolute;
-            left: 0;
-            top: 0;
-            width: 90px;
-            height: 90px;
-        }
-        .kop-content {
-            text-align: center;
-            width: 100%;
-        }
-        .kop-content h3, .kop-content h4 {
-            margin: 0;
-        }
         .judul {
             text-align: center;
             font-weight: bold;
@@ -49,15 +26,47 @@
     </style>
 </head>
 <body>
-    <div class="kop">
-        <img src="{{ public_path('storage/logosekolah.png') }}" alt="Logo Sekolah">
-        <div class="kop-content">
-            <h3>PEMERINTAH KABUPATEN TAPANULI UTARA</h3>
-            <h4>DINAS PENDIDIKAN</h4>
-            <h4>SMP NEGERI 1 TARUTUNG</h4>
-            <p>Alamat: Jalan Nahum Situmorang No. 1, Kec. Tarutung, Kabupaten Tapanuli Utara</p>
+    @php
+    
+    $logoSekolahPath = public_path('storage/logo/logosekolah.png');
+    $logoPemkabPath  = public_path('storage/logo/logopemkab.png');
+
+    $logoSekolahBase64 = file_exists($logoSekolahPath) ? 'data:image/'.pathinfo($logoSekolahPath, PATHINFO_EXTENSION).';base64,'.base64_encode(file_get_contents($logoSekolahPath)) : null;
+    $logoPemkabBase64  = file_exists($logoPemkabPath)  ? 'data:image/'.pathinfo($logoPemkabPath, PATHINFO_EXTENSION).';base64,'.base64_encode(file_get_contents($logoPemkabPath)) : null;
+@endphp
+<div class="container" style="max-width:900px;margin:0 auto;padding:0 18px;">
+  <table width="100%" style="margin-bottom: 6px; border: none; outline: none; box-shadow: none;">
+    <tr>
+      <td style="width: 18%; text-align: left; border: none; vertical-align: middle;">
+        @if($logoSekolahBase64)
+          <img src="{{ $logoSekolahBase64 }}" alt="Logo Sekolah" style="height: 120px; width: auto; display: block;">
+        @endif
+      </td>
+      <td style="width: 64%; text-align: center; vertical-align: middle; border: none;">
+        <div style="line-height:1.1;">
+          <div style="font-size:15px; border: none; font-weight:700; margin-bottom:2px;">PEMERINTAH KABUPATEN TAPANULI UTARA</div>
+          <div style="font-size:15px; border: none; font-weight:700; margin-bottom:2px;">DINAS PENDIDIKAN DAN KEBUDAYAAN</div>
+          <div style="font-size:15px; border: none; font-weight:700; margin-bottom:4px;">SMP NEGERI 1 TARUTUNG</div>
+          <div style="font-size:11px; border: none; margin-bottom:2px;">
+            Jalan Nahum Situmorang Tarutung 22413 &nbsp; Provinsi Sumatera Utara
+          </div>
+          <div style="font-size:11px;">
+            Email: <span style="text-decoration: none; color: #000;">smpn1tarutung.taput@gmail.com</span>
+          </div>
         </div>
-    </div>
+      </td>
+      <td style="width: 18%; text-align: right; border: none; vertical-align: middle;">
+        @if($logoPemkabBase64)
+          <img src="{{ $logoPemkabBase64 }}" alt="Logo Pemkab" style="height: 90px; width: auto; display: block;">
+        @endif
+      </td>
+    </tr>
+  </table>
+  <div style="width:100%; margin-top:4px; border: none;">
+    <div style="border-bottom:3px solid #000; margin-bottom:2px;"></div>
+    <div style="border-bottom:1px solid #000; margin-bottom:8px;"></div>
+  </div>
+</div>
 
     <div class="judul">SURAT PERNYATAAN KEHILANGAN BUKU</div>
     <div class="nomor">Nomor: ........................................</div>

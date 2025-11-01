@@ -58,7 +58,7 @@ export default function Index(props) {
                     icon={IconCircleKey}
                 />
 
-                <Button variant="orange" size="lg" asChild>
+                <Button variant="skyblue" size="lg" asChild>
                     <Link href={route('admin.roles.create')}>
                         <IconPlus className="size-4" />
                         Tambah
@@ -160,7 +160,7 @@ export default function Index(props) {
                                     <Button
                                         variant="ghost"
                                         className="group inline-flex "
-                                        onClick={() => onSortable('actions')}
+                                        
                                     >
                                         Aksi{' '}
                                         <span className="ml-2 flex-none rounded text-muted-foreground">

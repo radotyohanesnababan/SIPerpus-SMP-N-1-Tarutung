@@ -39,7 +39,7 @@ export default function Edit(props) {
                     subtitle={props.page_settings.subtitle}
                     icon={IconUsersGroup}
                 />
-                <Button variant="orange" size="lg" asChild>
+                <Button variant="skyblue" size="lg" asChild>
                     <Link href={route('admin.users.index')}>
                         <IconArrowLeft className="size-4"></IconArrowLeft>Kembali
                     </Link>
@@ -145,7 +145,7 @@ export default function Edit(props) {
                             <Button type="button" variant="ghost" onClick={() => reset()} size="lg">
                                 Reset
                             </Button>
-                            <Button variant="orange" type="submit" size="lg">
+                            <Button variant="skyblue" type="submit" size="lg">
                                 Simpan
                             </Button>
                         </div>

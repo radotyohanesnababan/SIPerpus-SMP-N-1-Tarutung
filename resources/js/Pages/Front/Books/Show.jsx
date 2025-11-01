@@ -1,8 +1,16 @@
 import { Button } from '@/Components/ui/button';
+import { Toast } from '@/Components/ui/toast';
 import AppLayout from '@/Layouts/AppLayout';
 import { router } from '@inertiajs/react';
+import { useEffect } from 'react';
+import { toast } from 'sonner';
 
 export default function Show(props) {
+        useEffect(() => {
+            if (props.flash_message?.message) {
+                toast[props.flash_message.type || 'success'](props.flash_message.message);
+            }
+        }, [props.flash_message]);
     return (
         <div className="flex flex-col w-full pb-32 space-y-12">
             <div className="lg:grid lg:grid-cols-12 lg:grid-rows-1 lg:gap-x-8 lg:gap-y-10">

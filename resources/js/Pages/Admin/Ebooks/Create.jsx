@@ -47,7 +47,7 @@ export default function Create(props) {
                     subtitle={props.page_settings.subtitle}
                     icon={IconBooks}
                 />
-                <Button variant="orange" size="lg" asChild>
+                <Button variant="skyblue" size="lg" asChild>
                     <Link href={route('admin.ebooks.index')}>
                         <IconArrowLeft className="size-4"></IconArrowLeft>Kembali
                     </Link>
@@ -187,7 +187,7 @@ export default function Create(props) {
                             <Button type="button" variant="ghost" onClick={onHandleReset} size="lg">
                                 Reset
                             </Button>
-                            <Button variant="orange" type="submit" size="lg">
+                            <Button variant="skyblue" type="submit" size="lg">
                                 Simpan
                             </Button>
                         </div>

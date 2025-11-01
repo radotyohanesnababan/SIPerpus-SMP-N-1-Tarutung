@@ -23,7 +23,7 @@
 </head>
 <body>
 @php
-    // path file logo; sesuaikan jika lokasinya berbeda
+    
     $logoSekolahPath = public_path('storage/logo/logosekolah.png');
     $logoPemkabPath  = public_path('storage/logo/logopemkab.png');
 

@@ -9,7 +9,6 @@ import {
     AlertDialogTitle,
     AlertDialogTrigger,
 } from '@/Components/ui/alert-dialog';
-import { Avatar, AvatarFallback, AvatarImage } from '@/Components/ui/avatar';
 import { Button } from '@/Components/ui/button';
 import { Card, CardContent, CardFooter, CardHeader } from '@/Components/ui/card';
 import { Input } from '@/Components/ui/input';
@@ -18,11 +17,13 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/Components/ui/table';
 import { useFilter } from '@/hooks/useFilter';
 import AppLayout from '@/Layouts/AppLayout';
-import { Link, router } from '@inertiajs/react';
+import { router } from '@inertiajs/react';
 import { AlertDialogDescription } from '@radix-ui/react-alert-dialog';
-import { IconArrowsDownUp, IconBooks, IconPencil, IconPlus, IconRefresh, IconTrash } from '@tabler/icons-react';
+import { IconArrowsDownUp, IconCreditCardRefund, IconRefresh, IconTrash } from '@tabler/icons-react';
 import { useEffect, useState } from 'react';
 import { toast } from 'sonner';
+
+import Approve from '../ReturnBooks/Approve';
 
 export default function Index(props) {
     useEffect(() => {
@@ -30,14 +31,13 @@ export default function Index(props) {
             toast[props.flash_message.type || 'success'](props.flash_message.message);
         }
     }, [props.flash_message]);
-    //console.log('[Component] props.books:', props.books);
-    const { data: books, meta } = props.books;
+
+    const { data: return_books, meta } = props.return_books;
     const [params, setParams] = useState(() => ({
         search: props.state?.search || '',
         load: props.state?.load || 10,
         page: props.state?.page || 1,
     }));
-    //console.log('[Component] render ulang, params:', params);
     const onSortable = (field) => {
         setParams({
             ...params,
@@ -46,9 +46,9 @@ export default function Index(props) {
         });
     };
     useFilter({
-        route: route('admin.books.index'),
+        route: route('admin.return-books-records.index'),
         values: params,
-        only: ['books'],
+        only: ['return_books'],
     });
 
     return (
@@ -57,15 +57,8 @@ export default function Index(props) {
                 <HeaderTitle
                     title={props.page_settings.title}
                     subtitle={props.page_settings.subtitle}
-                    icon={IconBooks}
+                    icon={IconCreditCardRefund}
                 />
-
-                <Button variant="skyblue" size="lg" asChild>
-                    <Link href={route('admin.books.create')}>
-                        <IconPlus className="size-4" />
-                        Tambah
-                    </Link>
-                </Button>
             </div>
             <Card>
                 <CardHeader>
@@ -76,15 +69,7 @@ export default function Index(props) {
                             value={params?.search}
                             onChange={(e) => setParams((prev) => ({ ...prev, search: e.target.value }))}
                         />
-                        <Select
-                            value={params?.load}
-                            onValueChange={(e) =>
-                                setParams((prev) => ({
-                                    ...prev,
-                                    load: parseInt(e, 10) || 0,
-                                }))
-                            }
-                        >
+                        <Select value={params?.load} onValueChange={(e) => setParams({ ...params, load: e })}>
                             <SelectTrigger className="w-full sm:w-24">
                                 <SelectValue placeholder="Load" />
                             </SelectTrigger>
@@ -112,7 +97,7 @@ export default function Index(props) {
                                         className="group inline-flex "
                                         onClick={() => onSortable('id')}
                                     >
-                                        Kode Buku
+                                        #{}
                                         <span className="ml-2 flex-none rounded text-muted-foreground">
                                             <IconArrowsDownUp className="size-4 text-muted-foreground" />
                                         </span>
@@ -122,9 +107,9 @@ export default function Index(props) {
                                     <Button
                                         variant="ghost"
                                         className="group inline-flex "
-                                        onClick={() => onSortable('judul')}
+                                        onClick={() => onSortable('borrowed_id')}
                                     >
-                                        Judul Buku{' '}
+                                        ID Peminjaman{' '}
                                         <span className="ml-2 flex-none rounded text-muted-foreground">
                                             <IconArrowsDownUp className="size-4 text-muted-foreground" />
                                         </span>
@@ -134,22 +119,9 @@ export default function Index(props) {
                                     <Button
                                         variant="ghost"
                                         className="group inline-flex "
-                                        onClick={() => onSortable('isbn')}
+                                        onClick={() => onSortable('user_id')}
                                     >
-                                        ISBN{' '}
-                                        <span className="ml-2 flex-none rounded text-muted-foreground">
-                                            <IconArrowsDownUp className="size-4 text-muted-foreground" />
-                                        </span>
-                                    </Button>
-                                </TableHead>
-                                <TableHead>Stok</TableHead>
-                                <TableHead>
-                                    <Button
-                                        variant="ghost"
-                                        className="group inline-flex "
-                                        onClick={() => onSortable('tahun_terbit')}
-                                    >
-                                        Tahun Terbit{' '}
+                                        Nama Pengguna{' '}
                                         <span className="ml-2 flex-none rounded text-muted-foreground">
                                             <IconArrowsDownUp className="size-4 text-muted-foreground" />
                                         </span>
@@ -159,9 +131,9 @@ export default function Index(props) {
                                     <Button
                                         variant="ghost"
                                         className="group inline-flex "
-                                        onClick={() => onSortable('kondisi')}
+                                        onClick={() => onSortable('book_id')}
                                     >
-                                        Kondisi Buku{' '}
+                                        Buku{' '}
                                         <span className="ml-2 flex-none rounded text-muted-foreground">
                                             <IconArrowsDownUp className="size-4 text-muted-foreground" />
                                         </span>
@@ -171,9 +143,9 @@ export default function Index(props) {
                                     <Button
                                         variant="ghost"
                                         className="group inline-flex "
-                                        onClick={() => onSortable('category.id')}
+                                        onClick={() => onSortable('condition')}
                                     >
-                                        Kategori Buku{' '}
+                                        Kondisi{' '}
                                         <span className="ml-2 flex-none rounded text-muted-foreground">
                                             <IconArrowsDownUp className="size-4 text-muted-foreground" />
                                         </span>
@@ -183,9 +155,9 @@ export default function Index(props) {
                                     <Button
                                         variant="ghost"
                                         className="group inline-flex "
-                                        onClick={() => onSortable('publisher.id')}
+                                        onClick={() => onSortable('borrowed_at')}
                                     >
-                                        Penerbit{' '}
+                                        Tanggal Dipinjam{' '}
                                         <span className="ml-2 flex-none rounded text-muted-foreground">
                                             <IconArrowsDownUp className="size-4 text-muted-foreground" />
                                         </span>
@@ -195,9 +167,21 @@ export default function Index(props) {
                                     <Button
                                         variant="ghost"
                                         className="group inline-flex "
-                                        onClick={() => onSortable('actions')}
+                                        onClick={() => onSortable('returned_at')}
                                     >
-                                        Cover{' '}
+                                        Batas Pengembalian{' '}
+                                        <span className="ml-2 flex-none rounded text-muted-foreground">
+                                            <IconArrowsDownUp className="size-4 text-muted-foreground" />
+                                        </span>
+                                    </Button>
+                                </TableHead>
+                                <TableHead>
+                                    <Button
+                                        variant="ghost"
+                                        className="group inline-flex "
+                                        onClick={() => onSortable('return_date')}
+                                    >
+                                        Tanggal Pengembalian{' '}
                                         <span className="ml-2 flex-none rounded text-muted-foreground">
                                             <IconArrowsDownUp className="size-4 text-muted-foreground" />
                                         </span>
@@ -215,84 +199,21 @@ export default function Index(props) {
                                         </span>
                                     </Button>
                                 </TableHead>
-                                <TableHead>
-                                    <Button
-                                        variant="ghost"
-                                        className="group inline-flex "
-                                        
-                                    >
-                                        Aksi{' '}
-                                        <span className="ml-2 flex-none rounded text-muted-foreground">
-                                            <IconArrowsDownUp className="size-4 text-muted-foreground" />
-                                        </span>
-                                    </Button>
-                                </TableHead>
+                                
                             </TableRow>
                         </TableHeader>
                         <TableBody>
-                            {books.map((book, index) => (
-                                <TableRow key={book.id}>
+                            {return_books.map((return_book, index) => (
+                                <TableRow key={return_book.id}>
                                     <TableCell>{index + 1 + (meta.current_page - 1) * meta.per_page}</TableCell>
-                                    <TableCell>{book.judul}</TableCell>
-                                    <TableCell>{book.isbn}</TableCell>
-                                    <TableCell>{book.stok.total}</TableCell>
-                                    <TableCell>{book.tahun_terbit}</TableCell>
-                                    <TableCell>{book.kondisi}</TableCell>
-                                    <TableCell>{book.category.name}</TableCell>
-                                    <TableCell>{book.publisher.name}</TableCell>
-                                    <TableCell>
-                                        <Avatar>
-                                            <AvatarImage
-                                                src={book.cover}
-                                                alt={book.judul}
-                                                loading="eager"
-                                                onError={(e) => {
-                                                    console.error('Image failed to load:', e);
-                                                }}
-                                            />
-                                            <AvatarFallback>
-                                                {book.judul.substring(0, 1)?.toUpperCase() ?? '-'}
-                                            </AvatarFallback>
-                                        </Avatar>
-                                    </TableCell>
-                                    <TableCell>{book.created_at}</TableCell>
-                                    <TableCell>
-                                        <div className="flex items-center gap-x-1">
-                                            <Button variant="blue" size="sm" asChild>
-                                                <Link href={route('admin.books.edit', [book])}>
-                                                    <IconPencil className="size-4" />
-                                                </Link>
-                                            </Button>
-                                            <AlertDialog>
-                                                <AlertDialogTrigger asChild>
-                                                    <Button variant="red" size="sm">
-                                                        <IconTrash size="4"></IconTrash>
-                                                    </Button>
-                                                </AlertDialogTrigger>
-                                                <AlertDialogContent>
-                                                    <AlertDialogHeader>
-                                                        <AlertDialogTitle>
-                                                            Apakah anda yakin ingin menghapus buku ini?
-                                                        </AlertDialogTitle>
-                                                        <AlertDialogDescription>
-                                                            Tindakan ini tidak dapat dibatalkan. Semua data yang terkait
-                                                            dengan buku ini akan dihapus secara permanen.
-                                                        </AlertDialogDescription>
-                                                    </AlertDialogHeader>
-                                                    <AlertDialogFooter>
-                                                        <AlertDialogCancel>Batal</AlertDialogCancel>
-                                                        <AlertDialogAction
-                                                            onClick={() =>
-                                                                router.delete(route('admin.books.destroy', [book]))
-                                                            }
-                                                        >
-                                                            Lanjutkan
-                                                        </AlertDialogAction>
-                                                    </AlertDialogFooter>
-                                                </AlertDialogContent>
-                                            </AlertDialog>
-                                        </div>
-                                    </TableCell>
+                                    <TableCell>{return_book.borrowed.id}</TableCell>
+                                    <TableCell>{return_book.user.nama}</TableCell>
+                                    <TableCell>{return_book.book.judul}</TableCell>
+                                    <TableCell>{return_book.return_book_check}</TableCell>
+                                    <TableCell>{return_book.borrowed.borrowed_at}</TableCell>
+                                    <TableCell>{return_book.borrowed.returned_at}</TableCell>
+                                    <TableCell>{return_book.return_date}</TableCell>
+                                    <TableCell>{return_book.created_at}</TableCell>
                                 </TableRow>
                             ))}
                         </TableBody>
@@ -301,7 +222,7 @@ export default function Index(props) {
                 <CardFooter className="flex flex-col items-center justify-between w-full py-2 border-t lg:flex-row">
                     <p className="mb-2 text-sm text-muted-foreground">
                         Menampilkan <span className="font-medium text-orange-500">{meta.from ?? 0}</span> dari{' '}
-                        {meta.total} kategori
+                        {meta.total} riwayat pengembalian buku
                     </p>
                     <div className="overflow-x-auto">
                         {meta.has_pages && (

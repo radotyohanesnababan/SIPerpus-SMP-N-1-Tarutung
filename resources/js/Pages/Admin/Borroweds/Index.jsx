@@ -66,7 +66,7 @@ export default function Index(props) {
                     icon={IconCreditCardPay}
                 />
 
-                <Button variant="orange" size="lg" asChild>
+                <Button variant="skyblue" size="lg" asChild>
                     <Link href={route('admin.borroweds.create')}>
                         <IconPlus className="size-4" />
                         Tambah
@@ -189,18 +189,18 @@ export default function Index(props) {
                                         </span>
                                     </Button>
                                 </TableHead>
-                                <TableHead>
+                                {/* <TableHead>
                                     <Button
                                         variant="ghost"
                                         className="group inline-flex "
-                                        onClick={() => onSortable('actions')}
+                                        
                                     >
                                         Aksi{' '}
                                         <span className="ml-2 flex-none rounded text-muted-foreground">
                                             <IconArrowsDownUp className="size-4 text-muted-foreground" />
                                         </span>
                                     </Button>
-                                </TableHead>
+                                </TableHead> */}
                             </TableRow>
                         </TableHeader>
                         <TableBody>
@@ -213,7 +213,7 @@ export default function Index(props) {
                                     <TableCell>{borrowed.borrowed_at}</TableCell>
                                     <TableCell>{borrowed.returned_at}</TableCell>
                                     <TableCell>{borrowed.created_at}</TableCell>
-                                    <TableCell>
+                                    {/* <TableCell>
                                         <div className="flex items-center gap-x-1">
                                             {!borrowed.has_return_book && (
                                                 <Button variant="purple" size="sm">
@@ -258,7 +258,7 @@ export default function Index(props) {
                                                 </AlertDialogContent>
                                             </AlertDialog>
                                         </div>
-                                    </TableCell>
+                                    </TableCell> */}
                                 </TableRow>
                             ))}
                         </TableBody>

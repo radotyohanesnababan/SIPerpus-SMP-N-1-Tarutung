@@ -65,7 +65,7 @@ export default function Index(props) {
                     icon={IconBuildingCommunity}
                 />
 
-                <Button variant="orange" size="lg" asChild>
+                <Button variant="skyblue" size="lg" asChild>
                     <Link href={route('admin.publishers.create')}>
                         <IconPlus className="size-4" />
                         Tambah
@@ -152,7 +152,7 @@ export default function Index(props) {
                                     <Button
                                         variant="ghost"
                                         className="group inline-flex "
-                                        onClick={() => onSortable('actions')}
+                                        
                                     >
                                         Aksi{' '}
                                     </Button>
