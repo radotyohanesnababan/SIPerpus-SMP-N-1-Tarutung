@@ -1,5 +1,6 @@
 import { Toaster } from '@/Components/ui/sonner';
 import { Head, Link, usePage } from '@inertiajs/react';
+import { IconBrandFacebook, IconBrandInstagram, IconBrandInstagramFilled, IconLink, IconSitemap } from '@tabler/icons-react';
 
 export default function AppLayout({ title, children }) {
     const auth = usePage().props.auth.user;
@@ -15,11 +16,11 @@ export default function AppLayout({ title, children }) {
                 <header className="flex h-16 items-center justify-between border-b bg-white/70 backdrop-blur-md px-6 shadow-md sticky top-0 z-50">
                     <div className="flex items-center gap-3">
                         <img
-                            src="/storage/logo/logosekolah.png"
+                            src="/storage/logo/logo.png"
                             alt="Logo"
                             className="h-12 w-12 rounded-full p-1 shadow-md object-contain"
                         />
-                        <span className="text-xl font-bold text-sky-700">SIPERPUS</span>
+                        <span className="text-xl font-bold text-sky-700">SPARTA</span>
                     </div>
 
                     <nav className="hidden md:flex items-center gap-4">
@@ -66,10 +67,20 @@ export default function AppLayout({ title, children }) {
                         </div>
 
                         <div className="flex flex-col md:items-end space-y-2 text-sm md:text-base mr-4">
+                            <div className="flex gap-2">
                             <a href="https://www.smpnegeri1tarutung.sch.id" className="hover:text-sky-200 transition">
-                                Website Sekolah
+                                <IconBrandInstagram className="w-9 h-9 text-white hover:text-sky-200" />
                             </a>
-                            <a href="mailto:smpn1tartung.taput@gmail.com" className="hover:text-sky-200 transition">
+                            <a href="https://www.smpnegeri1tarutung.sch.id" className="hover:text-sky-200 transition">
+                                <IconBrandFacebook className="w-9 h-9 text-white hover:text-sky-200" />
+                            </a>
+                            <a href="https://www.smpnegeri1tarutung.sch.id" className="hover:text-sky-200 transition">
+                                <IconLink className="w-9 h-9 text-white hover:text-sky-200" />
+                            </a>
+                            </div>
+
+
+                            <a href="mailto:smpn1tartung.taput@gmail.com" className="hover:text-sky-200 font-semibold transition">
                                 Hubungi Kami
                             </a>
                         </div>

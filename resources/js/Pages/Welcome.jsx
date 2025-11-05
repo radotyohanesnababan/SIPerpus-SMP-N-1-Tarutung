@@ -47,7 +47,7 @@ export default function Welcome(props) {
 
                 <div className="flex justify-center md:w-1/2">
                     <img
-                        src="/storage/logo/logosekolah.png"
+                        src="/storage/logo/logo.png"
                         alt="Perpustakaan"
                         className="w-72 md:w-[420px] rounded-2xl shadow-xl ring-4 ring-sky-100 bg-black/50 backdrop-blur-sm"
                     />
@@ -55,7 +55,10 @@ export default function Welcome(props) {
 
                 <div className="text-center md:text-left md:w-1/2 space-y-4 text-black drop-shadow-lg">
                     <h1 className="text-3xl md:text-4xl font-bold text-sky-600">
-                        Selamat Datang di Sistem Informasi Perpustakaan
+                        Selamat Datang di SPARTA
+                    </h1>
+                    <h1 className="text-2xl md:text-2xl font-bold text-sky-900">
+                       Sistem Perpustakaan SMP Negeri 1 Tarutung
                     </h1>
                     <p className="leading-relaxed dark:text-gray-200">
                         Temukan berbagai koleksi buku digital dan cetak dari Perpustakaan SMP Negeri 1 Tarutung. Siswa
@@ -92,7 +95,7 @@ export default function Welcome(props) {
                 </div>
             </section>
 
-            <section id="tentang" className="py-20 px-6 bg-white opacity-0 animate-fadeIn delay-300 overflow-hidden">
+            <section id="tentang" className="md:mb-10 px-6 bg-white opacity-0 animate-fadeIn delay-300 overflow-hidden">
                 <div className="container mx-auto flex flex-col md:flex-row items-center gap-10">
                     <div className="md:w-1/2">
                         <Swiper
