@@ -10,9 +10,9 @@ export default function Welcome(props) {
     const auth = props.auth.user;
     const categories = props.page_data.categories || [];
     const slides = [
-        'https://picsum.photos/800/400?random=1',
-        'https://picsum.photos/800/400?random=2',
-        'https://picsum.photos/800/400?random=3',
+        '/libfront1(1).webp',
+        '/libfront1(2).webp',
+        '/libfront1(3).webp',
     ];
 
     return (
