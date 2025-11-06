@@ -16,9 +16,10 @@ export default function AppLayout({ title, children }) {
                 <header className="flex h-16 items-center justify-between border-b bg-white/70 backdrop-blur-md px-6 shadow-md sticky top-0 z-50">
                     <div className="flex items-center gap-3">
                         <img
-                            src="/storage/logo/logo.png"
+                            src="/storage/logo/logo.webp"
                             alt="Logo"
                             className="h-12 w-12 rounded-full p-1 shadow-md object-contain"
+                            loading='lazy'
                         />
                         <span className="text-xl font-bold text-sky-700">SPARTA</span>
                     </div>

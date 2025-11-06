@@ -47,7 +47,7 @@ export default function Welcome(props) {
 
                 <div className="flex justify-center md:w-1/2">
                     <img
-                        src="/storage/logo/logo.png"
+                        src="/storage/logo/logo.webp"
                         alt="Perpustakaan"
                         className="w-72 md:w-[420px] rounded-2xl shadow-xl ring-4 ring-sky-100 bg-black/50 backdrop-blur-sm"
                     />
