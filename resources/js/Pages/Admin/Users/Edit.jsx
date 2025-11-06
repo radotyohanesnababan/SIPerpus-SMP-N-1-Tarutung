@@ -50,7 +50,7 @@ export default function Edit(props) {
                     <form className="space-y-4" onSubmit={onHandleSubmit}>
                         <div className="grid w-full items-center gap-1.5">
                             <Label htmlFor="role">Peran(Tidak Dapat Diubah)</Label>
-                            <Input id="role" name="role" disabled value={data.role} onChange={onHandleChange}  />
+                            <Input id="role" name="role" disabled value={data.role} onChange={onHandleChange} />
                             {errors.role && <InputError message={errors.role} />}
                         </div>
                         <div className="grid w-full items-center gap-1.5">
@@ -77,33 +77,31 @@ export default function Edit(props) {
                         </div>
                         {data.role !== 'admin' && (
                             <div className="grid w-full items-center gap-1.5">
-                            <Label htmlFor="kelas_id">Kelas</Label>
-                            <Select
-                                value={data.kelas_id ? String(data.kelas_id) : ''}
-                                onValueChange={(value) => setData('kelas_id', value)}
-                            >
-                                <SelectTrigger className="w-full">
-                                    <SelectValue placeholder="Pilih Kelas" />
-                                </SelectTrigger>
-                                <SelectContent>
-                                    {Array.isArray(props.kelas) && props.kelas.length > 0 ? (
-                                        props.kelas.map((k) => (
-                                            <SelectItem key={k.id} value={String(k.id)}>
-                                                {k.tingkat}
+                                <Label htmlFor="kelas_id">Kelas</Label>
+                                <Select
+                                    value={data.kelas_id ? String(data.kelas_id) : ''}
+                                    onValueChange={(value) => setData('kelas_id', value)}
+                                >
+                                    <SelectTrigger className="w-full">
+                                        <SelectValue placeholder="Pilih Kelas" />
+                                    </SelectTrigger>
+                                    <SelectContent>
+                                        {Array.isArray(props.kelas) && props.kelas.length > 0 ? (
+                                            props.kelas.map((k) => (
+                                                <SelectItem key={k.id} value={String(k.id)}>
+                                                    {k.tingkat}
+                                                </SelectItem>
+                                            ))
+                                        ) : (
+                                            <SelectItem value="" disabled>
+                                                Belum ada data kelas
                                             </SelectItem>
-                                        ))
-                                    ) : (
-                                        <SelectItem value="" disabled>
-                                            Belum ada data kelas
-                                        </SelectItem>
-                                    )}
-                                </SelectContent>
-                            </Select>
-                            <InputError message={errors.kelas_id} className="mt-2" />
-                        </div>
-                        )
-                            }
-                        
+                                        )}
+                                    </SelectContent>
+                                </Select>
+                                <InputError message={errors.kelas_id} className="mt-2" />
+                            </div>
+                        )}
 
                         <div className="grid w-full items-center gap-1.5">
                             <Label htmlFor="email">Email</Label>

@@ -70,6 +70,6 @@
 }
 
 .transition-all {
-  transition-property: transform, opacity, box-shadow !important;
-  will-change: transform, opacity;
+    transition-property: transform, opacity, box-shadow !important;
+    will-change: transform, opacity;
 }

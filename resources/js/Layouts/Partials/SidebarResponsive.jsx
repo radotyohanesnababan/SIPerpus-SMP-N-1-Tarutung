@@ -1,7 +1,6 @@
 import ApplicationLogo from '@/Components/ApplicationLogo';
 import NavLinkResponsive from '@/Components/NavLinkResponsive';
 import {
-    IconAlertCircle,
     IconAntenna,
     IconBooks,
     IconBuilding,
@@ -52,7 +51,6 @@ export default function SidebarResponsive({ url, auth }) {
                             title="Statistik Peminjaman"
                             icon={IconCreditCardPay}
                         />
-                        
 
                         <div className="px-3 py-2 text-sm font-semibold text-foreground">Pengembalian</div>
                         <NavLinkResponsive

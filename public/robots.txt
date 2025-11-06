@@ -1,2 +1,3 @@
 User-agent: *
 Disallow:
+Sitemap: https://sparta.my.id/sitemap.xml

@@ -1,14 +1,4 @@
 import HeaderTitle from '@/Components/HeaderTitle';
-import {
-    AlertDialog,
-    AlertDialogAction,
-    AlertDialogCancel,
-    AlertDialogContent,
-    AlertDialogFooter,
-    AlertDialogHeader,
-    AlertDialogTitle,
-    AlertDialogTrigger,
-} from '@/Components/ui/alert-dialog';
 import { Button } from '@/Components/ui/button';
 import { Card, CardContent, CardFooter, CardHeader } from '@/Components/ui/card';
 import { Input } from '@/Components/ui/input';
@@ -17,13 +7,9 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/Components/ui/table';
 import { useFilter } from '@/hooks/useFilter';
 import AppLayout from '@/Layouts/AppLayout';
-import { router } from '@inertiajs/react';
-import { AlertDialogDescription } from '@radix-ui/react-alert-dialog';
-import { IconArrowsDownUp, IconCreditCardRefund, IconRefresh, IconTrash } from '@tabler/icons-react';
+import { IconArrowsDownUp, IconCreditCardRefund, IconRefresh } from '@tabler/icons-react';
 import { useEffect, useState } from 'react';
 import { toast } from 'sonner';
-
-import Approve from '../ReturnBooks/Approve';
 
 export default function Index(props) {
     useEffect(() => {
@@ -199,7 +185,6 @@ export default function Index(props) {
                                         </span>
                                     </Button>
                                 </TableHead>
-                                
                             </TableRow>
                         </TableHeader>
                         <TableBody>

@@ -13,28 +13,7 @@ use App\Models\Category;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
-
-// Route::get('/', function () {
-//     return Inertia::render('Welcome', [
-//         'canLogin' => Route::has('login'),
-//         'canRegister' => Route::has('register'),
-//         'laravelVersion' => Application::VERSION,
-//         'phpVersion' => PHP_VERSION,
-//     ]);
-// });
 use Illuminate\Support\Facades\Mail;
-
-// Route::get('/test-email', function () {
-//     try {
-//         Mail::raw('Halo, ini email sungguhan dari Laravel (development).', function ($message) {
-//             $message->to('deandra.121180052@student.itera.ac.id')
-//                     ->subject('Tes Kirim Email Laravel');
-//         });
-//         return '✅ Email berhasil dikirim!';
-//     } catch (\Exception $e) {
-//         return '❌ Gagal: ' . $e->getMessage();
-//     }
-// });
 
 Route::controller(WelcomeController::class)->group(function () {
     Route::get('/', 'index')->name('welcome');
@@ -85,3 +64,22 @@ Route::middleware('auth')->group(function () {
 require __DIR__.'/auth.php';
 
 require __DIR__.'/admin.php';
+
+use Illuminate\Support\Facades\Response;
+
+Route::get('/sitemap.xml', function () {
+ $path = __DIR__ . '/../sitemap-source.xml';  // 👈 ini sesuai struktur kamu
+    
+    if (!file_exists($path)) {
+        return response('Sitemap not found at: ' . $path, 404);
+    }
+
+    $xml = file_get_contents($path);
+
+    return response($xml, 200)
+        ->header('Content-Type', 'application/xml')
+        ->header('Cache-Control', 'no-cache, no-store, must-revalidate')
+        ->header('Pragma', 'no-cache')
+        ->header('Expires', '0')
+        ->header('ETag', '');
+});

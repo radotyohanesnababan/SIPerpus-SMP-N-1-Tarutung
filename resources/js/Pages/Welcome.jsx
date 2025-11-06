@@ -9,11 +9,7 @@ import { Swiper, SwiperSlide } from 'swiper/react';
 export default function Welcome(props) {
     const auth = props.auth.user;
     const categories = props.page_data.categories || [];
-    const slides = [
-        '/storage/libfront1(1).webp',
-        '/storage/libfront1(2).webp',
-        '/storage/libfront1(3).webp',
-    ];
+    const slides = ['/storage/libfront1(1).webp', '/storage/libfront1(2).webp', '/storage/libfront1(3).webp'];
 
     return (
         <div className="flex flex-col w-full ">
@@ -39,7 +35,13 @@ export default function Welcome(props) {
                     >
                         {slides.map((src, index) => (
                             <SwiperSlide key={index}>
-                                <img src={src} alt={`Slide ${index + 1}`} className="w-full h-full object-cover" loading='lazy' decoding='async' />
+                                <img
+                                    src={src}
+                                    alt={`Slide ${index + 1}`}
+                                    className="w-full h-full object-cover"
+                                    loading="lazy"
+                                    decoding="async"
+                                />
                             </SwiperSlide>
                         ))}
                     </Swiper>
@@ -54,14 +56,13 @@ export default function Welcome(props) {
                 </div>
 
                 <div className="text-center md:text-left md:w-1/2 space-y-4 text-black drop-shadow-lg">
-                    <h1 className="text-3xl md:text-4xl font-bold text-sky-600">
-                        Selamat Datang di SPARTA
-                    </h1>
+                    <h1 className="text-3xl md:text-4xl font-bold text-sky-600">Selamat Datang di SPARTA</h1>
                     <h1 className="text-2xl md:text-2xl font-bold text-sky-800">
-                       Sistem Perpustakaan SMP Negeri 1 Tarutung
+                        Sistem Perpustakaan SMP Negeri 1 Tarutung
                     </h1>
                     <p className="leading-relaxed dark:text-gray-200">
-                        Temukan berbagai koleksi buku digital dan cetak dari Perpustakaan SMP Negeri 1 Tarutung. Pengguna dapat meminjam, membaca, dan mencari buku dengan mudah.
+                        Temukan berbagai koleksi buku digital dan cetak dari Perpustakaan SMP Negeri 1 Tarutung.
+                        Pengguna dapat meminjam, membaca, dan mencari buku dengan mudah.
                     </p>
                     <Link
                         href={route('register')}
@@ -117,8 +118,8 @@ export default function Welcome(props) {
                                         src={src}
                                         alt={`Slide ${index + 1}`}
                                         className="w-full h-64 sm:h-80 md:h-96 object-cover"
-                                        loading='lazy'
-                                        decoding='async'
+                                        loading="lazy"
+                                        decoding="async"
                                     />
                                 </SwiperSlide>
                             ))}

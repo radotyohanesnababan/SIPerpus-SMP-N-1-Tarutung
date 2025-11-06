@@ -133,11 +133,7 @@ export default function Index(props) {
                                 </TableHead>
                                 <TableHead>Permissions</TableHead>
                                 <TableHead>
-                                    <Button
-                                        variant="ghost"
-                                        className="group inline-flex "
-                                        
-                                    >
+                                    <Button variant="ghost" className="group inline-flex ">
                                         Aksi{' '}
                                         <span className="ml-2 flex-none rounded text-muted-foreground">
                                             <IconArrowsDownUp className="size-4 text-muted-foreground" />

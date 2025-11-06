@@ -1,12 +1,10 @@
 import NavLink from '@/Components/NavLink';
 import {
-    IconAlertCircle,
     IconAntenna,
     IconBooks,
     IconBuilding,
     IconCategory,
     IconChartArea,
-    IconChartDots2,
     IconCreditCardPay,
     IconCreditCardRefund,
     IconDashboard,

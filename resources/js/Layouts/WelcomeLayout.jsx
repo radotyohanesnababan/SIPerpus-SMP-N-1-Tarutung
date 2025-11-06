@@ -1,6 +1,6 @@
 import { Toaster } from '@/Components/ui/sonner';
 import { Head, Link, usePage } from '@inertiajs/react';
-import { IconBrandFacebook, IconBrandInstagram, IconBrandInstagramFilled, IconLink, IconSitemap } from '@tabler/icons-react';
+import { IconBrandFacebook, IconBrandInstagram, IconLink } from '@tabler/icons-react';
 
 export default function AppLayout({ title, children }) {
     const auth = usePage().props.auth.user;
@@ -19,7 +19,7 @@ export default function AppLayout({ title, children }) {
                             src="/storage/logo/logo.webp"
                             alt="Logo"
                             className="h-12 w-12 rounded-full p-1 shadow-md object-contain"
-                            loading='lazy'
+                            loading="lazy"
                         />
                         <span className="text-xl font-bold text-sky-900">SPARTA</span>
                     </div>
@@ -69,19 +69,33 @@ export default function AppLayout({ title, children }) {
 
                         <div className="flex flex-col md:items-end space-y-2 text-sm md:text-base mr-4">
                             <div className="flex gap-2">
-                            <a href="https://www.smpnegeri1tarutung.sch.id" className="hover:text-sky-200 transition" aria-label='Instagram Sekolah'>
-                                <IconBrandInstagram className="w-9 h-9 text-white hover:text-sky-200" />
-                            </a>
-                            <a href="https://www.facebook.com/profile.php?id=100070072041930" className="hover:text-sky-200 transition" aria-label='Facebook Sekolah'>
-                                <IconBrandFacebook className="w-9 h-9 text-white hover:text-sky-200" />
-                            </a>
-                            <a href="https://www.smpnegeri1tarutung.sch.id" className="hover:text-sky-200 transition" aria-label='Website Sekolah'>
-                                <IconLink className="w-9 h-9 text-white hover:text-sky-200" />
-                            </a>
+                                <a
+                                    href="https://www.smpnegeri1tarutung.sch.id"
+                                    className="hover:text-sky-200 transition"
+                                    aria-label="Instagram Sekolah"
+                                >
+                                    <IconBrandInstagram className="w-9 h-9 text-white hover:text-sky-200" />
+                                </a>
+                                <a
+                                    href="https://www.facebook.com/profile.php?id=100070072041930"
+                                    className="hover:text-sky-200 transition"
+                                    aria-label="Facebook Sekolah"
+                                >
+                                    <IconBrandFacebook className="w-9 h-9 text-white hover:text-sky-200" />
+                                </a>
+                                <a
+                                    href="https://www.smpnegeri1tarutung.sch.id"
+                                    className="hover:text-sky-200 transition"
+                                    aria-label="Website Sekolah"
+                                >
+                                    <IconLink className="w-9 h-9 text-white hover:text-sky-200" />
+                                </a>
                             </div>
 
-
-                            <a href="mailto:smpn1tartung.taput@gmail.com" className="hover:text-sky-200 font-semibold transition">
+                            <a
+                                href="mailto:smpn1tartung.taput@gmail.com"
+                                className="hover:text-sky-200 font-semibold transition"
+                            >
                                 Hubungi Kami
                             </a>
                         </div>

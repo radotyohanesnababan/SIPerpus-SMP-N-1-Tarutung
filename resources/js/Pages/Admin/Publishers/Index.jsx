@@ -149,11 +149,7 @@ export default function Index(props) {
                                     </Button>
                                 </TableHead>
                                 <TableHead>
-                                    <Button
-                                        variant="ghost"
-                                        className="group inline-flex "
-                                        
-                                    >
+                                    <Button variant="ghost" className="group inline-flex ">
                                         Aksi{' '}
                                     </Button>
                                 </TableHead>
