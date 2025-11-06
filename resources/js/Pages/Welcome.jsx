@@ -39,7 +39,7 @@ export default function Welcome(props) {
                     >
                         {slides.map((src, index) => (
                             <SwiperSlide key={index}>
-                                <img src={src} alt={`Slide ${index + 1}`} className="w-full h-full object-cover" />
+                                <img src={src} alt={`Slide ${index + 1}`} className="w-full h-full object-cover" loading='lazy' decoding='async' />
                             </SwiperSlide>
                         ))}
                     </Swiper>
@@ -117,6 +117,8 @@ export default function Welcome(props) {
                                         src={src}
                                         alt={`Slide ${index + 1}`}
                                         className="w-full h-64 sm:h-80 md:h-96 object-cover"
+                                        loading='lazy'
+                                        decoding='async'
                                     />
                                 </SwiperSlide>
                             ))}

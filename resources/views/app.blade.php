@@ -9,12 +9,17 @@
         <meta name="author" content="SMP Negeri 1 Tarutung">
 
         <link rel="icon" type="image/png" href="{{ asset('storage/logo/favicon.png') }}" sizes="48x48">
+        
 
         {{-- <title inertia>{{ config('app.name', 'SPARTA') }}</title> --}}
 
         <!-- Fonts -->
         <link rel="preconnect" href="https://fonts.bunny.net">
+        <link rel="preload" href="https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap" as="style" />
+        <link href="https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap" rel="stylesheet" media="print" onload="this.media='all'" />
+        <noscript>
         <link href="https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap" rel="stylesheet" />
+        </noscript>
 
         <!-- Scripts -->
         @routes
