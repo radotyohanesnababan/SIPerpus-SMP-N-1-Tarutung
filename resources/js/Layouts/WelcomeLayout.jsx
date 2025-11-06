@@ -21,7 +21,7 @@ export default function AppLayout({ title, children }) {
                             className="h-12 w-12 rounded-full p-1 shadow-md object-contain"
                             loading='lazy'
                         />
-                        <span className="text-xl font-bold text-sky-700">SPARTA</span>
+                        <span className="text-xl font-bold text-sky-900">SPARTA</span>
                     </div>
 
                     <nav className="hidden md:flex items-center gap-4">
@@ -69,13 +69,13 @@ export default function AppLayout({ title, children }) {
 
                         <div className="flex flex-col md:items-end space-y-2 text-sm md:text-base mr-4">
                             <div className="flex gap-2">
-                            <a href="https://www.smpnegeri1tarutung.sch.id" className="hover:text-sky-200 transition">
+                            <a href="https://www.smpnegeri1tarutung.sch.id" className="hover:text-sky-200 transition" aria-label='Instagram Sekolah'>
                                 <IconBrandInstagram className="w-9 h-9 text-white hover:text-sky-200" />
                             </a>
-                            <a href="https://www.smpnegeri1tarutung.sch.id" className="hover:text-sky-200 transition">
+                            <a href="https://www.facebook.com/profile.php?id=100070072041930" className="hover:text-sky-200 transition" aria-label='Facebook Sekolah'>
                                 <IconBrandFacebook className="w-9 h-9 text-white hover:text-sky-200" />
                             </a>
-                            <a href="https://www.smpnegeri1tarutung.sch.id" className="hover:text-sky-200 transition">
+                            <a href="https://www.smpnegeri1tarutung.sch.id" className="hover:text-sky-200 transition" aria-label='Website Sekolah'>
                                 <IconLink className="w-9 h-9 text-white hover:text-sky-200" />
                             </a>
                             </div>

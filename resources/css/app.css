@@ -68,3 +68,8 @@
         @apply bg-background text-foreground;
     }
 }
+
+.transition-all {
+  transition-property: transform, opacity, box-shadow !important;
+  will-change: transform, opacity;
+}

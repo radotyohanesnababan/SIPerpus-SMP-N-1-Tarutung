@@ -10,9 +10,9 @@ export default function Welcome(props) {
     const auth = props.auth.user;
     const categories = props.page_data.categories || [];
     const slides = [
-        '/libfront1(1).webp',
-        '/libfront1(2).webp',
-        '/libfront1(3).webp',
+        '/storage/libfront1(1).webp',
+        '/storage/libfront1(2).webp',
+        '/storage/libfront1(3).webp',
     ];
 
     return (
@@ -49,7 +49,7 @@ export default function Welcome(props) {
                     <img
                         src="/storage/logo/logo.webp"
                         alt="Perpustakaan"
-                        className="w-72 md:w-[420px] rounded-2xl shadow-xl ring-4 ring-sky-100 bg-black/50 backdrop-blur-sm"
+                        className="w-72 md:w-[420px] rounded-2xl shadow-xl ring-4 ring-sky-100 bg-black/50 backdrop-blur-sm "
                     />
                 </div>
 
@@ -57,12 +57,11 @@ export default function Welcome(props) {
                     <h1 className="text-3xl md:text-4xl font-bold text-sky-600">
                         Selamat Datang di SPARTA
                     </h1>
-                    <h1 className="text-2xl md:text-2xl font-bold text-sky-900">
+                    <h1 className="text-2xl md:text-2xl font-bold text-sky-800">
                        Sistem Perpustakaan SMP Negeri 1 Tarutung
                     </h1>
                     <p className="leading-relaxed dark:text-gray-200">
-                        Temukan berbagai koleksi buku digital dan cetak dari Perpustakaan SMP Negeri 1 Tarutung. Siswa
-                        dan guru dapat meminjam, membaca, dan mencari buku dengan mudah.
+                        Temukan berbagai koleksi buku digital dan cetak dari Perpustakaan SMP Negeri 1 Tarutung. Pengguna dapat meminjam, membaca, dan mencari buku dengan mudah.
                     </p>
                     <Link
                         href={route('register')}
@@ -75,7 +74,7 @@ export default function Welcome(props) {
 
             <section id="kategori" className="bg-sky-100/60 py-20 px-6 opacity-0 animate-fadeIn delay-150">
                 <div className="container mx-auto text-center">
-                    <h2 className="text-3xl font-bold text-sky-700 mb-10">Kategori Buku</h2>
+                    <h2 className="text-3xl font-bold text-sky-500 mb-10">Kategori Buku</h2>
 
                     <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8 m-20">
                         {categories.slice(0, 6).map((item) => (
