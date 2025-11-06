@@ -47,7 +47,7 @@ export default function AppLayout({ title, children }) {
                         ) : (
                             <Link
                                 href={route('login')}
-                                className="px-4 py-2 bg-sky-400 text-white rounded-lg hover:bg-sky-500 transition-all duration-300 shadow-md"
+                                className="px-4 py-2 bg-sky-400 text-black hover:text-white rounded-lg hover:bg-sky-500 transition-all duration-300 shadow-md"
                             >
                                 Masuk
                             </Link>
