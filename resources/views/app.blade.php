@@ -22,30 +22,58 @@
         </noscript>
 
         <!-- Scripts -->
-         <script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "EducationalOrganization",
-  "name": "SMP Negeri 1 Tarutung",
-  "alternateName": "SPARTA - Perpustakaan SMP Negeri 1 Tarutung",
-  "url": "https://sparta.my.id",
-  "logo": "https://sparta.my.id/storage/logo/logo.webp",
-  "sameAs": ["https://www.smpnegeri1tarutung.sch.id"],
-  "description": "Sistem Perpustakaan Digital SMP Negeri 1 Tarutung untuk mendukung literasi dan pembelajaran siswa.",
-  "address": {
-    "@type": "PostalAddress",
-    "streetAddress": "Jl. Nahum Situmorang No. 1, Hutatoruan V",
-    "addressLocality": "Tarutung",
-    "addressRegion": "Sumatera Utara",
-    "postalCode": "22413",
-    "addressCountry": "ID"
-  }
-}
-</script>
         @routes
         @viteReactRefresh
         @vite(['resources/js/app.jsx', "resources/js/Pages/{$page['component']}.jsx"])
         @inertiaHead
+        @verbatim
+            <script type="application/ld+json">
+            {
+            "@context": "https://schema.org",
+            "@type": ["EducationalOrganization", "Library"],
+            "name": "SMP Negeri 1 Tarutung - Perpustakaan SPARTA",
+            "url": "https://sparta.my.id",
+            "logo": "https://sparta.my.id/storage/logo/logo.webp",
+            "sameAs": ["https://www.smpnegeri1tarutung.sch.id"],
+            "description": "Perpustakaan digital SMP Negeri 1 Tarutung dengan koleksi buku dan e-book pendidikan.",
+            "address": {
+                "@type": "PostalAddress",
+                "streetAddress": "Jl. Nahum Situmorang No. 1, Hutatoruan V",
+                "addressLocality": "Tarutung",
+                "addressRegion": "Sumatera Utara",
+                "postalCode": "22413",
+                "addressCountry": "ID"
+            }
+            }
+            </script>
+                        <script type="application/ld+json">
+            {
+            "@context": "https://schema.org",
+            "@type": "Library",
+            "name": "Perpustakaan SPARTA SMP Negeri 1 Tarutung",
+            "image": "https://sparta.my.id/storage/logo/logo.webp",
+            "url": "https://sparta.my.id",
+            "address": {
+                "@type": "PostalAddress",
+                "streetAddress": "Jl. Nahum Situmorang No. 1, Hutatoruan V",
+                "addressLocality": "Tarutung",
+                "addressRegion": "Sumatera Utara",
+                "postalCode": "22413",
+                "addressCountry": "ID"
+            },
+            "geo": {
+                "@type": "GeoCoordinates",
+                "latitude": 2.0161576,
+                "longitude": 98.9594118
+            },
+            "openingHours": "Mo-Fr 07:30-15:00",
+            "sameAs": [
+                "https://www.smpnegeri1tarutung.sch.id",
+                "https://maps.google.com/?cid=XXXXXXXXXXXX"
+            ]
+            }
+            </script>
+            @endverbatim
         <script src="/storage/js/theme.js" defer></script>
         
     </head>
