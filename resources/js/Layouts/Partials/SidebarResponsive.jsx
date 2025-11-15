@@ -10,6 +10,7 @@ import {
     IconCreditCardPay,
     IconCreditCardRefund,
     IconDashboard,
+    IconFileExcel,
     IconNotebook,
     IconStack,
     IconUser,
@@ -132,6 +133,17 @@ export default function SidebarResponsive({ url, auth }) {
                         /> */}
 
                         <div className="px-3 py-2 text-sm font-semibold text-foreground">Lainnya</div>
+                        <NavLinkResponsive
+                        url={route('admin.import-books.index')}
+                        title="Import Buku"
+                        icon={IconFileExcel}
+                        active={url.startsWith('/admin/import-books')}
+                    /><NavLinkResponsive
+                        url={route('admin.import-members.index')}
+                        title="Import Anggota"
+                        icon={IconFileExcel}
+                        active={url.startsWith('/admin/import-members')}
+                    />
                         <NavLinkResponsive
                             url={route('admin.announcements.index')}
                             title="Pengumuman"

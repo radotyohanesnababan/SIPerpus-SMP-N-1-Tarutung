@@ -8,6 +8,7 @@ import {
     IconCreditCardPay,
     IconCreditCardRefund,
     IconDashboard,
+    IconFileExcel,
     IconNotebook,
     IconStack,
     IconUser,
@@ -127,6 +128,17 @@ export default function Sidebar({ url, auth }) {
                     /> */}
 
                     <div className="px-3 py-2 text-sm font-semibold text-foreground">Lainnya</div>
+                        <NavLink
+                            url={route('admin.import-books.index')}
+                            title="Import Buku"
+                            icon={IconFileExcel}
+                            active={url.startsWith('/admin/import-books')}
+                        /><NavLink
+                            url={route('admin.import-members.index')}
+                            title="Import Anggota"
+                            icon={IconFileExcel}
+                            active={url.startsWith('/admin/import-members')}
+                        />
                     <NavLink
                         url={route('admin.announcements.index')}
                         title="Pengumuman"

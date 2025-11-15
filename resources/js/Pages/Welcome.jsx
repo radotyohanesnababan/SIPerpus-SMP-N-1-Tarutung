@@ -133,7 +133,7 @@ export default function Welcome(props) {
                             berinovasi dengan sistem digital agar siswa dan guru dapat mengakses informasi dengan cepat.
                         </p>
                         <p className="text-gray-600 leading-relaxed">
-                            Kami percaya bahwa membaca adalah jendela dunia, dan melalui SIPERPUS, setiap siswa dapat
+                            Kami percaya bahwa membaca adalah jendela dunia, dan melalui SPARTA, setiap siswa dapat
                             memperluas wawasan di mana pun dan kapan pun.
                         </p>
                     </div>

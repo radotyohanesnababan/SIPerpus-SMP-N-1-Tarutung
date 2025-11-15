@@ -14,6 +14,8 @@ use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 use Illuminate\Support\Facades\Mail;
+use App\Http\Controllers\BookImportController;
+
 
 Route::controller(WelcomeController::class)->group(function () {
     Route::get('/', 'index')->name('welcome');
@@ -53,33 +55,16 @@ Route::controller(ReturnBookFrontController::class)->middleware(['web','auth','r
     
 });
 
-Route::get('testing', fn () => inertia('Testing'));
-
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
+
+
 require __DIR__.'/auth.php';
 
 require __DIR__.'/admin.php';
 
-use Illuminate\Support\Facades\Response;
 
-Route::get('/sitemap.xml', function () {
- $path = __DIR__ . '/../sitemap-source.xml';  // 👈 ini sesuai struktur kamu
-    
-    if (!file_exists($path)) {
-        return response('Sitemap not found at: ' . $path, 404);
-    }
-
-    $xml = file_get_contents($path);
-
-    return response($xml, 200)
-        ->header('Content-Type', 'application/xml')
-        ->header('Cache-Control', 'no-cache, no-store, must-revalidate')
-        ->header('Pragma', 'no-cache')
-        ->header('Expires', '0')
-        ->header('ETag', '');
-});

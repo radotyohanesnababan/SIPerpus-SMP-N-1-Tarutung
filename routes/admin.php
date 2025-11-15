@@ -17,6 +17,8 @@ use App\Http\Controllers\Admin\RoleController;
 use App\Http\Controllers\Admin\PermissionController;
 use App\Http\Controllers\Admin\ReportController;
 use App\Http\Controllers\Admin\ReturnBookRecordController;
+use App\Http\Controllers\Admin\BookImportController;
+use App\Http\Controllers\Admin\MemberImportController;
 use Illuminate\Support\Facades\Route;
 
 Route::middleware('auth','role:admin')->prefix('admin')->group(function (){
@@ -157,6 +159,18 @@ Route::controller(AssignUserController::class)->group(function (){
 
 
 });
+
+Route::controller(BookImportController::class)->group(function (){
+Route::get('/import-books', 'index')->name('admin.import-books.index');
+Route::post('/import-books', 'import')->name('admin.import-books');
+});
+
+Route::controller(MemberImportController::class)->group(function (){
+Route::get('/import-members', 'index')->name('admin.import-members.index');
+Route::post('/import-members', 'import')->name('admin.import-members');
+});
+
+
 
 Route::controller(KelasUpgradeController::class)->group(function (){
        Route::get('kelas', 'index')
