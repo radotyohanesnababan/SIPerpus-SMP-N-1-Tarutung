@@ -3,7 +3,7 @@ import { Head } from '@inertiajs/react';
 export default function GuestLayout({ title, children }) {
     return (
         <>
-            <Head title={title}>
+            <Head title={title}>    
                 <meta name="robots" content="index, follow" />
                 <meta property="og:title" content={title} />
                 <meta property="og:site_name" content="Perpustakaan SMPN 1 Tarutung" />

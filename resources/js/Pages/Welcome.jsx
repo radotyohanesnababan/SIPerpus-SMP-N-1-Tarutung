@@ -143,4 +143,4 @@ export default function Welcome(props) {
     );
 }
 
-Welcome.layout = (page) => <WelcomeLayout children={page} title="Welcome" />;
+Welcome.layout = (page) => <WelcomeLayout children={page} title="SPARTA | Perpustakaan SMP Negeri 1 Tarutung" description="SPARTA | Sistem Perpustakaan SMP Negeri 1 Tarutung,  koleksi buku lengkap, kemudahan akses, dan layanan terbaik untuk mendukung pembelajaran." />;

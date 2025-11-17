@@ -2,14 +2,39 @@ import { Toaster } from '@/Components/ui/sonner';
 import { Head, Link, usePage } from '@inertiajs/react';
 import { IconBrandFacebook, IconBrandInstagram, IconLink } from '@tabler/icons-react';
 
-export default function AppLayout({ title, children }) {
+export default function WelcomeLayout({ title, children }) {
     const auth = usePage().props.auth.user;
-    const announcement = usePage().props.announcement;
-    const { url } = usePage();
+    const defaultTitle = 'Perpustakaan SPARTA - SMP Negeri 1 Tarutung';
+    const defaultDescription =
+        'SPARTA | Sistem Perpustakaan SMP Negeri 1 Tarutung — koleksi buku lengkap, kemudahan akses, dan layanan terbaik untuk mendukung pembelajaran.';
+
+    const pageTitle = title ? `${title} | SPARTA` : defaultTitle;
+    const pageDescription = description || defaultDescription;
 
     return (
         <>
-            <Head title={title} />
+            <Head>
+                <title>{pageTitle}</title>
+                <meta name="description" content={pageDescription} />
+                <meta name="robots" content="index, follow" />
+                <meta name="author" content="Tim Perpustakaan SMP Negeri 1 Tarutung" />
+                <meta
+                    name="keywords"
+                    content="perpustakaan, SMPN 1 Tarutung, SPARTA, buku digital, sekolah, smp, tarutung, buku, perpustakaan digital"
+                />
+                <meta property="og:type" content="website" />
+                <meta property="og:title" content={pageTitle} />
+                <meta property="og:description" content={pageDescription} />
+                <meta property="og:url" content="https://sparta.my.id" />
+                <meta
+                    property="og:image"
+                    content="https://sparta.my.id/storage/logo/logo.webp"
+                />
+                <meta property="og:site_name" content="Perpustakaan SMP Negeri 1 Tarutung" />
+                <meta property="og:locale" content="id_ID" />
+                <link rel="canonical" href="https://sparta.my.id" />
+            </Head>
+
             <Toaster position="top-center" richColors />
 
             <div className="flex flex-col min-h-screen text-gray-800 scroll-smooth overflow-x-hidden">
