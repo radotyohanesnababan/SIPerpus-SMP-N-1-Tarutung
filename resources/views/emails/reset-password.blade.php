@@ -9,9 +9,11 @@
 
     <table align="center" width="100%" style="max-width:600px; margin:auto; background-color:#ffffff; border-radius:10px; overflow:hidden; box-shadow:0 4px 8px rgba(0,0,0,0.05);">
         <tr>
-            <td style="background-color:#81a0e3; padding:20px; text-align:center;">
-                <img src="/storage/app/public/logo/logosekolah.png" alt="Logo Perpustakaan" style="width:80px; height:auto; margin-bottom:10px;">
-                <h2 style="color:#ffffff; margin:0;">Sistem Informasi Perpustakaan</h2>
+            <td style="background-color:#ffffff; padding:20px; text-align:center;">
+                <img src="{{ asset('storage/logo/logosekolah.png') }}" alt="Logo Perpustakaan"
+                style="width:80px; height:auto; margin-bottom:10px;">
+                <h2 style="color:#111827; margin:0;">SPARTA </h2>
+                <h2 style="color:#111827; margin:0;">Tim Perpustakaan SMP Negeri 1 Tarutung</h2>
             </td>
         </tr>
 

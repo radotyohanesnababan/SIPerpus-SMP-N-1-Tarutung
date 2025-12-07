@@ -75,7 +75,7 @@ class ReturnBookFrontController extends Controller
         return to_route('front.return-books.show',[$returnBook->id]);
     }
 
-    public function download(ReturnBook $returnBook)
+public function download(ReturnBook $returnBook)
 {
     $returnBook->load(['book', 'user', 'borrowed']);
 
@@ -83,14 +83,11 @@ class ReturnBookFrontController extends Controller
         'returnBook' => $returnBook,
     ])->setPaper('a4', 'portrait');
 
-    $filename = 'Surat_Pernyataan_Hilang_' . $returnBook->id . '.pdf';
+    while (ob_get_level()) {
+        ob_end_clean();
+    }
 
-    ob_end_clean();
-
-
-     return response($pdf->output(), 200)
-        ->header('Content-Type', 'application/pdf')
-        ->header('Content-Disposition', 'attachment; filename="' . $filename . '"');
+    return $pdf->stream('Surat_Pernyataan_Hilang_' . $returnBook->id . '.pdf');
 }
 
 

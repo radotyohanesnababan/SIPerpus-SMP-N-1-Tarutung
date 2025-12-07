@@ -66,7 +66,7 @@ class Borrowed extends Model
         return self::query()
         ->where('user_nisn', $user_nisn)
         ->whereDoesntHave('returnBook', function ($query) {
-            $query->where('status', 'Dikembalikan');
+            $query->whereIn('status', ['Dikembalikan', 'Ditolak']);
         })
         ->count();
     }

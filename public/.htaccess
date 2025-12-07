@@ -1,4 +1,17 @@
 
+<IfModule mod_php7.c>
+    php_flag zlib.output_compression Off
+</IfModule>
+<IfModule mod_php8.c>
+    php_flag zlib.output_compression Off
+</IfModule>
+
+AddType application/pdf .pdf
+AddType application/octet-stream .pdf
+
+
+Header unset Content-Encoding
+SetEnv no-gzip 1
 <IfModule mod_rewrite.c>
     RewriteEngine On
 
@@ -41,6 +54,11 @@
 <IfModule mod_mime.c>
   AddType application/xml .xml
 </IfModule>
+
+<FilesMatch "\.(pdf)$">
+    ForceType application/pdf
+    Header set Content-Disposition inline
+</FilesMatch>
 
 
 FileETag None

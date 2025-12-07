@@ -2,12 +2,11 @@ import { Toaster } from '@/Components/ui/sonner';
 import { Head, Link, usePage } from '@inertiajs/react';
 import { IconBrandFacebook, IconBrandInstagram, IconLink } from '@tabler/icons-react';
 
-export default function WelcomeLayout({ title, children }) {
+export default function WelcomeLayout({ title, children, description }) {
     const auth = usePage().props.auth.user;
     const defaultTitle = 'Perpustakaan SPARTA - SMP Negeri 1 Tarutung';
     const defaultDescription =
         'SPARTA | Sistem Perpustakaan SMP Negeri 1 Tarutung — koleksi buku lengkap, kemudahan akses, dan layanan terbaik untuk mendukung pembelajaran.';
-
     const pageTitle = title ? `${title} | SPARTA` : defaultTitle;
     const pageDescription = description || defaultDescription;
 

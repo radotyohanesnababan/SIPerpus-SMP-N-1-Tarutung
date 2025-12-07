@@ -104,12 +104,14 @@ export default function Show(props) {
                         Jika buku hilang, silahkan download surat pernyataan buku hilang dibawah ini dan serahkan ke
                         petugas perpustakaan.
                     </AlertDescription>
-                    <Link
-                        href={route('front.return-books.download', [props.return_book.id])}
+                    <a
+                        href={route('front.return-books.download', props.return_book.id)}
                         className="inline-block bg-red-400 font-semibold py-2 px-2 rounded-lg mt-4 border border-red-500 hover:bg-red-500 text-white text-md"
+                        target="_blank"
                     >
                         Download Surat Pernyataan
-                    </Link>
+                    </a>
+
 
                     <AlertDescription></AlertDescription>
                 </Alert>

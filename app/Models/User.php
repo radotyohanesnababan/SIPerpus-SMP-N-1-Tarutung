@@ -9,9 +9,12 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Support\Facades\Mail; 
 use App\Notifications\ResetPasswordNotification;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use App\Mail\ResetPasswordMail;
 use Spatie\Permission\Traits\HasRoles;
+
 
 class User extends Authenticatable implements MustVerifyEmail
 {
@@ -68,10 +71,15 @@ class User extends Authenticatable implements MustVerifyEmail
             });
         });
     }
-    public function sendPasswordResetNotification($token)
-{
-    $this->notify(new ResetPasswordNotification($token));
-}   
+ public function sendPasswordResetNotification($token)
+    {
+        $url = url(config('app.url') . route('password.reset', [
+            'token' => $token,
+            'email' => $this->getEmailForPasswordReset(),
+        ], false));
+
+        Mail::to($this->email)->send(new ResetPasswordMail($url, $this->email, $this));
+    }
     public function kelas()
 {
     return $this->belongsTo(Kelas::class, 'kelas_id');

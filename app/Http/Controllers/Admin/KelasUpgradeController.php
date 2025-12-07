@@ -15,7 +15,9 @@ class KelasUpgradeController extends Controller
 {
     public function index(Request $request): Response
     {
-        $kelas = Kelas::orderBy('id')->get(['id', 'tingkat']);
+        $kelas = Kelas::where('id', '!=', 3)
+        ->orderBy('id')
+        ->get(['id', 'tingkat']);
         
         $users = collect();
         if ($request->filled('kelas_asal')) {

@@ -13,7 +13,6 @@ import { IconSchool } from '@tabler/icons-react';
 import { toast } from 'sonner';
 
 export default function Upgrade({ kelas, status, ...props }) {
-    const { meta } = props;
     useEffect(() => {
         if (props.flash_message?.message) {
             toast[props.flash_message.type || 'success'](props.flash_message.message);
@@ -114,19 +113,21 @@ export default function Upgrade({ kelas, status, ...props }) {
                             {props.users?.meta?.total} total siswa.
                         </p>
                         <div className="overflow-x-auto">
-                            {props.users?.meta?.has_pages && (
-                                <Pagination>
-                                    <PaginationContent className="flex flex-wrap justify-center lg:justify-end">
-                                        {meta.links.map((link, index) => (
-                                            <PaginationItem key={index} className="mx-1 mb1 lb:mb-0">
-                                                <PaginationLink href={link.url} isActive={link.active}>
-                                                    {link.label}
-                                                </PaginationLink>
-                                            </PaginationItem>
-                                        ))}
-                                    </PaginationContent>
-                                </Pagination>
-                            )}
+                            {props.users?.meta?.has_pages && props.users?.meta?.links?.length > 0 && (
+                            <Pagination>
+                                <PaginationContent className="flex flex-wrap justify-center lg:justify-end">
+                                    {props.users.meta.links.map((link, index) => (
+                                        <PaginationItem key={index} className="mx-1 mb1 lb:mb-0">
+                                            <PaginationLink
+                                                href={link.url || '#'}
+                                                isActive={link.active}
+                                                dangerouslySetInnerHTML={{ __html: link.label }}
+                                            />
+                                        </PaginationItem>
+                                    ))}
+                                </PaginationContent>
+                            </Pagination>
+                        )}
                         </div>
                     </CardFooter>
                 </Card>

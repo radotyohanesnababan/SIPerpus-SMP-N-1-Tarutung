@@ -31,7 +31,6 @@
         SPARTA | Sistem Perpustakaan SMP Negeri 1 Tarutung
     @endif
     </title>
-        <!-- <title>Perpustakaan SPARTA - SMP Negeri 1 Tarutung</title> -->
         <meta property="og:title" content="Perpustakaan SPARTA - SMP Negeri 1 Tarutung">
         <meta property="og:description" content="Koleksi buku lengkap dan e-book pendidikan di SPARTA, perpustakaan digital SMP Negeri 1 Tarutung.">
         <meta property="og:image" content="https://sparta.my.id/storage/logo/logo.webp">
