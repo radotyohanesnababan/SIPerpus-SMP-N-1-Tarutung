@@ -4,6 +4,7 @@ import {
     IconAntenna,
     IconBooks,
     IconBuilding,
+    IconCards,
     IconCategory,
     IconChartArea,
     IconChartDots2,
@@ -217,12 +218,18 @@ export default function SidebarResponsive({ url, auth }) {
                         />
 
                         <div className="px-3 py-2 text-sm font-semibold text-foreground">Lainnya</div>
-                        <NavLinkResponsive
-                            url={route('profile.edit')}
-                            title="Edit Profil"
-                            icon={IconUser}
-                            active={url.startsWith('/profile')}
-                        />
+                       <NavLinkResponsive
+                                               url={route('profile.edit')}
+                                               title=" Edit Profil"
+                                               icon={IconUser}
+                                               active={route().current('profile.edit')}
+                                           />
+                                           <NavLinkResponsive
+                                               url={route('profile.card')}
+                                               title="Lihat Kartu Anggota"
+                                               icon={IconCards}
+                                               active={route().current('profile.card')}
+                                           />
                     </nav>
                 </nav>
             )}

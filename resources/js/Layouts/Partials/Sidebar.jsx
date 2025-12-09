@@ -3,6 +3,7 @@ import {
     IconAntenna,
     IconBooks,
     IconBuilding,
+    IconCards,
     IconCategory,
     IconChartArea,
     IconCreditCardPay,
@@ -203,7 +204,13 @@ export default function Sidebar({ url, auth }) {
                         url={route('profile.edit')}
                         title=" Edit Profil"
                         icon={IconUser}
-                        active={url.startsWith('/profile')}
+                        active={route().current('profile.edit')}
+                    />
+                    <NavLink
+                        url={route('profile.card')}
+                        title="Lihat Kartu Anggota"
+                        icon={IconCards}
+                        active={url.startsWith('/profile/card')}
                     />
                 </nav>
             )}

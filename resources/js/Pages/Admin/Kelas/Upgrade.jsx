@@ -100,7 +100,7 @@ export default function Upgrade({ kelas, status, ...props }) {
                                 disabled={processing || !data.kelas_asal}
                                 className="w-full bg-sky-400 hover:bg-sky-500 text-white font-semibold"
                             >
-                                {processing ? 'Memproses...' : 'Naikkan Kelas'}
+                                
                             </Button>
                         </form>
 

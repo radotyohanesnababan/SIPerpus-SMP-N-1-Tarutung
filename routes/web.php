@@ -59,7 +59,7 @@ Route::controller(ReturnBookFrontController::class)->middleware(['web','auth','r
 Route::middleware('auth')->group(function () {
     Route::get('/profile/card', function () {
         return Inertia::render('Profile/LibraryCard', [
-            'user' => auth()->user(),
+            'user' => Auth::user(),
         ]);
     })->name('profile.card');
 });
