@@ -21,8 +21,6 @@ export default function AppLayout({ title, children }) {
     const auth = usePage().props.auth.user;
     const announcement = usePage().props.announcement;
     const { url } = usePage();
-
-    
     return (
         <>
             <Head title={title} />

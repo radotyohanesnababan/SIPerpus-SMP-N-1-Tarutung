@@ -52,11 +52,27 @@ class Ebook extends Model
         });
     }
 
-    public function scopeSorting(Builder $query, array $sorts): void
+public function scopeSorting(Builder $query, array $sorts): void
+{
+    $query->when($sorts['field'] ?? null && $sorts['direction'] ?? null, function ($query) use ($sorts) {
+        $query->orderBy($sorts['field'], $sorts['direction'] ?? 'asc');
+    });
+}
+
+public static function newestEbooks($limit = 5)
     {
-        $query->when($sort['field'] ?? null && $sorts['direction'] ?? null, function ($query) use ($sorts) {
-            $query->orderBy($sorts['field'], $sort['direction'] ?? 'asc');
-        });
+        return self::query()
+            ->select(['id', 'judul', 'slug', 'publisher_id','category_id','cover'])
+            ->whereNotNull('file_path')
+            ->latest('created_at')
+            ->limit($limit)
+            ->get();
     }
+public static function mostDownloadedEbooks($limit = 5)
+{
+    return self::orderBy('download_count', 'desc')
+        ->limit($limit)
+        ->get();
+}
 
 }

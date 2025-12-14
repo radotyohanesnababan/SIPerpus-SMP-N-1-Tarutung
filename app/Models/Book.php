@@ -33,6 +33,13 @@ class Book extends Model
     protected $casts = [
         'kondisi' => BookStatus::class,
     ];
+public function getCoverUrlAttribute()
+{
+    return $this->cover
+        ? asset('storage/' . $this->cover)
+        : asset('storage/books/no_cover.jpg');
+}
+
 
     public function category()
     {
@@ -112,19 +119,29 @@ class Book extends Model
     public static function leastLoanBooks($limit = 5)
     {
         return self::query()
-            ->select(['id', 'judul', 'publisher_id','category_id'])
+            ->select(['id', 'judul', 'slug', 'publisher_id','category_id', 'cover'])
             ->withCount(['borroweds as loans_count'])
             ->orderBy('loans_count')
             ->limit($limit)
             ->get();
     }
 
+    
     public static function mostLoanBooks($limit = 5)
     {
         return self::query()
-            ->select(['id', 'judul', 'publisher_id','category_id'])
+            ->select(['id', 'judul','slug', 'publisher_id','category_id','cover'])
             ->withCount(['borroweds as loans_count'])
             ->orderByDesc('loans_count')
+            ->limit($limit)
+            ->get();
+    }
+
+    public static function newestBooks($limit = 5)
+    {
+        return self::query()
+            ->select(['id', 'judul', 'slug', 'publisher_id','category_id','cover'])
+            ->latest('created_at')
             ->limit($limit)
             ->get();
     }

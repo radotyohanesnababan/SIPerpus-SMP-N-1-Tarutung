@@ -25,7 +25,7 @@ Route::controller(DashboardController::class)->middleware('auth')->group(functio
     Route::get('dashboard', 'index')->name('dashboard');
 });
 
-Route::controller(BookFrontController::class)->middleware(['web','auth','role:member'])->group(function () {
+Route::controller(BookFrontController::class)->middleware(['web','auth'])->group(function () {
     Route::get('books', 'index')->name('front.books.index');
     Route::get('books/{book:slug}', 'show')->name('front.books.show');
 });

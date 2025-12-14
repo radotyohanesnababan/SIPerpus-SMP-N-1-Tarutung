@@ -17,9 +17,11 @@ class LoanStatisticResource extends JsonResource
         return [
             'id' => $this->id,
             'judul' => $this->judul,
+            'slug' => $this->slug,
             'publisher' => $this->publisher->name,
             'category' => $this->category->name,
             'loans_count' => $this->loans_count,
+            'cover' => $this->cover,
 
         ];
     }
