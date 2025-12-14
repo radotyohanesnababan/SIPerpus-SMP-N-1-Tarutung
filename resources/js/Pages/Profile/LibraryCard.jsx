@@ -43,9 +43,9 @@ export default function LibraryCard({ user}) {
                 style={{ backgroundImage: "url('/storage/bgcard.jpg')", backgroundSize: "cover" }}
             >
                 <div className="ml-4 flex flex-col justify-center">
-                    <h2 className="font-bold text-lg">{user.nama}</h2>
-                    <p className="text-sm">NISN: {user.nisn ?? "-"}</p>
-                    <p className="text-sm">Kelas: {user.kelas_id ?? "-"}</p>
+                    <h2 className="font-bold text-lg text-black">{user.nama}</h2>
+                    <p className="text-sm text-black">NISN: {user.nisn ?? "-"}</p>
+                    <p className="text-sm text-black">Kelas: {user.kelas_id ?? "-"}</p>
                     <p className="text-xs mt-2 text-gray-500">Kartu Perpustakaan SMP N 1 Tarutung</p>
                 </div>
                 <div className="absolute top-2 right-3 text-sm font-semibold text-gray-600">
