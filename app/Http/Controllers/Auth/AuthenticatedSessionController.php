@@ -10,6 +10,8 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 use Inertia\Response;
+use Spatie\Activitylog\Facades\Activity;
+use Spatie\Activitylog\LogOptions;
 
 class AuthenticatedSessionController extends Controller
 {
@@ -29,9 +31,13 @@ class AuthenticatedSessionController extends Controller
      */
     public function store(LoginRequest $request): RedirectResponse
     {
+
         $request->authenticate();
 
         $request->session()->regenerate();
+        Activity::causedBy(Auth::user()) 
+            ->withProperty('ip_address', $request->ip()) 
+            ->log('User successfully logged in.');
 
         return redirect()->intended(route('dashboard', absolute: false));
     }
@@ -41,12 +47,19 @@ class AuthenticatedSessionController extends Controller
      */
     public function destroy(Request $request): RedirectResponse
     {
+
+        $user = Auth::user();
         Auth::guard('web')->logout();
 
         $request->session()->invalidate();
 
         $request->session()->regenerateToken();
 
+        if ($user) { 
+            Activity::causedBy($user) 
+                ->withProperty('ip_address', $request->ip())
+                ->log('User logged out.');
+        }
         return redirect('/');
     }
 }

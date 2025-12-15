@@ -43,22 +43,5 @@ class DatabaseSeeder extends Seeder
             Kelas::firstOrCreate(['tingkat' => $tingkat]);
         }
 
-        // Buat buku + stok pakai transaction per buku
-        // $books = Book::factory()->count(12)->make(); 
-
-        // foreach ($books as $book) {
-        //     DB::transaction(function() use ($book) {
-        //         $book->save(); // insert buku
-        //         $total = rand(5, 10);
-
-        //         $book->stock()->create([
-        //             'total'     => $total,
-        //             'available' => $total,
-        //             'borrowed'  => 0,
-        //             'damaged'   => 0,
-        //             'lost'      => 0,
-        //         ]);
-        //     });
-        // }
     }
 }
