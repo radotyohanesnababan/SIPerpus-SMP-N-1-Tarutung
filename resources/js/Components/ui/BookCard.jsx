@@ -1,7 +1,7 @@
 import { Link } from '@inertiajs/react';
 
 export default function BookCard({ item }) {
-    console.log(item.cover);
+    //console.log(item.cover);
 
     return (
         

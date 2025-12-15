@@ -8,15 +8,17 @@ use App\Enums\BookStatus;
 use Illuminate\Database\Eloquent\Attributes\ObservedBy;
 //use Illuminate\Contracts\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Spatie\Activitylog\Traits\LogsActivity;
+use Spatie\Activitylog\LogOptions;
 use Illuminate\Database\Eloquent\Builder;
 use App\Models\Stock;
 use App\Observers\BookObserver;
-use Log;
 
 #[ObservedBy(BookObserver::class)]
 class Book extends Model
 {
     use HasFactory;
+    use LogsActivity;
     protected $fillable = [
         'judul',
         'slug',
@@ -33,6 +35,14 @@ class Book extends Model
     protected $casts = [
         'kondisi' => BookStatus::class,
     ];
+
+    public function getActivitylogOptions(): LogOptions
+    {
+        return LogOptions::defaults()
+            ->logFillable() 
+            ->logOnlyDirty() 
+            ->dontSubmitEmptyLogs();
+    }
 public function getCoverUrlAttribute()
 {
     return $this->cover
