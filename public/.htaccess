@@ -55,6 +55,10 @@ SetEnv no-gzip 1
   AddType application/xml .xml
 </IfModule>
 
+<IfModule mod_brotli.c>
+    AddOutputFilterByType BROTLI_COMPRESS text/html text/plain text/xml text/css text/javascript application/javascript application/x-javascript application/json application/xml application/rss+xml image/svg+xml
+</IfModule>
+
 <FilesMatch "\.(pdf)$">
     ForceType application/pdf
     Header set Content-Disposition inline

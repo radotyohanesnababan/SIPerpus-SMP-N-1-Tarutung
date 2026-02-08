@@ -1,8 +1,8 @@
 import WelcomeLayout from '@/Layouts/WelcomeLayout';
 import { Link } from '@inertiajs/react';
-import { Card, CardHeader, CardContent, CardTitle, CardDescription } from '@/components/ui/card';
-import { Button } from '@/components/ui/button';
-import { Badge } from '@/components/ui/badge';
+import { Card, CardHeader, CardContent, CardTitle, CardDescription } from '@/Components/ui/card';
+import { Button } from '@/Components/ui/button';
+import { Badge } from '@/Components/ui/badge';
 import 'swiper/css';
 import 'swiper/css/navigation';
 import 'swiper/css/pagination';
@@ -97,7 +97,6 @@ export default function Welcome(props) {
             <section id="tentang" className="bg-sky-50 py-20 px-6 overflow-hidden">
                 <div className="container mx-auto grid md:grid-cols-2 items-center gap-12">
                     
-                   
                     <div className="w-full h-full rounded-2xl shadow-2xl overflow-hidden ring-4 ring-sky-200">
                         <Swiper
                             modules={[Autoplay, Pagination, Navigation]}
@@ -113,15 +112,16 @@ export default function Welcome(props) {
                             className="w-full h-80 md:h-[400px]"
                         >
                             {slides.map((src, index) => (
-                                <SwiperSlide key={index}>
-                                    <img
-                                        src={src}
-                                        alt={`Slide ${index + 1}`}
-                                        className="w-full h-full object-cover"
-                                        loading="lazy"
-                                    />
-                                </SwiperSlide>
-                            ))}
+                        <SwiperSlide key={index}>
+                            <img
+                                src={src}
+                                alt={`Slide ${index + 1}`}
+                                className="w-full h-full object-cover"
+                                loading={index === 0 ? "eager" : "lazy"} 
+                                fetchpriority={index === 0 ? "high" : "low"}
+                            />
+                        </SwiperSlide>
+                    ))}
                         </Swiper>
                     </div>
 

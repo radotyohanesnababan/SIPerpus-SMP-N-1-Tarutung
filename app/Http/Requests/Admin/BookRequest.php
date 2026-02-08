@@ -28,7 +28,7 @@ class BookRequest extends FormRequest
             'isbn' => 'nullable|string|max:255|unique:books,isbn,' . $this->book?->id,
             'deskripsi' => 'nullable|string',
             'publisher_id' => 'required|exists:publishers,id',
-            'cover' => 'nullable|image|mimes:jpg,jpeg,png,webp|max:3096',
+            'cover' => 'nullable|image|mimes:jpg,jpeg,png,webp,avif|max:3096',
             'category_id' => 'required|exists:categories,id',
             
 
