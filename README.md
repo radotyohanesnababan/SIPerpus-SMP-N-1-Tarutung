@@ -1,7 +1,7 @@
-# 📚 SIPERPUS - Sistem Informasi Perpustakaan SMP N 1 Tarutung
+# 📚 SPARTA - Sistem Informasi Perpustakaan SMP N 1 Tarutung
 
-SIPERPUS adalah aplikasi berbasis web untuk mengelola perpustakaan sekolah.  
-Dibangun menggunakan **Laravel + Livewire + SQLite/MySQL**, aplikasi ini membantu admin dan anggota dalam proses pengelolaan buku, peminjaman, dan pengembalian.
+SPARTA adalah aplikasi berbasis web untuk mengelola perpustakaan sekolah.  
+Dibangun menggunakan **Laravel + React + MySQL**, aplikasi ini membantu admin dan anggota dalam proses pengelolaan buku, peminjaman, dan pengembalian.
 
 ---
 
@@ -30,7 +30,7 @@ Dibangun menggunakan **Laravel + Livewire + SQLite/MySQL**, aplikasi ini membant
 - [Laravel](https://laravel.com/) 10.x
 - [React](https://reactjs.org/) 3.x
 - [Shadcn UI](https://ui.shadcn.com/)
-- Database: SQLite / MySQL
+- Database: MySQL
 
 ---
 
