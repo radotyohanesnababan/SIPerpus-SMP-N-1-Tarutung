@@ -1,36 +1,64 @@
 import ApplicationLogo from '@/Components/ApplicationLogo';
-import InputError from '@/Components/InputError';
+// Import InputError dihapus jika tidak ingin ada pesan di bawah input sama sekali
 import { Alert, AlertDescription } from '@/Components/ui/alert';
 import { Button } from '@/Components/ui/button';
 import { Checkbox } from '@/Components/ui/checkbox';
 import { Input } from '@/Components/ui/input';
 import { Label } from '@/Components/ui/label';
 import GuestLayout from '@/Layouts/GuestLayout';
-import { Link, useForm } from '@inertiajs/react';
+import { Link, useForm, usePage } from '@inertiajs/react';
 import 'swiper/css';
 import 'swiper/css/navigation';
 import 'swiper/css/pagination';
 import { Autoplay, Navigation, Pagination } from 'swiper/modules';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { toast } from 'sonner';
+import { useEffect } from 'react';
+
 
 export default function Login({ status, canResetPassword }) {
+    const { flash_message } = usePage().props;
     const slides = [
         'https://picsum.photos/1080/720?random=1',
         'https://picsum.photos/1080/720?random=2',
         'https://picsum.photos/1080/720?random=3',
     ];
-    const { data, setData, post, processing, errors, reset } = useForm({
+
+    const { data, setData, post, processing, reset } = useForm({
         email: '',
         password: '',
         remember: false,
     });
+
+    useEffect(() => {
+        // Cek apakah flash_message ada dan memiliki pesan
+        if (flash_message?.message) {
+            const { type, message } = flash_message;
+            if (type === 'error') {
+                toast.error(message);
+            } else if (type === 'success') {
+                toast.success(message);
+            } else {
+                toast(message); 
+            }
+        }
+    }, [flash_message]);
 
     const onHandleSubmit = (e) => {
         e.preventDefault();
 
         post(route('login'), {
             onFinish: () => reset('password'),
+            
+            onError: (errors) => {
+                
+                Object.values(errors).forEach((error) => {
+                    toast.error(error);
+                });
+            },
+            onSuccess: () => {
+                toast.success('Berhasil masuk!');
+            }
         });
     };
 
@@ -53,7 +81,6 @@ export default function Login({ status, canResetPassword }) {
                             <div className="grid gap-4">
                                 <div className="grid gap-2">
                                     <Label htmlFor="email">Email</Label>
-
                                     <Input
                                         id="email"
                                         type="email"
@@ -65,8 +92,7 @@ export default function Login({ status, canResetPassword }) {
                                         placeholder="adi@gmail.com"
                                         onChange={(e) => setData(e.target.name, e.target.value)}
                                     />
-
-                                    {errors.email && <InputError message={errors.email} />}
+                                    
                                 </div>
 
                                 <div className="grid gap-2 ">
@@ -89,7 +115,7 @@ export default function Login({ status, canResetPassword }) {
                                         autoComplete="new-password"
                                         onChange={(e) => setData(e.target.name, e.target.value)}
                                     />
-                                    {errors.password && <InputError message={errors.password} />}
+                                    
                                 </div>
 
                                 <div className="grid gap-2">
@@ -104,8 +130,6 @@ export default function Login({ status, canResetPassword }) {
                                             <Label htmlFor="remember">Ingat saya</Label>
                                         </div>
                                     </div>
-
-                                    {errors.remember && <InputError message={errors.remember} />}
                                 </div>
                             </div>
                             <div>
@@ -121,7 +145,7 @@ export default function Login({ status, canResetPassword }) {
                             </div>
                         </form>
                         <div className="mt-4 text-center text-sm">
-                            Belum punya akun?
+                            Belum punya akun?{' '}
                             <Link href={route('register')} className="underline">
                                 Daftar
                             </Link>
@@ -129,19 +153,14 @@ export default function Login({ status, canResetPassword }) {
                     </div>
                 </div>
             </div>
+            
+            {/* Swiper Section */}
             <div className="hidden lg:block">
                 <Swiper
                     modules={[Autoplay, Pagination, Navigation]}
                     spaceBetween={30}
                     centeredSlides={true}
-                    autoplay={{
-                        delay: 3000,
-                        disableOnInteraction: false,
-                    }}
-                    pagination={{
-                        clickable: false,
-                    }}
-                    navigation={false}
+                    autoplay={{ delay: 3000, disableOnInteraction: false }}
                     className="w-full h-full"
                 >
                     {slides.map((src, index) => (
@@ -151,8 +170,6 @@ export default function Login({ status, canResetPassword }) {
                     ))}
                 </Swiper>
             </div>
-
-            {status && <div className="mb-4 text-sm font-medium text-green-600">{status}</div>}
         </div>
     );
 }

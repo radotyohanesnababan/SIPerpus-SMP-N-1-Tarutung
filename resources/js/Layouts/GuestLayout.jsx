@@ -1,4 +1,5 @@
 import { Head } from '@inertiajs/react';
+import { Toaster } from 'sonner';
 
 export default function GuestLayout({ title, children }) {
     return (
@@ -21,7 +22,7 @@ export default function GuestLayout({ title, children }) {
                 <meta property="og:url" content="https://sparta.my.id" />
                 <meta property="og:image" content="/storage/logo/logo.webp" />
             </Head>
-
+            <Toaster position="top-center" richColors closeButton />
             {children}
         </>
     );

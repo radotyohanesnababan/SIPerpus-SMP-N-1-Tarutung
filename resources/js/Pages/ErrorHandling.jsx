@@ -3,6 +3,7 @@ import { Card, CardContent } from '@/Components/ui/card';
 import { messages } from '@/lib/utils';
 import { Head, Link } from '@inertiajs/react';
 
+
 export default function ErrorHandling({ status }) {
     const errorMessages = messages[status];
 

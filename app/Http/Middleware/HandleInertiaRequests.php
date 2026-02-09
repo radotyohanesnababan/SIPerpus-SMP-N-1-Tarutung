@@ -41,10 +41,10 @@ class HandleInertiaRequests extends Middleware
                 ...(new Ziggy)->toArray(),
                 'location' => $request->url(),
             ],
-            'flash_message' => fn() => [
-                'type' => $request->session()->get('type'),
-                'message' => $request->session()->get('message'),
-            ],
+            'flash_message' => [
+            'message' => $request->session()->get('message'),
+            'type' => $request->session()->get('type'),
+        ],
             'announcement' => fn() => Announcement::query()->where('is_active', true)->first()
 
         ];
