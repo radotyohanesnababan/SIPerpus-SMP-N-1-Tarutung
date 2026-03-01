@@ -130,19 +130,17 @@ class ReportController extends Controller
         }])->pluck('borroweds_count', 'tingkat')->toArray();
 
         // Chart.js via QuickChart
-        // Buat konfigurasi chart Chart.js
-    $total = array_sum($class_totals);
-    $percentages = [];
-    foreach ($class_totals as $kelas => $val) {
-    $percentages[] = round($val / $total * 100, 1);
-}
+        $total = array_sum($class_totals);
+        $percentages = [];
+        foreach ($class_totals as $kelas => $val) {
+            $percentages[] = $total > 0 ? round($val / $total * 100, 1) : 0;
+        }
 
-// Dataset
-$data = array_values($class_totals);
-$labels = [];
-foreach ($class_totals as $kelas => $val) {
-    $labels[] = $kelas . ' (' . round($val / $total * 100,1) . '%)';
-}
+        $data = array_values($class_totals);
+        $labels = [];
+        foreach ($class_totals as $kelas => $val) {
+            $labels[] = $kelas . ' (' . ($total > 0 ? round($val / $total * 100, 1) : 0) . '%)';
+        }
 
 $qc = new QuickChart();
 $qc->width = 500;
