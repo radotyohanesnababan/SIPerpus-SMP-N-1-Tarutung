@@ -1,0 +1,2 @@
+import{j as e,J as a}from"./app-BKrs4JKw.js";function n({url:s="#",size:t="size-9",isTitle:o=!0}){return e.jsxs(a,{href:s,className:"flex items-center gap-2",children:[e.jsx("img",{src:"/storage/logo/logo.webp",alt:"Logo",className:"h-12 w-12",loading:"lazy"}),o&&e.jsxs("div",{className:"flex flex-col",children:[e.jsx("span",{className:"font-bold leading-none text-foreground",children:"SPARTA"}),e.jsx("span",{className:"text-xs font-medium text-muted-foreground",children:"SMP Negeri 1 Tarutung"})]})]})}export{n as A};
+//# sourceMappingURL=ApplicationLogo-B7KDkSh_.js.map
