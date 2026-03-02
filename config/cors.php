@@ -32,7 +32,6 @@ return [
 
     'max_age' => 0,
 
-    // Wajib TRUE karena kamu menggunakan database session di TiDB Cloud
     'supports_credentials' => true,
 
 ];
