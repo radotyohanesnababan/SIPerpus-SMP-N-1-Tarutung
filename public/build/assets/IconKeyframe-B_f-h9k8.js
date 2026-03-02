@@ -1,7 +1,0 @@
-import{c as e}from"./createReactComponent-QiEN8mfn.js";/**
- * @license @tabler/icons-react v3.37.1 - MIT
- *
- * This source code is licensed under the MIT license.
- * See the LICENSE file in the root directory of this source tree.
- */const a=[["path",{d:"M13.225 18.412a1.595 1.595 0 0 1 -1.225 .588c-.468 0 -.914 -.214 -1.225 -.588l-4.361 -5.248a1.844 1.844 0 0 1 0 -2.328l4.361 -5.248a1.595 1.595 0 0 1 1.225 -.588c.468 0 .914 .214 1.225 .588l4.361 5.248a1.844 1.844 0 0 1 0 2.328l-4.361 5.248",key:"svg-0"}]],c=e("outline","keyframe","Keyframe",a);export{c as I};
-//# sourceMappingURL=IconKeyframe-B_f-h9k8.js.map
