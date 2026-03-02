@@ -21,18 +21,27 @@ class AppServiceProvider extends ServiceProvider
      * Bootstrap any application services.
      */
    public function boot(): void
-    {
-        Vite::prefetch(concurrency: 3);
-        JsonResource::withoutWrapping();
+{
+    Vite::prefetch(concurrency: 3);
+    JsonResource::withoutWrapping();
 
-        if (config('app.env') === 'production') {
-        // Mendeteksi jika user masuk lewat www, maka gunakan www sebagai root
-        if (str_contains(request()->getHost(), 'www.')) {
+    if (config('app.env') === 'production') {
+        $host = request()->getHost();
+
+        // 1. Cek jika user sedang di server backup
+        if ($host === 'server2.sparta.my.id') {
+            URL::forceRootUrl('https://server2.sparta.my.id');
+        } 
+        // 2. Cek jika user masuk lewat www
+        else if (str_contains($host, 'www.')) {
             URL::forceRootUrl('https://www.sparta.my.id');
-        } else {
+        } 
+        // 3. Default ke domain utama
+        else {
             URL::forceRootUrl('https://sparta.my.id');
         }
+
         URL::forceScheme('https');
     }
-    }
+}
 }
