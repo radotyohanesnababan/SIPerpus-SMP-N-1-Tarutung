@@ -159,18 +159,6 @@ export default function Index(props) {
                                     <Button
                                         variant="ghost"
                                         className="group inline-flex "
-                                        onClick={() => onSortable('kondisi')}
-                                    >
-                                        Kondisi Buku{' '}
-                                        <span className="ml-2 flex-none rounded text-muted-foreground">
-                                            <IconArrowsDownUp className="size-4 text-muted-foreground" />
-                                        </span>
-                                    </Button>
-                                </TableHead>
-                                <TableHead>
-                                    <Button
-                                        variant="ghost"
-                                        className="group inline-flex "
                                         onClick={() => onSortable('category.id')}
                                     >
                                         Kategori Buku{' '}
@@ -233,7 +221,6 @@ export default function Index(props) {
                                     <TableCell>{book.isbn}</TableCell>
                                     <TableCell>{book.stok.total}</TableCell>
                                     <TableCell>{book.tahun_terbit}</TableCell>
-                                    <TableCell>{book.kondisi}</TableCell>
                                     <TableCell>{book.category.name}</TableCell>
                                     <TableCell>{book.publisher.name}</TableCell>
                                     <TableCell>
