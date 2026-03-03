@@ -23,6 +23,7 @@ return Application::configure(basePath: dirname(__DIR__))
         ])->alias(aliases:[
             'role' => RoleMiddleware::class
         ]);
+        $middleware->trustProxies(at: '*');
 
         //
     })

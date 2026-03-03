@@ -26,22 +26,17 @@ class AppServiceProvider extends ServiceProvider
     JsonResource::withoutWrapping();
 
     if (config('app.env') === 'production') {
+        // 1. Ambil host yang sedang diakses user secara otomatis
         $host = request()->getHost();
 
-        // 1. Cek jika user sedang di server backup
-        if ($host === 'server2.sparta.my.id') {
-            URL::forceRootUrl('https://server2.sparta.my.id');
-        } 
-        // 2. Cek jika user masuk lewat www
-        else if (str_contains($host, 'www.')) {
-            URL::forceRootUrl('https://www.sparta.my.id');
-        } 
-        // 3. Default ke domain utama
-        else {
-            URL::forceRootUrl('https://sparta.my.id');
+        // 2. Jika host terdeteksi, gunakan host tersebut sebagai basis URL
+        // Ini jauh lebih aman daripada hardcoded sparta.my.id
+        if ($host) {
+            \Illuminate\Support\Facades\URL::forceRootUrl("https://{$host}");
         }
 
-        URL::forceScheme('https');
+        // 3. Paksa protokol HTTPS (Wajib untuk Cloudflare)
+        \Illuminate\Support\Facades\URL::forceScheme('https');
     }
 }
 }
