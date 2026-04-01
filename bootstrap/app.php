@@ -15,13 +15,15 @@ return Application::configure(basePath: dirname(__DIR__))
         health: '/up',
     )
     ->withMiddleware(function (Middleware $middleware) {
-        
+
+        $middleware->trustProxies(at: '*'); // Percayai semua proxy, termasuk Cloudflare
         $middleware->web(append: [
             \App\Http\Middleware\HandleInertiaRequests::class,
             \Illuminate\Http\Middleware\AddLinkHeadersForPreloadedAssets::class,
         ])->alias(aliases:[
             'role' => RoleMiddleware::class
         ]);
+        $middleware->trustProxies(at: '*');
 
         //
     })
