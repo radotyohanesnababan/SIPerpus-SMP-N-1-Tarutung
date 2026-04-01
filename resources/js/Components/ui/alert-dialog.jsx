@@ -18,13 +18,34 @@ const AlertDialogOverlay = React.forwardRef(({ className, ...props }, ref) => (
         )}
         {...props}
         ref={ref}
-    />
+    >
+        {/* LOGO KIRI */}
+        <div style={{
+            position: 'absolute',
+            left: '40px',
+            top: '50%',
+            transform: 'translateY(-50%)',
+            opacity: 0.2,
+            pointerEvents: 'none',
+            zIndex: 1
+        }}>
+            <img 
+                src="/storage/logosekolah-rbg.png" 
+                alt="Watermark Sparta" 
+                style={{
+                    width: '320px',
+                    filter: 'grayscale(100%)'
+                }}
+            />
+        </div>
+    </AlertDialogPrimitive.Overlay>
 ));
 AlertDialogOverlay.displayName = AlertDialogPrimitive.Overlay.displayName;
 
 const AlertDialogContent = React.forwardRef(({ className, ...props }, ref) => (
     <AlertDialogPortal>
         <AlertDialogOverlay />
+        
         <AlertDialogPrimitive.Content
             ref={ref}
             className={cn(
