@@ -240,7 +240,7 @@ export default function Index(props) {
                                                     </Button>
                                                 </AlertDialogTrigger>
                                                 <AlertDialogContent>
-                                                    {/* TEST LOGO - HAPUS SETELAH BERHASIL */}
+                                                    
     
                                                     <AlertDialogHeader>
                                                         <AlertDialogTitle>

@@ -31,22 +31,24 @@ class HandleInertiaRequests extends Middleware
      * @return array<string, mixed>
      */
     public function share(Request $request): array
-    {
-        return [
-            ...parent::share($request),
-            'auth' => [
-                'user' => $request->user() ? new UserSingleResource($request->user()) : null
-            ],
-            'ziggy' => fn () => [
-                ...(new Ziggy)->toArray(),
-                'location' => $request->url(),
-            ],
-            'flash_message' => [
+{
+    return [
+        ...parent::share($request),
+        'auth' => [
+            'user' => $request->user() ? new UserSingleResource($request->user()) : null
+        ],
+        'ziggy' => fn () => [
+            ...(new Ziggy)->toArray(),
+            'location' => $request->url(),
+        ],
+        'flash_message' => [
             'message' => $request->session()->get('message'),
             'type' => $request->session()->get('type'),
         ],
-            'announcement' => fn() => Announcement::query()->where('is_active', true)->first()
-
-        ];
-    }
+        
+        'status' => fn () => $request->session()->get('status'),
+        
+        'announcement' => fn() => Announcement::query()->where('is_active', true)->first()
+    ];
+}
 }

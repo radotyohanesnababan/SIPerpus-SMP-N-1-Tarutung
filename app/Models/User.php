@@ -2,8 +2,6 @@
 
 namespace App\Models;
 
-// use Illuminate\Contracts\Auth\MustVerifyEmail;
-
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -14,6 +12,7 @@ use App\Notifications\ResetPasswordNotification;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use App\Mail\ResetPasswordMail;
 use Spatie\Permission\Traits\HasRoles;
+use App\Notifications\VerifyEmailNotification;
 
 
 class User extends Authenticatable implements MustVerifyEmail
@@ -21,14 +20,10 @@ class User extends Authenticatable implements MustVerifyEmail
     /** @use HasFactory<\Database\Factories\UserFactory> */
     use HasFactory, Notifiable, HasRoles;
 
-    /**
-     * The attributes that are mass assignable.
-     *
-     * @var list<string>
-     */
     protected $primaryKey = 'nisn';
     public $incrementing = false;
-    protected $keyType = 'int';
+    protected $keyType = 'string'; 
+
     protected $fillable = [
         'nisn',
         'nama',
@@ -37,21 +32,11 @@ class User extends Authenticatable implements MustVerifyEmail
         'kelas_id',
     ];
 
-    /**
-     * The attributes that should be hidden for serialization.
-     *
-     * @var list<string>
-     */
     protected $hidden = [
         'password',
         'remember_token',
     ];
 
-    /**
-     * Get the attributes that should be cast.
-     *
-     * @return array<string, string>
-     */
     protected function casts(): array
     {
         return [
@@ -59,6 +44,15 @@ class User extends Authenticatable implements MustVerifyEmail
             'password' => 'hashed',
         ];
     }
+        public function sendEmailVerificationNotification()
+    {
+        $this->notify(new VerifyEmailNotification());
+    }
+    public function getKeyForEmailVerification()
+    {
+        return $this->nisn;
+    }
+
     public function scopeFilter(Builder $query, array $filters): void
     {
         $query->when($filters['search'] ?? null, function ($query, $search) {
@@ -71,7 +65,8 @@ class User extends Authenticatable implements MustVerifyEmail
             });
         });
     }
- public function sendPasswordResetNotification($token)
+
+    public function sendPasswordResetNotification($token)
     {
         $url = url(config('app.url') . route('password.reset', [
             'token' => $token,
@@ -80,16 +75,16 @@ class User extends Authenticatable implements MustVerifyEmail
 
         Mail::to($this->email)->send(new ResetPasswordMail($url, $this->email, $this));
     }
+
     public function kelas()
-{
-    return $this->belongsTo(Kelas::class, 'kelas_id');
-}
+    {
+        return $this->belongsTo(Kelas::class, 'kelas_id');
+    }
+
     public function borroweds(): HasMany
     {
         return $this->hasMany(Borrowed::class, 'user_nisn', 'nisn');
     }
-
-
 
     public function scopeSorting(Builder $query, array $sorts): void
     {
@@ -97,6 +92,7 @@ class User extends Authenticatable implements MustVerifyEmail
             $query->orderBy($sorts['field'], $sorts['direction']);
         });
     }
+
     public function getRouteKeyName(): string
     {
         return 'nisn';

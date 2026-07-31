@@ -30,8 +30,13 @@ export default function Login({ status, canResetPassword }) {
         remember: false,
     });
 
-    useEffect(() => {
-        // Cek apakah flash_message ada dan memiliki pesan
+        useEffect(() => {
+       
+        if (status) {
+            toast.success(status);
+        }
+
+        // 2. Menangkap flash_message kustom dari Middleware
         if (flash_message?.message) {
             const { type, message } = flash_message;
             if (type === 'error') {
@@ -39,10 +44,10 @@ export default function Login({ status, canResetPassword }) {
             } else if (type === 'success') {
                 toast.success(message);
             } else {
-                toast(message); 
+                toast(message);
             }
         }
-    }, [flash_message]);
+    }, [status, flash_message]);
 
     const onHandleSubmit = (e) => {
         e.preventDefault();

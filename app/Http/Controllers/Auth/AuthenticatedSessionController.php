@@ -11,7 +11,6 @@ use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 use Inertia\Response;
 use Spatie\Activitylog\Facades\Activity;
-use Spatie\Activitylog\LogOptions;
 
 class AuthenticatedSessionController extends Controller
 {
@@ -31,11 +30,24 @@ class AuthenticatedSessionController extends Controller
      */
     public function store(LoginRequest $request): RedirectResponse
     {
-
         $request->authenticate();
 
+        $user = Auth::user();
+
+        if (! $user->hasVerifiedEmail()) {
+            Auth::guard('web')->logout();
+            $request->session()->invalidate();
+            $request->session()->regenerateToken();
+
+
+            return redirect()->route('login')->withErrors([
+                'email' => 'Akun Anda belum diverifikasi. Silakan periksa email Anda terlebih dahulu.',
+            ]);
+        }
+
         $request->session()->regenerate();
-        Activity::causedBy(Auth::user()) 
+
+        Activity::causedBy($user) 
             ->withProperty('ip_address', $request->ip()) 
             ->log('User successfully logged in.');
 
@@ -47,12 +59,10 @@ class AuthenticatedSessionController extends Controller
      */
     public function destroy(Request $request): RedirectResponse
     {
-
         $user = Auth::user();
         Auth::guard('web')->logout();
 
         $request->session()->invalidate();
-
         $request->session()->regenerateToken();
 
         if ($user) { 
@@ -60,6 +70,7 @@ class AuthenticatedSessionController extends Controller
                 ->withProperty('ip_address', $request->ip())
                 ->log('User logged out.');
         }
+
         return redirect('/');
     }
 }
