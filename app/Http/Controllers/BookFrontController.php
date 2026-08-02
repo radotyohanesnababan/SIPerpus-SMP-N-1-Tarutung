@@ -16,7 +16,7 @@ class BookFrontController extends Controller
             ->select(['id', 'name', 'slug', 'created_at'])
             ->whereHas('books')
             ->with([
-                'books' =>fn($query)=> $query->limit(5)
+                'books' => fn($query) => $query->limit(5)->with(['category', 'publisher'])
             ])
             ->latest('created_at')
             ->get();

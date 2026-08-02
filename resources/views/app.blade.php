@@ -2,6 +2,7 @@
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
     <link rel="manifest" href="/manifest.json">
     <head>
+        
                 <!-- Google tag (gtag.js) -->
         <script async src="https://www.googletagmanager.com/gtag/js?id=G-4TH7YCTPJW"></script>
         <script>

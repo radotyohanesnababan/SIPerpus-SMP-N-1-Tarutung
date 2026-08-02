@@ -6,6 +6,9 @@ use Illuminate\Http\Resources\Json\JsonResource;
 use Illuminate\Support\Facades\Vite;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Facades\URL;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
+
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -29,8 +32,7 @@ class AppServiceProvider extends ServiceProvider
         // 1. Ambil host yang sedang diakses user secara otomatis
         $host = request()->getHost();
 
-        // 2. Jika host terdeteksi, gunakan host tersebut sebagai basis URL
-        // Ini jauh lebih aman daripada hardcoded sparta.my.id
+        // 2. Paksa root URL sesuai host yang diakses user
         if ($host) {
             \Illuminate\Support\Facades\URL::forceRootUrl("https://{$host}");
         }
@@ -38,5 +40,14 @@ class AppServiceProvider extends ServiceProvider
         // 3. Paksa protokol HTTPS (Wajib untuk Cloudflare)
         \Illuminate\Support\Facades\URL::forceScheme('https');
     }
+
+    // if (app()->environment('production')) {
+    //     DB::listen(function ($query) {
+    //         Log::info('[QUERY] ' . $query->sql, [
+    //             'bindings' => $query->bindings,
+    //             'time' => $query->time . 'ms',
+    //         ]);
+    //     });
+    // }
 }
 }
