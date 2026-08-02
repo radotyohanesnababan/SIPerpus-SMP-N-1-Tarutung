@@ -1,2 +1,0 @@
-import{r as o,j as s}from"./app-Dgj9rbs3.js";import{a as t}from"./button-C1CfDWAx.js";const i=o.forwardRef(({className:e,...r},a)=>s.jsx("textarea",{className:t("flex min-h-24 resize-none w-full rounded-md border border-input bg-transparent px-3 py-2 text-base shadow-sm placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-orange-500 disabled:cursor-not-allowed disabled:opacity-50 md:text-sm",e),ref:a,...r}));i.displayName="Textarea";export{i as T};
-//# sourceMappingURL=textarea-CW91J_Wg.js.map

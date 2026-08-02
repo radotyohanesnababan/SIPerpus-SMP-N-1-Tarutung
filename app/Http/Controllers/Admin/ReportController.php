@@ -124,7 +124,7 @@ class ReportController extends Controller
         $ebook_top = Ebook::orderByDesc('download_count')->take(3)->pluck('judul');
         $ebook_total = Ebook::count();
 
-       // 8. Aktivitas per kelas (Eloquent murni, sesuai struktur kelas + users + borroweds)
+       // 8. Aktivitas per kelas 
         $class_totals = Kelas::withCount(['users as borroweds_count' => function ($query) {
             $query->join('borroweds', 'users.nisn', '=', 'borroweds.user_nisn');
         }])->pluck('borroweds_count', 'tingkat')->toArray();
@@ -170,7 +170,7 @@ $ch = curl_init($chart_url);
 curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
 $image = curl_exec($ch);
 if ($image === false) {
-    dd('Curl error: '.curl_error($ch));
+    //dd('Curl error: '.curl_error($ch));
 }
 curl_close($ch);
 $chart_base64 = 'data:image/png;base64,' . base64_encode($image);

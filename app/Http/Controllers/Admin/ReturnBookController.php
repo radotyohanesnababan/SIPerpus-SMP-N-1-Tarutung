@@ -140,7 +140,7 @@ class ReturnBookController extends Controller
 
     public function approve(ReturnBook $returnBook, ReturnBookRequest $request): RedirectResponse
     {
-        //Log::info("Approve dipanggil untuk returnBook {$returnBook->id}");
+        
         try{
            DB::beginTransaction();
 

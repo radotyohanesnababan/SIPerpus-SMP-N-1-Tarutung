@@ -24,7 +24,7 @@ class ProfileController extends Controller
                 'title' => 'Edit Profil',
                 'subtitle' => 'Perbarui informasi profil',
             ],
-            'mustVerifyEmail' => $request->user() instanceof MustVerifyEmail,
+            //'mustVerifyEmail' => $request->user() instanceof MustVerifyEmail,
             'status' => session('status'),
         ]);
     }
