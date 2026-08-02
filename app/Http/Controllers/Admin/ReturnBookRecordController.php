@@ -15,7 +15,7 @@ class ReturnBookRecordController extends Controller
     {
         $returnBooks = ReturnBook::query()
             ->select(['id', 'borrowed_id','user_nisn','book_id', 'return_date', 'status', 'created_at', 'updated_at',])
-            ->where('status', [ReturnBookStatus::RETURNED, ReturnBookStatus::DENIED])
+            ->whereIn('status', [ReturnBookStatus::RETURNED, ReturnBookStatus::DENIED])
             ->filter(request()->only(['search']))
             ->sorting(request()->only(['field', 'direction']))
             ->with(['book', 'borrowed', 'user','returnBookCheck'])
