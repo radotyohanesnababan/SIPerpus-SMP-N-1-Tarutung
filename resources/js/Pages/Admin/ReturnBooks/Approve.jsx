@@ -9,6 +9,7 @@ import { useForm } from '@inertiajs/react';
 import { IconChecklist } from '@tabler/icons-react';
 import { useState } from 'react';
 import { createPortal } from 'react-dom';
+import { toast } from 'sonner'; // sesuaikan dengan library toast yang dipakai di project ini
 
 export default function Approve({ conditions, action }) {
     const [open, setOpen] = useState(false);
@@ -21,12 +22,19 @@ export default function Approve({ conditions, action }) {
 
     const onHandleSubmit = (e) => {
         e.preventDefault();
+        if (!data.condition) {
+            toast.error('Kondisi buku wajib dipilih');
+            return;
+        }
         put(action, {
             preserveScroll: true,
             preserveState: false,
             onSuccess: (success) => {
                 const flash = flashMessage(success);
                 if (flash) toast[flash.type](flash.message);
+            },
+            onError: () => {
+                toast.error('Gagal menyimpan, periksa kembali isian Anda');
             },
         });
     };
@@ -64,6 +72,7 @@ export default function Approve({ conditions, action }) {
                                         ))}
                                     </SelectContent>
                                 </Select>
+                                {errors.condition && <InputError message={errors.condition} />}
                             </div>
                             <div className="grid w-full items-center gap-1.5">
                                 <Label htmlFor="notes">Kondisi Buku</Label>
@@ -87,30 +96,30 @@ export default function Approve({ conditions, action }) {
                 </SheetContent>
             </Sheet>
 
-                    {/* Logo watermark di area overlay, di luar sheet */}
-                    {open && createPortal(
-                        <div style={{
-            position: 'fixed',
-            inset: 0,
-            zIndex: 51,
-            pointerEvents: 'none',
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-            paddingRight: '384px',
-        }}>
-            <img
-                src="/storage/logosekolah-rbg.png"
-                alt=""
-                style={{
-                    width: '700px',
-                    height: '700px',
-                    objectFit: 'contain',
-                    filter: 'grayscale(80%) brightness(2)',
-                    opacity: 0.25,
-                }}
-            />
-        </div>,
+            {/* Logo watermark di area overlay, di luar sheet */}
+            {open && createPortal(
+                <div style={{
+                    position: 'fixed',
+                    inset: 0,
+                    zIndex: 51,
+                    pointerEvents: 'none',
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    paddingRight: '384px',
+                }}>
+                    <img
+                        src="/storage/logosekolah-rbg.png"
+                        alt=""
+                        style={{
+                            width: '700px',
+                            height: '700px',
+                            objectFit: 'contain',
+                            filter: 'grayscale(80%) brightness(2)',
+                            opacity: 0.25,
+                        }}
+                    />
+                </div>,
                 document.body
             )}
         </>
