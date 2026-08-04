@@ -1,2 +1,0 @@
-import{j as t}from"./app-ClOKJJk2.js";import{A as i}from"./AppLayout-CBe6QNrC.js";import"./ApplicationLogo-DT8oG61J.js";import"./button-C4xQIW4j.js";import"./check-BgsVo-rz.js";import"./index-C0VFhIkc.js";import"./index-ClTFR_If.js";import"./sheet-DJSX3tqE.js";import"./sonner-CL3dsByS.js";import"./index-BKRFHXm4.js";import"./createReactComponent-DCvbL6Fr.js";function g(){return t.jsx(i,{title:"Testing",children:"Ini testing"})}export{g as default};
-//# sourceMappingURL=Testing-C2oekOzI.js.map

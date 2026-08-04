@@ -1,0 +1,2 @@
+import{j as s}from"./app-CRth9ZRl.js";import{a as e}from"./button-BO4Q7Sma.js";import{C as i,c as l,d,a as x}from"./card-DZrsJ0wm.js";function p({data:t,children:r}){const{title:c,background:n,className:m="",icon:a,iconClassName:o=""}=t;return s.jsxs(i,{className:e(n,m),children:[s.jsxs(l,{className:"flex flex-row items-center justify-between pb-2 space-y-0",children:[s.jsx(d,{className:"text-sm font-medium",children:c}),a&&s.jsx(a,{className:e("size-5",o)})]}),s.jsx(x,{children:r})]})}export{p as C};
+//# sourceMappingURL=CardStat-BI31k-ar.js.map

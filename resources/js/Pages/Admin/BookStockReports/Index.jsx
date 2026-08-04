@@ -52,7 +52,7 @@ export default function Index(props) {
                     <div className="flex w-full flex-col gap-4 lg:flex-row lg:items-center">
                         <Input
                             className="w-full sm:w-1/4"
-                            placeholder="Temukan Nama Buku..."
+                            placeholder="Temukan Nama Bukuu..."
                             value={params?.search}
                             onChange={(e) => setParams((prev) => ({ ...prev, search: e.target.value }))}
                         />
