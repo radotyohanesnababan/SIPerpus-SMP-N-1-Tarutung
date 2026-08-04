@@ -59,13 +59,13 @@ class DashboardController extends Controller
                 'transactionsChart'=>$this->chart(),
                 'borroweds'=>TransactionBorrowedResource::collection($borroweds),
                 'return_books'=>TransactionReturnBookResource::collection($return_books),
-                'most_loan_books'=> BookDashboardResource::collection(Book::mostLoanBooks(5)),
-                'newest_books'=> BookDashboardResource::collection(Book::newestBooks(5)),
+                'most_loan_books'=> BookDashboardResource::collection(Book::withTrashed()->mostLoanBooks(5)),
+                'newest_books'=> BookDashboardResource::collection(Book::withTrashed()->newestBooks(5)),
                 'newest_ebooks'=> BookDashboardResource::collection(Ebook::newestEbooks(5)),
                 'most_download_ebooks'=> BookDashboardResource::collection(Ebook::mostDownloadedEbooks(5)),
-                'total_books'=>Auth::user()->hasAnyRole(['admin','member'])? Book::count() : 0,
+                'total_books'=>Auth::user()->hasAnyRole(['admin','member'])? Book::withTrashed()->count() : 0,
                 'total_categories'=>Auth::user()->hasAnyRole(['admin','member'])?Category::count() : 0,
-                'total_users'=>Auth::user()->hasAnyRole(['admin'])? User::count() : 0,
+                'total_users'=>Auth::user()->hasAnyRole(['admin'])? User::withTrashed()->count() : 0,
                 'total_borrowed' => Borrowed::query()
                     ->when(Auth::user()->hasAnyRole(['admin']),function($query){
                         return $query;

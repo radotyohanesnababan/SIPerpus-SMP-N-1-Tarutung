@@ -62,7 +62,7 @@ class BorrowedController extends Controller
                     'borrowed_at'=> Carbon::now()->toDateString(),
                     'returned_at' => Carbon::now()->addDays(7)->toDateString(),
                 ],
-            'books'=> Book::query()
+            'books'=> Book::withTrashed()->query()
                 ->select(['id', 'judul'])
                 ->whereHas('stock', fn($query) => $query->where('total', '>', 0))
                 ->get()
@@ -70,7 +70,7 @@ class BorrowedController extends Controller
                     'value' => $item->id,
                     'label' => $item->id . ' - ' . $item->judul,
             ]),
-            'users'=> User::query()
+            'users'=> User::withTrashed()->query()
                 ->select(['nisn', 'nama'])
                 ->get()
                 ->map(fn($item)=> [
@@ -91,7 +91,7 @@ class BorrowedController extends Controller
             $user = User::query()
                 ->where('nisn', $request->user_nisn)
                 ->firstOrFail();
-            $book = Book::query()
+            $book = Book::withTrashed()->query()
                 ->where('id', $request->book_id)
                 ->firstOrFail();
             
@@ -136,7 +136,7 @@ class BorrowedController extends Controller
                     'borrowed_at'=> Carbon::now()->toDateString(),
                     'returned_at' => Carbon::now()->addDays(7)->toDateString(),
                 ],
-            'books'=> Book::query()
+            'books'=> Book::withTrashed()->query()
                 ->select(['id', 'judul'])
                 ->whereHas('stock', fn($query) => $query->where('total', '>', 0))
                 ->get()
@@ -144,7 +144,7 @@ class BorrowedController extends Controller
                     'value' => $item->id,
                     'label' => $item->id . ' - ' . $item->judul,
             ]),
-            'users'=> User::query()
+            'users'=> User::withTrashed()->query()
                 ->select(['nisn', 'nama'])
                 ->get()
                 ->map(fn($item)=> [
@@ -166,7 +166,7 @@ class BorrowedController extends Controller
             $user = User::query()
                 ->where('nisn', $request->user_nisn)
                 ->firstOrFail();
-            $book = Book::query()
+            $book = Book::withTrashed()->query()
                 ->where('id', $request->book_id)
                 ->firstOrFail();
             if(Borrowed::checkBorrowedBook($user->nisn, $book->id)) {

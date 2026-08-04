@@ -13,12 +13,14 @@ use Spatie\Activitylog\LogOptions;
 use Illuminate\Database\Eloquent\Builder;
 use App\Models\Stock;
 use App\Observers\BookObserver;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 #[ObservedBy(BookObserver::class)]
 class Book extends Model
 {
     use HasFactory;
     use LogsActivity;
+    use SoftDeletes;
     protected $fillable = [
         'judul',
         'slug',

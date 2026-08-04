@@ -86,7 +86,7 @@ class ReportController extends Controller
 
 
         // 4. Buku hilang 
-            $lost_books = Book::whereHas('stock', fn($q) => $q->where('lost', '>', 0))
+            $lost_books = Book::withTrashed()->whereHas('stock', fn($q) => $q->where('lost', '>', 0))
                 ->with('stock:id,book_id,lost')
                 ->get()
                 ->map(fn($book) => [
